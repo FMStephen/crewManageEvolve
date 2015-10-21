@@ -1,6 +1,6 @@
 var currentUser
 
-angular.module('app',['ui.router'])
+angular.module('app',['ui.router','ngCookies'])
 angular.module('app')
 	.config(function($stateProvider,$urlRouterProvider){
 
@@ -27,7 +27,24 @@ angular.module('app')
 			})
 			.state('login',{
 				url: '/login',
-				templateUrl: 'templates/login.html'
+				templateUrl: 'templates/login.html',
+				controller: function($http,$scope,$cookies,userService){
+
+					var user = {
+					}
+
+					user.cookie = $cookies.get('userid')
+					userService.login(user)
+
+					$scope.update = function(){
+
+						user.studentNo = $scope.studentNo
+						user.password = $scope.password
+
+						userService.login(user)
+
+					}
+				}
 			})
 
 		
@@ -137,17 +154,27 @@ angular.module('app')
 	})
 angular.module('app')
 	
-	.service('userService',function($http) {
+	.service('userService',function($http,$cookies) {
 
 		currentUser = null
 
 		return{
 
 			login: function(user){
+
+				var user = user
+
 				return $http.post('test/get/user.json',user)
 					.success(function(data){
 						if(data.success){
+
 							currentUser = data
+
+							var date = new Date()
+							date.setDate(date.getDate() + 7)
+							var expire = date
+
+							$cookies.put("userid",currentUser.account.userid,{ 'expires': expire})
 
 							location.href = '#/user'
 						}
@@ -155,7 +182,10 @@ angular.module('app')
 				},
 
 			logout: function(user){
-				return currentUser = null
+
+				$cookies.remove("userid")
+
+				
 			},
 
 			currentuser: function(){
@@ -167,12 +197,14 @@ angular.module('app')
 	)
 angular.module('app')
 	.directive('loginBtn',function(userService){
+
 		return{
 			restrict: "A",
 			link: function(scope,element,attrs){
+
 				element.bind("click",function(){
 					
-                	userService.login()
+					
 
 				})
 			}

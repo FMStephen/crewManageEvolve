@@ -8,7 +8,8 @@ var location = ['js/app.js',
 				'js/services/**/*.js',
 				'js/directives/**/*.js']
 var lib = ['lib/angular.js',
-		   'lib/angular-ui-router.js']
+		   'lib/angular-ui-router.js',
+		   'lib/angular-cookies.js']
 
 
 gulp.task('default', function () {

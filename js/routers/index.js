@@ -24,7 +24,24 @@ angular.module('app')
 			})
 			.state('login',{
 				url: '/login',
-				templateUrl: 'templates/login.html'
+				templateUrl: 'templates/login.html',
+				controller: function($http,$scope,$cookies,userService){
+
+					var user = {
+					}
+
+					user.cookie = $cookies.get('userid')
+					userService.login(user)
+
+					$scope.update = function(){
+
+						user.studentNo = $scope.studentNo
+						user.password = $scope.password
+
+						userService.login(user)
+
+					}
+				}
 			})
 
 		
