@@ -1,0 +1,15 @@
+{
+  "error": 0,
+  "content": [{
+      "userid": "23",
+      "username": "FMS",
+      "position": "部长",
+      "photo": "img/baidu/com/head.img"
+    },
+    {
+      "userid": "23",
+      "username": "FMS",
+      "position": "部长",
+      "photo": "img/baidu/com/head.img"
+    }]
+}

@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "acount": {
+  	"userid": "12",
+  	"token": "123442efc23"
+  },
+  "auth": {
+  	"listDetail": true,
+  	"listEdit": true,
+  	"dprtEdit": true
+  }
+}
