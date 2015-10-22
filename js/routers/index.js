@@ -10,25 +10,24 @@ angular.module('app')
 			.state('user',{
 				abstract: true,
 				url: '/user',
-				templateUrl: 'templates/navi.html'
+				templateUrl: 'templates/navi/navi-user.html'
 			})
 			.state('list',{
 				url: '/list',
 				abstract: true,
-				templateUrl: 'templates/navi.html'
+				templateUrl: 'templates/navi/navi-list.html'
 			})
 			.state('dprt',{
 				url: '/dprt',
 				abstract: true,
-				templateUrl: 'templates/navi.html'
+				templateUrl: 'templates/navi/navi-dprt.html'
 			})
 			.state('login',{
 				url: '/login',
 				templateUrl: 'templates/login.html',
 				controller: function($http,$scope,$cookies,userService){
 
-					var user = {
-					}
+					var user = {}
 
 					user.cookie = $cookies.get('userid')
 					userService.login(user)

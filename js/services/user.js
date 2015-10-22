@@ -24,6 +24,7 @@ angular.module('app')
 
 							location.href = '#/user'
 						}
+						else{}
 					})
 				},
 
