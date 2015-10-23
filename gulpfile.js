@@ -17,7 +17,4 @@ gulp.task('default', function () {
 		.pipe(sourcemaps.init())
 		.pipe(concat('bundle.js'))
 		.pipe(gulp.dest('dist/'))
-		.pipe(uglify())
-		.pipe(rename({ basename: 'bundle.min' }))
-		.pipe(gulp.dest('dist/'))
 })
