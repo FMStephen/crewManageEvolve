@@ -1,32 +1,32 @@
 angular.module('app')
 	
-	.service('listall',function($http) {
+	.service('listall',function($http,userService) {
 
 		return{
 
-			show: function(editmsg,page){
+			show: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.result = editmsg 
-				postdata.page = page
+				var postdata = {};
 
-				return $http.post('test/get/userinfo.json',postdata)
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/listAll.json',postdata);
 
 				},
 
 			detail: function(userid){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.userid = userid
+				var postdata;
 
-				return $http.post('test/get/userinfo.json',postdata)
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/userinfo.json',postdata);
 
 				}
 
 			
 
-			}
-		}
-	)
+			};
+		});

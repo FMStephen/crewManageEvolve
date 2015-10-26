@@ -1,3 +1,28 @@
 <div>
-	全员列表
+	<form>
+		<select ng-model="dprt" ng-change="filter()" ng-options="x.value as x.name for x in dprtopt"></select>
+		<select ng-model="position" ng-change="filter()" ng-options="x.value as x.name for x in positionopt"></select>
+		<input ng-model="keyword">
+		<button ng-click="filter()">搜索</button>
+	</form>
+	<div>
+		<ul class="members">
+			<li ng-repeat="member in members">
+				<a href="#/list/detail/{{member.id}}">
+					<img ng-src="{{member.photo}}">
+					{{member.username}}<br>
+					{{member.position}}<br>
+					{{member.dprt}}<br>
+					{{member.telShort}}<br>
+					{{member.telLong}}<br>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<span ng-model="current"></span>
+		<span ng-model="total"></span>
+		<button ng-click="pageprev()">上一页</button>
+		<button ng-click="pagenext()">下一页</button>
+	</div>
 </div>

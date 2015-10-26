@@ -18,3 +18,7 @@ gulp.task('default', function () {
 		.pipe(concat('bundle.js'))
 		.pipe(gulp.dest('dist/'))
 })
+
+gulp.task('watch', function (){
+	gulp.watch(location, ['default']);
+})

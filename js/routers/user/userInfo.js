@@ -9,18 +9,18 @@ angular.module('app')
 				controller: function($scope,userinfo){
 
 					userinfo.show()
-						.then(function(data){
-							console.log(data)
-							if(data.data.error==0){
+						.then(function(response){
 
-								$scope.content = data.data.content
+							if(response.data.code==200){
+
+								$scope.content = response.data.data;
 
 							}
-						})
+						});
 
 				}
-			})
+			});
 			
 
 
-	})
+	});

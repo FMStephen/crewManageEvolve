@@ -1,17 +1,15 @@
 {
-  "account": {
-      "userid": "12",
-      "token": "123442efc23"
-    },
-  "content": {
+  "auth":{
+    "token": ,
+    "timestamp": 
+  },
+  "data":{
       "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
       "gender": "男",
       "school": "经贸",
       "room": "c7-188",
       "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    }
+      "telShort": "666228"
+  }
+
 }

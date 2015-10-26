@@ -1,9 +1,10 @@
 {
-	"account": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
+  "auth":{
+    "token": ,
+    "timestamp": 
     },
-    "content":{
-      "dprtName": "策推"
-    }
+  "data":{
+    "id": 12
+  }
+
 }

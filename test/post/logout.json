@@ -1,6 +1,8 @@
 {
-	"account": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-  }
+  	  "auth": {
+  	  	"token": "123442efc23",
+  	  	"timestamp": ""
+
+  	  }
+  	  
 }

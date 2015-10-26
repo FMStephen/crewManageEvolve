@@ -9,49 +9,50 @@ angular.module('app')
 				controller: function($scope,userinfo){
 
 					userinfo.show()
-						.then(function(data){
+						.then(function(response){
 							
-							if(data.data.error==0){
-
-								$scope.content = data.data.content
-
-								$scope.genderopt = gender
-
-  								$scope.gender = $scope.content.gender
-
-  								$scope.schoolopt = school
-
-  								$scope.school = $scope.content.school
+							if(response.data.code==200){
+								
+								$scope.content = response.data.data;
+						 
+								$scope.username = $scope.content.username;
+								$scope.room = $scope.content.room;
+								$scope.telLong = $scope.content.telLong;
+								$scope.telShort = $scope.content.telShort;
+								$scope.genderopt = gender;
+  								$scope.gender = $scope.content.gender;
+  								$scope.schoolopt = school;
+  								$scope.school = $scope.content.school;
 
 							}
-						})
+						});
 
 					$scope.infoedit = function(){
 
-						var editmsg = {}
+						var editmsg = {};
 
-						editmsg.username = $scope.username
-						editmsg.gender = $scope.gender
-						editmsg.school = $scope.school
-						editmsg.room = $scope.room
-						editmsg.telLong = $scope.telLong
-						editmsg.telShort = $scope.telShort
+						editmsg.username = $scope.username;
+						editmsg.gender = $scope.gender;
+						editmsg.school = $scope.school;
+						editmsg.room = $scope.room;
+						editmsg.telLong = $scope.telLong;
+						editmsg.telShort = $scope.telShort;
 
 						userinfo.edit(editmsg)
-							.then(function(data){
-								if(data.data.error==0){
+							.then(function(response){
+								if(response.data.code==200){
 
-									alert("success")
+									alert("success");
 
-								}
-							})
+								};
+							});
 						
-					}
+					};
 
 					
 
 				}
-			})
+			});
 
 
-	})
+	});

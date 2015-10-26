@@ -1,10 +1,11 @@
 {
-	"account": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
+  "auth":{
+    "token": ,
+    "timestamp": 
     },
-    "content": {
-    	"studentNo": "28816482283,29929492919",
-    	"position": "干事"
-    }
+  "data":{
+    "studentNo": "28816482283,29929492919",
+    "position": "干事"
+  }
+
 }

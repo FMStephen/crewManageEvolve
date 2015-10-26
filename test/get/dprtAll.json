@@ -1,11 +1,17 @@
 {
-  "error": 0,
-  "content": [{
+  "code": 200,
+  "token": "122efefsadfdsagxvxccvsdfdsdfsd",
+  "detial": "",
+  "data": {
+    "dprt": [{
+      "id": 12,
       "dprtName": "技术部",
       "dprtNote": "长得帅"
     },
    {
+   	  "id": 32,
       "dprtName": "策推",
       "dprtNote": "额。。。"
     }]
+  }
 }

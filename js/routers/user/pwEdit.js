@@ -2,7 +2,6 @@ angular.module('app')
 	.config(function($stateProvider){
 
 		$stateProvider
-
 			.state('user.pw',{
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
@@ -10,25 +9,25 @@ angular.module('app')
 
 					$scope.pwedit = function(){
 
-						var editmsg = {}
+						var editmsg = {};
 
-						editmsg.oldpw = $scope.oldpw
-						editmsg.newpw = $scope.newpw
-						editmsg.cfrmpw = $scope.cfrmpw
+						editmsg.old = $scope.oldpw;
+						editmsg.new = $scope.newpw;
+						editmsg.cfrm = $scope.cfrmpw;
 
 						userinfo.password(editmsg)
-							.then(function(data){
-								if(data.data.error==0){
+							.then(function(response){
+								if(response.data.code==200){
 
-									alert("success")
+									alert("success");
 
 								}
-							})
+							});
 
-					}
+					};
 
 				}
-			})
+			});
 
 
-	})
+	});

@@ -2,43 +2,50 @@ angular.module('app')
 	
 	.service('userService',function($http,$cookies) {
 
-		currentUser = null
+		currentUser = null;
 
 		return{
 
 			login: function(user){
 
-				var user = user
+				var user = user;
 
-				return $http.post('test/get/user.json',user)
-					.success(function(data){
-						if(data.success){
+				return $http.post('test/get/login.json',user);
 
-							currentUser = data
-
-							var date = new Date()
-							date.setDate(date.getDate() + 7)
-							var expire = date
-
-							$cookies.put("userid",currentUser.account.userid,{ 'expires': expire})
-
-							location.href = '#/user'
-						}
-						else{}
-					})
 				},
 
 			logout: function(user){
 
-				$cookies.remove("userid")
+				var auth = {};
+
+				auth.timestamp = new Date().getTime();
+				auth.token = currentUser.token;
+
+				$http.post('test/get/result.json',auth);
+
+				$cookies.remove("token");
+
+				currentUser = null;
 
 				
 			},
 
 			currentuser: function(){
-				return currentUser
-			}
+
+				return currentUser;
+
+			},
+
+			auth: function(){
+
+				var auth = {};
+
+				auth.timestamp = new Date().getTime();
+				auth.token = currentUser.token;
+				
+				return auth;
 
 			}
-		}
-	)
+
+			};
+		});

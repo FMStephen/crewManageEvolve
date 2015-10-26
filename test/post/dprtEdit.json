@@ -1,10 +1,12 @@
 {
-	"account": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
+  "auth":{
+    "token": ,
+    "timestamp": 
     },
-    "content":{
-      "dprtName": "策推",
-      "dprtNote": "额。。。"
-    }
+  "data":{
+    "id": 12,
+    "dprtName": "策推",
+    "dprtNote": "额。。。"
+  }
+
 }

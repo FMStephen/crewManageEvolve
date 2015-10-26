@@ -1,7 +1,7 @@
 <div>
 	<form>
 		<input ng-model="username" placeholder="{{content.username}}">
-		<select ng-model="gender" ng-options="x.name as x.name for x in genderopt"></select>
+		<select ng-model="gender" ng-options="x.value as x.name for x in genderopt"></select>
 		<select ng-model="school" ng-options="x.value as x.name for x in schoolopt"></select>
 		<input ng-model="room" placeholder="{{content.room}}">
 		<input ng-model="telLong" placeholder="{{content.telLong}}">

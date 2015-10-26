@@ -1,309 +1,64 @@
 get文件夹中为向服务器请求数据的返回格式
-----------------
-user.json	登录请求
-{
-  "success": true,                登录结果
-  "acount": {
-  	"userid": "12",			
-  	"token": "123442efc23"
-  },
-  "auth": {			 权限判断
-  	"listDetail": true,	    查看全员详情
-  	"listEdit": true,           修改同部门成员（即对同部门成员增删查改权限）
-  	"dprtEdit": true            修改部门
-  }
-}
----------------
-userinfo.json    查看个人资料
-{
-  "error": 0,
-  "content": {
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "gender": "男",
-      "school": "经贸",
-      "room": "c7-188",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    }
-}
----------------
-listAll.json		查看全员列表
-{
-  "error": 0,
-  "total": 10,			分页总页数
-  "current": 2,			当前页数
-  "content": [{
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
+post文件夹中为向服务器发送的数据的格式
 
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    }]
-}
---------------
-listAllDetail.json		查看全员详情
-{
-  "error": 0,
-  "content": {
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "gender": "男",
-      "school": "经贸",
-      "room": "c7-188",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    }
-}
------------------
-listDprt.json	      查看同部门成员
-{
-  "error": 0,
-  "content": [{
-      "userid": "23",
-      "username": "FMS",
-      "position": "部长",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "userid": "23",
-      "username": "FMS",
-      "position": "部长",
-      "photo": "img/baidu/com/head.img"
-    }]
-}
-----------------------
-listDprtDetail.json    查看同部门成员详情
-{
-  "error": 0,
-  "content": {
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "gender": "男",
-      "school": "经贸",
-      "room": "c7-188",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    }
-}
----------------------
-listRcl.json        查看同部门回收站
-{
-  "error": 0,
-  "total": 10,
-  "current": 2,
-  "content": [{
-      "userid": "23",
-      "username": "FMS",
-      "position": "部长",
-      "note": "退休",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "userid": "23",
-      "username": "FMS",
-      "position": "部长",
-      "note": "退休",
-      "photo": "img/baidu/com/head.img"
-    }]
-}
----------------
-dprtAll.json	   查看部门
-{
-  "error": 0,
-  "content": [{
-      "dprtName": "技术部",
-      "dprtNote": "长得帅"
-    },
-   {
-      "dprtName": "策推",
-      "dprtNote": "额。。。"
-    }]
-}
-	
-----------------------------------------
-----------------------------------------	
-post文件夹中为用户操作时向服务器发送修改请求的数据格式
+用户登录
+post:login.json
+get:login.json
 
-login.json	用户登录
-{
-	"studentNo": "201330651123",
-	"password": "xietao661919",
-}
---------------------
-logout.json	用户登出
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-  }
-}
---------------------
-infoEdit.json	编辑个人信息
-{
-  "acount": {
-      "userid": "12",
-      "token": "123442efc23"
-    },
-  "content": {
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "gender": "男",
-      "school": "经贸",
-      "room": "c7-188",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "photo": "img/baidu/com/head.img"
-    }
-}
---------------------
-pwEdit.json	修改密码
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "password":{
-    	"old": "xietao661919",
-    	"new": "songsong644121",
-    }
-}
---------------------
-memberDetail.json	成员详情
-{
-  "acount": {
-      "userid": "12",
-      "token": "123442efc23"
-    },
-  "userid": "32"
-}
---------------------
-memberAdd,json		添加成员
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content": {
-    	"studentNo": "28816482283,29929492919",
-    	"position": "干事"
-    }
-}
---------------------
-memberPosition.json	修改职位
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content": {
-    	"userid": "32,45",
-    	"position": "干事"
-    }
-}
---------------------
-memberRcl.json		置入回收站
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content": {
-    	"userid": "32,45",
-    	"position": "退休"
-    }
-}
---------------------
-memberRecover.json	从回收站恢复
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content": {
-    	"userid": "32,45",
-    }
-}
---------------------
-memberDel.json		彻底删除
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "userid": "21,31"
-}
---------------------
-dprtAdd.json		添加部门
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content":{
-      "dprtName": "策推",
-      "dprtNote": "额。。。"
-    }
-}
---------------------
-dprtEdit.json		编辑部门
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content":{
-      "dprtName": "策推",
-      "dprtNote": "额。。。"
-    }
-}
---------------------
-dprtDel.json		删除部门
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content":{
-      "dprtName": "策推"
-    }
-}
---------------------
-pwReset.json		强制重置密码
-{
-	"acount": {
-  	  "userid": "12",
-  	  "token": "123442efc23"
-    },
-    "content":{
-    	"userid": "32",
-    	"pw": "songsong644121",
-    }
-}
---------------------
+个人信息->个人资料
+post:userinfo.json
+get:userinfo.json
 
+个人信息->修改资料
+post:userinfo.json
+get:userinfo.json
+post:infoEdit.json
+get:result.json
 
+个人信息->修改密码
+post:pwEdit.json
+get:result.json
 
-操作结果格式
+人员管理->全员列表
+post:listAll.json
+get:listAll.json
 
-error: 0   成功
-       1   未登录
-       2   登陆状态变化（ip变化？）
-       3   无权限
+人员管理->全员列表->详情页
+post:listAllDetail.json
+get:listAllDetail.json
+
+人员管理->同部门列表
+post:listDprt.json
+get:listDprt.json
+  修改职位
+  post:memberPosition.json
+  get:result.json
+  置入回收站
+  post:memberRcl.json
+  get:result.json
+
+人员管理->同部门列表->添加成员
+post:memberAdd.json
+get:result.json
+
+人员管理->同部门回收站
+post:listRcl.json
+get:listRcl.json
+  恢复
+  post:memberRecover.json
+  get:result.json
+  彻底删除
+  post:memberDel.json
+  get:result.json
+
+部门管理
+post:dprtAll.json
+get:dprtAll.json
+
+部门管理->添加部门
+post:dprtAdd.json
+get:dprtAdd.json
+
+部门管理->修改部门
+post:dprtEdit.json
+get:dprtEdit.json
