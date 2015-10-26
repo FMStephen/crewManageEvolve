@@ -15,14 +15,14 @@ angular.module('app')
 
 				},
 
-			detail: function(userid){
+			detail: function(editmsg){
 
-				var postdata;
+				var postdata = {};
 
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/userinfo.json',postdata);
+				return $http.post('test/get/listAllDetail.json',postdata);
 
 				}
 
