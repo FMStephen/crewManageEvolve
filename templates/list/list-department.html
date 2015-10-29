@@ -1,3 +1,37 @@
 <div>
-	同部门列表
+	<form>
+		<div>
+			<a href="#/list/add">新增成员</a>
+		</div>
+		<div>
+			置入回收站
+			<select>
+				<option>退休</option>
+				<option>离职</option>
+			</select>
+			<button>确定</button>
+		</div>
+		<div>
+			修改职位
+			<select>
+				<option value="">干事</option>
+				<option value="">主管</option>
+				<option value="">部长</option>
+			</select>
+			<button>确定</button>
+		</div>
+
+		<div>
+			<ul ng-repeat="member in members" ng-if="$even">
+				<a href="#/list/detail/{{member.id}}">
+					<li><input type="checkbox" value="{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</li>
+				</a>
+			</ul>
+			<ul ng-repeat="member in members" ng-if="$odd">
+				<a href="#/list/detail/{{member.id}}">
+					<li><input type="checkbox" value="{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</li>
+				</a>
+			</ul>
+		</div>
+	</form>
 </div>

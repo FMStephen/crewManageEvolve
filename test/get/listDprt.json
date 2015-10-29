@@ -3,16 +3,41 @@
   "token": "122efefsadfdsagxvxccvsdfdsdfsd",
   "detial": "",
   "data": {
-      "members": [{
+    "editor": 1,
+    "members": [{
       "id": "23",
       "username": "FMS",
-      "position": "部长",
+      "position": "部长1",
       "photo": "img/baidu/com/head.img"
     },
     {
       "id": "23",
       "username": "FMS",
-      "position": "部长",
+      "position": "部长2",
+      "photo": "img/baidu/com/head.img"
+    },
+    {
+      "id": "23",
+      "username": "FMS",
+      "position": "部长3",
+      "photo": "img/baidu/com/head.img"
+    },
+    {
+      "id": "23",
+      "username": "FMS",
+      "position": "部长4",
+      "photo": "img/baidu/com/head.img"
+    },
+    {
+      "id": "23",
+      "username": "FMS",
+      "position": "部长5",
+      "photo": "img/baidu/com/head.img"
+    },
+    {
+      "id": "23",
+      "username": "FMS",
+      "position": "部长6",
       "photo": "img/baidu/com/head.img"
     }]
   }

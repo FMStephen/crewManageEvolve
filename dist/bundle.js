@@ -2,6 +2,8 @@ angular.module('app',['ui.router','ngCookies']);
 
 var currentUser = {};
 
+var boyslove = "isayserious";
+
 var school = [  {"name": "请选择","value": ""},
                 {"name": "C.材料科学与工程学院","value": "材料科学与工程学院"},
         		{"name": "D.电子与信息学院","value": "电子与信息学院"},
@@ -61,7 +63,7 @@ angular.module('app')
 		$urlRouterProvider.when('','/login')
 						  .when('/user','/user/info')
 						  .when('/list','/list/all/&&/1')
-						  .when('/dprt','/dprt/all');
+						  .when('/dprt','/dprt/all')
 
 		$stateProvider
 			.state('user',{
@@ -82,11 +84,11 @@ angular.module('app')
 			.state('login',{
 				url: '/login',
 				templateUrl: 'templates/login.html',
-				controller: function($scope,$cookies,userService){
-
-					var user = {};
+				controller: function($scope,$cookies,userService){					
 
 					$scope.update = function(){
+
+						var user = {};
 
 						user.studentNo = $scope.studentNo;
 						user.password = $scope.password;
@@ -94,21 +96,11 @@ angular.module('app')
 						userService.login(user)
 							.then(function(response){
 
-								if(response.data.code==200){
+								userService.cookieset(response.data.token);
 
-									currentUser = response.data.data;
-									currentUser.token = response.data.token;
-
-									var date = new Date();
-									date.setDate(date.getDate() + 7);
-									var expire = date;
-
-									$cookies.put("token",currentUser.token,{ 'expires': expire});
+								if(userService.result(response.data.code)){
 
 									location.href = '#/user';
-
-								}
-								else{
 
 								}
 
@@ -130,11 +122,28 @@ angular.module('app')
 
 			.state('dprt.all',{
 				url: '/all',
-				templateUrl: 'templates/department/department-all.html'
-			})
+				templateUrl: 'templates/department/department-all.html',
+				controller: function($scope,userService,dprtall){
+
+					dprtall.show()
+						.then(function(response){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+								$scope.dprts = response.data.data.dprt;
+
+							};
 
 
-	})
+						});
+
+				}
+			});
+
+
+	});
 angular.module('app')
 	.config(function($stateProvider){
 
@@ -152,11 +161,11 @@ angular.module('app')
 
 		$stateProvider
 			.state('list.all',{
-				url: '/all/:dprt&:position&:keyword/:page',
+				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
-				controller: function($scope,$stateParams,listall){
+				controller: function($scope,$stateParams,listall,userService){
 
-					var x = parseInt($stateParams.page);
+					var x = parseInt($stateParams.current);
 
 					$scope.dprtopt = dprt;
 					$scope.positionopt = position;
@@ -164,18 +173,23 @@ angular.module('app')
 					$scope.dprt = $stateParams.dprt;
 					$scope.position = $stateParams.position;
 					$scope.keyword = $stateParams.keyword;
+					$scope.current = $stateParams.current;
 
 					var editmsg = {};
 					editmsg.filter = {};
 
+					editmsg.current = x;
+					editmsg.count = 15;
 					editmsg.filter.dprt = $stateParams.dprt;
 					editmsg.filter.position = $stateParams.position;
 					editmsg.filter.keyword = $stateParams.keyword;
-					editmsg.current = $stateParams.page;
 
 					listall.show(editmsg)
 						.then(function(response){
-							if(response.data.code==200){
+							
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
 
 								$scope.members = response.data.data.members;
 								$scope.total = response.data.data.total;
@@ -223,11 +237,14 @@ angular.module('app')
 			.state('list.detail',{
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
-				controller: function($scope,$stateParams,listall){
+				controller: function($scope,$stateParams,listall,userService){
 
 					listall.detail($stateParams)
 						.then(function(response){
-							if(response.data.code==200){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
 
 								$scope.content = response.data.data;
 								
@@ -244,7 +261,23 @@ angular.module('app')
 		$stateProvider
 			.state('list.dprt',{
 				url: '/dprt',
-				templateUrl: 'templates/list/list-department.html'
+				templateUrl: 'templates/list/list-department.html',
+				controller: function($scope,listdprt,userService){
+
+					listdprt.show()
+						.then(function(response){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+								$scope.members = response.data.data.members;
+								
+							};
+
+						});
+					
+				}
 			})
 
 })
@@ -263,11 +296,59 @@ angular.module('app')
 
 		$stateProvider
 			.state('list.recycle',{
-				url: '/recycle',
-				templateUrl: 'templates/list/list-recycle.html'
-			})
+				url: '/recycle/:current',
+				templateUrl: 'templates/list/list-recycle.html',
+				controller: function($scope,$stateParams,listrcl,userService){
 
-})
+					var x = parseInt($stateParams.current);
+
+					$scope.current = $stateParams.current;
+
+					var editmsg = {};
+
+					editmsg.current = x;
+					editmsg.count = 15;
+
+
+					listrcl.show(editmsg)
+						.then(function(response){
+							
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+								$scope.members = response.data.data.members;
+								$scope.total = response.data.data.total;
+
+							};
+
+						});
+
+					$scope.pagenext = function(){
+
+						if((x + 1)<=$scope.total){
+							location.href = '#list/recycle/' + ( x + 1 )
+						}
+						else{
+							alert("last")
+						}
+						
+					};
+
+					$scope.pageprev = function(){
+
+						if((x - 1)>=1){
+							location.href = '#list/recycle/' + ( x + 1 )
+						}
+						else{
+							alert("first")
+						}
+						
+					};
+				}
+			});
+
+});
 angular.module('app')
 	.config(function($stateProvider){
 
@@ -275,7 +356,7 @@ angular.module('app')
 			.state('user.pw',{
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo){
+				controller: function($scope,userinfo,userService){
 
 					$scope.pwedit = function(){
 
@@ -287,8 +368,11 @@ angular.module('app')
 
 						userinfo.password(editmsg)
 							.then(function(response){
-								if(response.data.code==200){
 
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+								
 									alert("success");
 
 								}
@@ -309,19 +393,22 @@ angular.module('app')
 			.state('user.edit',{
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo){
+				controller: function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
-							
-							if(response.data.code==200){
 								
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
 								$scope.content = response.data.data;
 						 
 								$scope.username = $scope.content.username;
 								$scope.room = $scope.content.room;
 								$scope.telLong = $scope.content.telLong;
 								$scope.telShort = $scope.content.telShort;
+								$scope.email = $scope.content.email;
 								$scope.genderopt = gender;
   								$scope.gender = $scope.content.gender;
   								$scope.schoolopt = school;
@@ -340,10 +427,14 @@ angular.module('app')
 						editmsg.room = $scope.room;
 						editmsg.telLong = $scope.telLong;
 						editmsg.telShort = $scope.telShort;
+						editmsg.email = $scope.email;
 
 						userinfo.edit(editmsg)
 							.then(function(response){
-								if(response.data.code==200){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
 
 									alert("success");
 
@@ -367,12 +458,14 @@ angular.module('app')
 			.state('user.info',{
 				url: '/info',
 				templateUrl: 'templates/user/info-detail.html',
-				controller: function($scope,userinfo){
+				controller: function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
 
-							if(response.data.code==200){
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
 
 								$scope.content = response.data.data;
 
@@ -389,48 +482,81 @@ angular.module('app')
 	
 	.service('userService',function($http,$cookies) {
 
-		currentUser = null;
-
 		return{
 
-			login: function(user){
+			login: function(editmsg){
 
-				var user = user;
-
-				return $http.post('test/get/login.json',user);
+				return $http.post('test/get/login.json',editmsg);
 
 				},
 
 			logout: function(user){
 
-				var auth = {};
-
-				auth.timestamp = new Date().getTime();
-				auth.token = currentUser.token;
+				var timestamp = new Date().getTime();
+				var token = $cookies.get("token");
+				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
 
 				$http.post('test/get/result.json',auth);
 
 				$cookies.remove("token");
-
-				currentUser = null;
-
 				
-			},
-
-			currentuser: function(){
-
-				return currentUser;
-
 			},
 
 			auth: function(){
 
-				var auth = {};
-
-				auth.timestamp = new Date().getTime();
-				auth.token = currentUser.token;
+				var timestamp = new Date().getTime();
+				var token = $cookies.get("token");
+				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
 				
 				return auth;
+
+			},
+
+			cookieset: function(editmsg){
+
+				var date = new Date();
+				date.setDate(date.getDate() + 7);
+				var expire = date;
+
+				$cookies.put("token",editmsg,{ 'expires': expire});
+
+				return true;
+
+			},
+
+			result: function(editmsg){
+
+				switch(editmsg){
+
+					case 100:
+						alert("账号密码错误");
+						location.href = '#/login';
+						return false;
+						break;
+
+					case 200:
+						return true;
+						break;
+
+					case 300:
+						alert("你不具有该权限");
+						history.back();
+						return false;
+						break;
+
+					case 400:
+						alert("账号异常，请重新登录");
+						location.href = '#/login';
+						return false;
+						break;
+
+					case 500:
+						alert("未知错误");
+						return false;
+						break;
+				};
+
+				
 
 			}
 
@@ -470,13 +596,17 @@ angular.module('app')
 		});
 angular.module('app')
 	
-	.service('listdprt',function($http) {
+	.service('listdprt',function($http,userService) {
 
 		return{
 
 			show: function(){
 
-				return $http.post('test/get/listDprt.json',currentUser.auth)
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+
+				return $http.post('test/get/listDprt.json',postdata);
 
 				},
 
@@ -525,13 +655,18 @@ angular.module('app')
 	)
 angular.module('app')
 	
-	.service('userinfo',function($http) {
+	.service('listrcl',function($http,userService) {
 
 		return{
 
-			show: function(){
+			show: function(editmsg){
 
-				return $http.post('test/get/userinfo.json',currentUser.auth)
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/listRcl.json',postdata);
 
 				},
 
@@ -541,7 +676,7 @@ angular.module('app')
 				postdata.content = editmsg
 				postdata.auth = currentUser.auth
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
 		
 			},
 
@@ -551,9 +686,48 @@ angular.module('app')
 				postdata.content = editmsg
 				postdata.auth = currentUser.auth
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
 
 			}
+
+			};
+		}
+	);
+angular.module('app')
+	
+	.service('dprtall',function($http,userService) {
+
+		return{
+
+			show: function(){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+
+				return $http.post('test/get/dprtAll.json',postdata);
+
+				},
+
+			add: function(editmsg){
+
+				var postdata
+				postdata.auth = currentUser.auth
+				postdata.content = editmsg
+
+				return $http.post('test/get/result.json',postdata)
+
+				},
+
+			del: function(userid){
+
+				var postdata
+				postdata.auth = currentUser.auth
+				postdata.userid = userid
+
+				return $http.post('test/get/result.json',postdata)
+
+				}
 
 			}
 		}

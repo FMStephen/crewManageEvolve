@@ -62,3 +62,9 @@ get:dprtAdd.json
 部门管理->修改部门
 post:dprtEdit.json
 get:dprtEdit.json
+
+100 = 账号密码错误
+200 = ok
+300 = 权限
+400 = 重新登录
+500 = 未知错误

@@ -1,12 +1,17 @@
 angular.module('app')
 	
-	.service('userinfo',function($http) {
+	.service('listrcl',function($http,userService) {
 
 		return{
 
-			show: function(){
+			show: function(editmsg){
 
-				return $http.post('test/get/userinfo.json',currentUser.auth)
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/listRcl.json',postdata);
 
 				},
 
@@ -16,7 +21,7 @@ angular.module('app')
 				postdata.content = editmsg
 				postdata.auth = currentUser.auth
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
 		
 			},
 
@@ -26,10 +31,10 @@ angular.module('app')
 				postdata.content = editmsg
 				postdata.auth = currentUser.auth
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
 
 			}
 
-			}
+			};
 		}
-	)
+	);

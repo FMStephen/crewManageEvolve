@@ -2,6 +2,8 @@ angular.module('app',['ui.router','ngCookies']);
 
 var currentUser = {};
 
+var boyslove = "isayserious";
+
 var school = [  {"name": "请选择","value": ""},
                 {"name": "C.材料科学与工程学院","value": "材料科学与工程学院"},
         		{"name": "D.电子与信息学院","value": "电子与信息学院"},

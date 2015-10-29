@@ -5,7 +5,7 @@ angular.module('app')
 			.state('user.pw',{
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo){
+				controller: function($scope,userinfo,userService){
 
 					$scope.pwedit = function(){
 
@@ -17,8 +17,11 @@ angular.module('app')
 
 						userinfo.password(editmsg)
 							.then(function(response){
-								if(response.data.code==200){
 
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+								
 									alert("success");
 
 								}

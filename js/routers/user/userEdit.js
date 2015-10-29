@@ -6,19 +6,22 @@ angular.module('app')
 			.state('user.edit',{
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo){
+				controller: function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
-							
-							if(response.data.code==200){
 								
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
 								$scope.content = response.data.data;
 						 
 								$scope.username = $scope.content.username;
 								$scope.room = $scope.content.room;
 								$scope.telLong = $scope.content.telLong;
 								$scope.telShort = $scope.content.telShort;
+								$scope.email = $scope.content.email;
 								$scope.genderopt = gender;
   								$scope.gender = $scope.content.gender;
   								$scope.schoolopt = school;
@@ -37,10 +40,14 @@ angular.module('app')
 						editmsg.room = $scope.room;
 						editmsg.telLong = $scope.telLong;
 						editmsg.telShort = $scope.telShort;
+						editmsg.email = $scope.email;
 
 						userinfo.edit(editmsg)
 							.then(function(response){
-								if(response.data.code==200){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
 
 									alert("success");
 

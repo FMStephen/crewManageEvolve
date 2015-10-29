@@ -3,11 +3,11 @@ angular.module('app')
 
 		$stateProvider
 			.state('list.all',{
-				url: '/all/:dprt&:position&:keyword/:page',
+				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
-				controller: function($scope,$stateParams,listall){
+				controller: function($scope,$stateParams,listall,userService){
 
-					var x = parseInt($stateParams.page);
+					var x = parseInt($stateParams.current);
 
 					$scope.dprtopt = dprt;
 					$scope.positionopt = position;
@@ -15,18 +15,23 @@ angular.module('app')
 					$scope.dprt = $stateParams.dprt;
 					$scope.position = $stateParams.position;
 					$scope.keyword = $stateParams.keyword;
+					$scope.current = $stateParams.current;
 
 					var editmsg = {};
 					editmsg.filter = {};
 
+					editmsg.current = x;
+					editmsg.count = 15;
 					editmsg.filter.dprt = $stateParams.dprt;
 					editmsg.filter.position = $stateParams.position;
 					editmsg.filter.keyword = $stateParams.keyword;
-					editmsg.current = $stateParams.page;
 
 					listall.show(editmsg)
 						.then(function(response){
-							if(response.data.code==200){
+							
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
 
 								$scope.members = response.data.data.members;
 								$scope.total = response.data.data.total;

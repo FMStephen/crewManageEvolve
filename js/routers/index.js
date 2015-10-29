@@ -4,7 +4,7 @@ angular.module('app')
 		$urlRouterProvider.when('','/login')
 						  .when('/user','/user/info')
 						  .when('/list','/list/all/&&/1')
-						  .when('/dprt','/dprt/all');
+						  .when('/dprt','/dprt/all')
 
 		$stateProvider
 			.state('user',{
@@ -25,11 +25,11 @@ angular.module('app')
 			.state('login',{
 				url: '/login',
 				templateUrl: 'templates/login.html',
-				controller: function($scope,$cookies,userService){
-
-					var user = {};
+				controller: function($scope,$cookies,userService){					
 
 					$scope.update = function(){
+
+						var user = {};
 
 						user.studentNo = $scope.studentNo;
 						user.password = $scope.password;
@@ -37,21 +37,11 @@ angular.module('app')
 						userService.login(user)
 							.then(function(response){
 
-								if(response.data.code==200){
+								userService.cookieset(response.data.token);
 
-									currentUser = response.data.data;
-									currentUser.token = response.data.token;
-
-									var date = new Date();
-									date.setDate(date.getDate() + 7);
-									var expire = date;
-
-									$cookies.put("token",currentUser.token,{ 'expires': expire});
+								if(userService.result(response.data.code)){
 
 									location.href = '#/user';
-
-								}
-								else{
 
 								}
 

@@ -1,3 +1,10 @@
 <div>
-	部门列表
+	<a href="#/dprt/add">添加部门</a>
+	<button>编辑部门</button>
+	<button>删除部门</button>
+</div>
+<div>
+	<ul ng-repeat="dprt in dprts">
+			<li><input type="radio">{{dprt.dprtname}} {{dprt.dprtnote}}</li>
+	</ul>
 </div>

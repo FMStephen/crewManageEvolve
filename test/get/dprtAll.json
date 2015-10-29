@@ -5,13 +5,13 @@
   "data": {
     "dprt": [{
       "id": 12,
-      "dprtName": "技术部",
-      "dprtNote": "长得帅"
+      "dprtname": "技术部",
+      "dprtnote": "长得帅"
     },
    {
    	  "id": 32,
-      "dprtName": "策推",
-      "dprtNote": "额。。。"
+      "dprtname": "策推",
+      "dprtnote": "额。。。"
     }]
   }
 }

@@ -5,11 +5,14 @@ angular.module('app')
 			.state('list.detail',{
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
-				controller: function($scope,$stateParams,listall){
+				controller: function($scope,$stateParams,listall,userService){
 
 					listall.detail($stateParams)
 						.then(function(response){
-							if(response.data.code==200){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
 
 								$scope.content = response.data.data;
 								

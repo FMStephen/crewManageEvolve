@@ -1,3 +1,32 @@
 <div>
-	同部门回收站
+	<div>
+		<button>恢复</button>
+		<button>彻底删除</button>
+	</div>
+	<div>
+		<ul class="members">
+			<li ng-repeat="member in members" ng-if="$even">
+				<input type="checkbox">
+				<img ng-src="{{member.photo}}">
+				{{member.username}}<br>
+				{{member.position}}<br>
+				{{member.note}}<br>
+			</li>
+		</ul>
+		<ul class="members">
+			<li ng-repeat="member in members" ng-if="$odd">
+				<input type="checkbox">
+				<img ng-src="{{member.photo}}">
+				{{member.username}}<br>
+				{{member.position}}<br>
+				{{member.note}}<br>
+			</li>
+		</ul>
+	</div>
+	<div>
+		第<span ng-model="current">{{current}}</span>页 
+		共<span ng-model="total">{{total}}</span>页
+		<button ng-click="pageprev()">上一页</button>
+		<button ng-click="pagenext()">下一页</button>
+	</div>
 </div>

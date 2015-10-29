@@ -6,12 +6,14 @@ angular.module('app')
 			.state('user.info',{
 				url: '/info',
 				templateUrl: 'templates/user/info-detail.html',
-				controller: function($scope,userinfo){
+				controller: function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
 
-							if(response.data.code==200){
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
 
 								$scope.content = response.data.data;
 
