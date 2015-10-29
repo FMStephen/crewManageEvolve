@@ -23,15 +23,14 @@
 
 		<div>
 			<ul ng-repeat="member in members" ng-if="$even">
-				<a href="#/list/detail/{{member.id}}">
-					<li><input type="checkbox" value="{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</li>
-				</a>
+					<li><input type="checkbox" value="{{member.id}}"><a href="#/list/detail/{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</a></li>	
 			</ul>
 			<ul ng-repeat="member in members" ng-if="$odd">
 				<a href="#/list/detail/{{member.id}}">
-					<li><input type="checkbox" value="{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</li>
+					<li><input type="checkbox" value="{{member.id}}"><a href="#/list/detail/{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</a></li>
 				</a>
 			</ul>
 		</div>
 	</form>
 </div>
+
