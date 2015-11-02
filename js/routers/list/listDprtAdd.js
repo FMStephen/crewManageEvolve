@@ -16,8 +16,6 @@ angular.module('app')
 						editmsg.studentno = $scope.studentno;
 						editmsg.position = $scope.position;
 
-						console.log(editmsg)
-
 						listdprt.add(editmsg)
 							.then(function(response){
 

@@ -56,7 +56,7 @@ var position = [    {"name": "所有职位","value": ""},
                     {"name": "常委","value": "常委"}
                 ];
 angular.module('app')
-	.config(function($stateProvider,$urlRouterProvider){
+	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider,$urlRouterProvider){
 
 		$urlRouterProvider.when('','/login')
 						  .when('/user','/user/info')
@@ -82,7 +82,7 @@ angular.module('app')
 			.state('login',{
 				url: '/login',
 				templateUrl: 'templates/login.html',
-				controller: function($scope,$cookies,userService){					
+				controller: ["$scope", "$cookies", "userService", function($scope,$cookies,userService){					
 
 					$scope.update = function(){
 
@@ -106,22 +106,22 @@ angular.module('app')
 
 
 					};
-				}
+				}]
 			});
 
 		
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('dprt.all',{
 				url: '/all',
 				templateUrl: 'templates/department/department-all.html',
-				controller: function($scope,userService,dprtall){
+				controller: ["$scope", "userService", "dprtall", function($scope,userService,dprtall){
 
 					dprtall.show()
 						.then(function(response){
@@ -165,20 +165,20 @@ angular.module('app')
 
 					});
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('dprt.add',{
 				url: '/add',
 				templateUrl: 'templates/department/department-add.html',
-				controller: function($scope,userService,dprtall){
+				controller: ["$scope", "userService", "dprtall", function($scope,userService,dprtall){
 
 					$scope.add = function(){
 
@@ -203,20 +203,20 @@ angular.module('app')
 
 				};
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('dprt.edit',{
 				url: '/edit/:id',
 				templateUrl: 'templates/department/department-edit.html',
-				controller: function($scope,$stateParams,userService,dprtall){
+				controller: ["$scope", "$stateParams", "userService", "dprtall", function($scope,$stateParams,userService,dprtall){
 
 					var request = {};
 
@@ -260,19 +260,19 @@ angular.module('app')
 					});
 
 				};
-			}
+			}]
 
 
 	});
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.all',{
 				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
-				controller: function($scope,$stateParams,listall,userService){
+				controller: ["$scope", "$stateParams", "listall", "userService", function($scope,$stateParams,listall,userService){
 
 					var x = parseInt($stateParams.current);
 
@@ -336,17 +336,17 @@ angular.module('app')
 						
 					};
 					
-				}
+				}]
 			});
-}); 
+}]); 
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.detail',{
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
-				controller: function($scope,$stateParams,listall,userService){
+				controller: ["$scope", "$stateParams", "listall", "userService", function($scope,$stateParams,listall,userService){
 
 					listall.detail($stateParams)
 						.then(function(response){
@@ -360,18 +360,18 @@ angular.module('app')
 							};
 						});
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.dprt',{
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
-				controller: function($scope,listdprt,userService){
+				controller: ["$scope", "listdprt", "userService", function($scope,listdprt,userService){
 
 					listdprt.show()
 						.then(function(response){
@@ -459,18 +459,18 @@ angular.module('app')
 
 					};
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.add',{
 				url: '/add',
 				templateUrl: 'templates/list/list-add.html',
-				controller: function($scope,listdprt,userService){
+				controller: ["$scope", "listdprt", "userService", function($scope,listdprt,userService){
 
 					$scope.position = "干事";
 
@@ -495,18 +495,18 @@ angular.module('app')
 						});
 					}
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.reset',{
 				url: '/reset/:id',
 				templateUrl: 'templates/list/list-resetpw.html',
-				controller: function($scope,$stateParams,listdprt,userService){
+				controller: ["$scope", "$stateParams", "listdprt", "userService", function($scope,$stateParams,listdprt,userService){
 
 					var idrequest = {};
 					idrequest.id = $stateParams.id
@@ -549,18 +549,18 @@ angular.module('app')
 
 					};					
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.recycle',{
 				url: '/recycle/:current',
 				templateUrl: 'templates/list/list-recycle.html',
-				controller: function($scope,$stateParams,listrcl,userService){
+				controller: ["$scope", "$stateParams", "listrcl", "userService", function($scope,$stateParams,listrcl,userService){
 
 					var x = parseInt($stateParams.current);
 
@@ -672,18 +672,18 @@ angular.module('app')
 
 					};
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('user.pw',{
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo,userService){
+				controller: ["$scope", "userinfo", "userService", function($scope,userinfo,userService){
 
 					$scope.pwedit = function(){
 
@@ -708,20 +708,20 @@ angular.module('app')
 
 					};
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			
 			.state('user.edit',{
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo,userService){
+				controller: ["$scope", "userinfo", "userService", function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
@@ -774,20 +774,20 @@ angular.module('app')
 
 					
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('user.info',{
 				url: '/info',
 				templateUrl: 'templates/user/info-detail.html',
-				controller:  function($scope,userinfo,userService){
+				controller:  ["$scope", "userinfo", "userService", function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
@@ -801,15 +801,15 @@ angular.module('app')
 							}
 						});
 
-				}
+				}]
 			});
 			
 
 
-	});
+	}]);
 angular.module('app')
 	
-	.service('userService',function($http,$cookies) {
+	.service('userService',["$http", "$cookies", function($http,$cookies) {
 
 		return{
 
@@ -895,10 +895,10 @@ angular.module('app')
 			}
 
 			};
-		});
+		}]);
 angular.module('app')
 	
-	.service('dprtall',function($http,userService) {
+	.service('dprtall',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -957,11 +957,11 @@ angular.module('app')
 				}
 
 			};
-		}
+		}]
 	);
 angular.module('app')
 	
-	.service('userinfo',function($http,userService) {
+	.service('userinfo',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -1002,11 +1002,11 @@ angular.module('app')
 			}
 
 			};
-		}
+		}]
 	);
 angular.module('app')
 	
-	.service('listall',function($http,userService) {
+	.service('listall',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -1035,10 +1035,10 @@ angular.module('app')
 			
 
 			};
-		});
+		}]);
 angular.module('app')
 	
-	.service('listdprt',function($http,userService) {
+	.service('listdprt',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -1108,10 +1108,10 @@ angular.module('app')
 				}
 
 			};
-		});
+		}]);
 angular.module('app')
 	
-	.service('listrcl',function($http,userService) {
+	.service('listrcl',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -1145,10 +1145,10 @@ angular.module('app')
 			}
 
 			};
-		}
+		}]
 	);
 angular.module('app')
-	.directive('logoutBtn',function(userService){
+	.directive('logoutBtn',["userService", function(userService){
 		return{
 			restrict: "A",
 			link: function(scope,element,attrs){
@@ -1162,5 +1162,5 @@ angular.module('app')
 			}
 		}
 		
-	})
+	}])
 //# sourceMappingURL=bundle.js.map

@@ -5,17 +5,25 @@ var rename = require('gulp-rename')
 var sourcemaps = require('gulp-sourcemaps')
 var location = [
 			    'js/app.js',
-			    'js/services/**/*.js',
-				'js/routers/**/*.js'
-				]
+				'js/routers/**/*.js',
+				'js/services/**/*.js',
+				'js/directives/**/*.js']
 
-var lib = []
+var lib = ['lib/angular.min.js',
+			    'lib/angular-ui-router.min.js',
+			    'lib/angular-cookies.min.js',
+			    'lib/gibberish-aes.js',
+			    'lib/md5.js']
+
+var inject = ['dist/bundle.inject.js']
 
 
 gulp.task('default', function () {
-	gulp.src(location)
-		.pipe(concat('bundle.js'))
-		.pipe(gulp.dest('dist/'))
+//	gulp.src(location)
+	gulp.src(inject)
+//		.pipe(sourcemaps.init({loadMaps: true}))
+//		.pipe(concat('bundle.js'))
+//		.pipe(sourcemaps.write('./'))
 		.pipe(uglify().on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
 		.pipe(rename({ basename: 'bundle.min' }))
 		.pipe(gulp.dest('dist/'))
