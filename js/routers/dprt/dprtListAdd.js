@@ -5,8 +5,34 @@ angular.module('app')
 
 			.state('dprt.add',{
 				url: '/add',
-				templateUrl: 'templates/department/department-add.html'
-			})
+				templateUrl: 'templates/department/department-add.html',
+				controller: function($scope,userService,dprtall){
+
+					$scope.add = function(){
+
+						var editmsg = {};
+
+						editmsg.dprtname = $scope.dprtname;
+						editmsg.dprtnote = $scope.dprtnote;
+
+						dprtall.edit(editmsg)
+							.then(function(response){
+
+								userService.cookieset(response.data.token);
+								
+								if(userService.result(response.data.code)){
+
+									alert("success");
+									location.href = '#/dprt/all';
+
+								};
+
+					});
+
+				};
+
+				}
+			});
 
 
-	})
+	});

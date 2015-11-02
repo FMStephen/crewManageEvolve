@@ -15,24 +15,22 @@ angular.module('app')
 
 				},
 
-			edit: function(editmsg){
+			del: function(editmsg){
 
-				var postdata
-				postdata.content = editmsg
-				postdata.auth = currentUser.auth
+				var postdata = {};
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
-		
+				return $http.post('test/get/result.json',postdata);		
 			},
 
-			password: function(editmsg){
+			recover: function(editmsg){
 
-				var postdata
-				postdata.content = editmsg
-				postdata.auth = currentUser.auth
+				var postdata = {};
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
 
 				return $http.post('test/get/result.json',postdata);
-
 			}
 
 			};

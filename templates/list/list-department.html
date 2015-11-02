@@ -5,30 +5,46 @@
 		</div>
 		<div>
 			置入回收站
-			<select>
-				<option>退休</option>
-				<option>离职</option>
+			<select ng-model="rcl">
+				<option value="退休">退休</option>
+				<option value="离职">离职</option>
 			</select>
-			<button>确定</button>
+			<button ng-click="recycle()">确定</button>
 		</div>
 		<div>
 			修改职位
-			<select>
-				<option value="">干事</option>
-				<option value="">主管</option>
-				<option value="">部长</option>
+			<select ng-model="position">
+				<option value="干事">干事</option>
+				<option value="主管">主管</option>
+				<option value="部长">部长</option>
 			</select>
-			<button>确定</button>
+			<button ng-click="changeposition()">确定</button>
+		</div>
+		<div>
+			重置密码
+			<button ng-click="reset()">重置密码</button>
 		</div>
 
 		<div>
 			<ul ng-repeat="member in members" ng-if="$even">
-					<li><input type="checkbox" value="{{member.id}}"><a href="#/list/detail/{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</a></li>	
+					<li>
+						<label for="a{{member.id}}">
+							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+						</label>
+						<a href="#/list/detail/{{member.id}}">
+							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
+						</a>
+					</li>	
 			</ul>
 			<ul ng-repeat="member in members" ng-if="$odd">
-				<a href="#/list/detail/{{member.id}}">
-					<li><input type="checkbox" value="{{member.id}}"><a href="#/list/detail/{{member.id}}"><img ng-src="{{member.photo}}">{{member.username}} {{member.position}}</a></li>
-				</a>
+					<li>
+						<label for="a{{member.id}}">
+							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+						</label>
+						<a href="#/list/detail/{{member.id}}">
+							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
+						</a>
+					</li>	
 			</ul>
 		</div>
 	</form>

@@ -14,26 +14,50 @@ angular.module('app')
 
 				},
 
+			editshow: function(editmsg){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/dprtedit.json',postdata);
+
+				},
+
+			edit: function(editmsg){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/result.json',postdata);
+
+				},
+
 			add: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.content = editmsg
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
 
 				return $http.post('test/get/result.json',postdata)
 
 				},
 
-			del: function(userid){
+			del: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.userid = userid
+				var postdata = {};
 
-				return $http.post('test/get/result.json',postdata)
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/result.json',postdata);
 
 				}
 
-			}
+			};
 		}
-	)
+	);

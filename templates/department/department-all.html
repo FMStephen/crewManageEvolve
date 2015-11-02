@@ -1,10 +1,19 @@
 <div>
-	<a href="#/dprt/add">添加部门</a>
-	<button>编辑部门</button>
-	<button>删除部门</button>
-</div>
-<div>
-	<ul ng-repeat="dprt in dprts">
-			<li><input type="radio">{{dprt.dprtname}} {{dprt.dprtnote}}</li>
-	</ul>
+	<form>
+		<div>
+			<a href="#/dprt/add">添加部门</a>
+			<button ng-click="edit()">编辑部门</button>
+			<button ng-click="del()">删除部门</button>
+		</div>
+		<div>
+			<ul ng-repeat="dprt in dprts">
+					<li>
+						<label for="a{{dprt.id}}">
+							<input type="radio" name="dprt" id="a{{dprt.id}}" ng-model="radio.dprt" value="{{dprt.id}}">
+							{{dprt.dprtname}} {{dprt.dprtnote}}
+						</label>
+					</li>
+			</ul>
+		</div>
+	</form>
 </div>

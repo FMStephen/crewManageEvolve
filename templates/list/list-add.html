@@ -1,10 +1,10 @@
 <div>
 	<a href="#list/dprt">返回</a>
-	学号<textarea></textarea><br>
-	职位<select>
-	 		<option>干事</option>
-	 		<option>主管</option>
-	 		<option>部长</option>
+	学号<textarea ng-model="studentno"></textarea><br>
+	职位<select ng-model="position">
+	 		<option value="干事">干事</option>
+	 		<option value="主管">主管</option>
+	 		<option value="部长">部长</option>
 	    </select><br>
-    <button>新增</button>
+    <button ng-click="add()">提交</button>
 </div>

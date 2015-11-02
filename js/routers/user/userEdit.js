@@ -50,6 +50,7 @@ angular.module('app')
 							if(userService.result(response.data.code)){
 
 									alert("success");
+									location.href = '#/user/info';
 
 								};
 							});

@@ -1,32 +1,32 @@
 <div>
-	<div>
-		<button>恢复</button>
-		<button>彻底删除</button>
-	</div>
-	<div>
-		<ul class="members">
-			<li ng-repeat="member in members" ng-if="$even">
-				<input type="checkbox">
-				<img ng-src="{{member.photo}}">
-				{{member.username}}<br>
-				{{member.position}}<br>
-				{{member.note}}<br>
-			</li>
-		</ul>
-		<ul class="members">
-			<li ng-repeat="member in members" ng-if="$odd">
-				<input type="checkbox">
-				<img ng-src="{{member.photo}}">
-				{{member.username}}<br>
-				{{member.position}}<br>
-				{{member.note}}<br>
-			</li>
-		</ul>
-	</div>
-	<div>
-		第<span ng-model="current">{{current}}</span>页 
-		共<span ng-model="total">{{total}}</span>页
-		<button ng-click="pageprev()">上一页</button>
-		<button ng-click="pagenext()">下一页</button>
-	</div>
+	<form>
+		<div>
+			<button ng-click="recover()">恢复</button>
+			<button ng-click="del()">彻底删除</button>
+		</div>
+		<div>
+			<ul ng-repeat="member in members" ng-if="$even">
+					<li>
+						<label for="a{{member.id}}">
+							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+						</label>
+							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
+					</li>	
+			</ul>
+			<ul ng-repeat="member in members" ng-if="$odd">
+					<li>
+						<label for="a{{member.id}}">
+							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+						</label>
+							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
+					</li>	
+			</ul>
+		</div>
+		<div>
+			第<span ng-model="current">{{current}}</span>页 
+			共<span ng-model="total">{{total}}</span>页
+			<button ng-click="pageprev()">上一页</button>
+			<button ng-click="pagenext()">下一页</button>
+		</div>
+	</form>
 </div>

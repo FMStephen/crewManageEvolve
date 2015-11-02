@@ -34,7 +34,7 @@ angular.module('app')
 					$scope.pagenext = function(){
 
 						if((x + 1)<=$scope.total){
-							location.href = '#list/recycle/' + ( x + 1 )
+							location.href = '#list/recycle/' + ( x + 1 ) ;
 						}
 						else{
 							alert("last")
@@ -45,13 +45,78 @@ angular.module('app')
 					$scope.pageprev = function(){
 
 						if((x - 1)>=1){
-							location.href = '#list/recycle/' + ( x + 1 )
+							location.href = '#list/recycle/' + ( x - 1 ) ;
 						}
 						else{
 							alert("first")
 						}
 						
 					};
+
+					$scope.checkbox = [];
+
+					function checkboxselect(){
+
+						var id = '';
+
+						for(x = 0;x < $scope.checkbox.length;x++){
+					
+							if($scope.checkbox[x] != null){
+					
+								id = id + $scope.checkbox[x].column + ',';
+							};
+					
+						};
+									
+						id = id.substring(0,id.length-1);
+
+						return id;
+
+					}
+
+					$scope.recover = function(){
+
+						var editmsg = {};
+
+						editmsg.id = checkboxselect();
+						editmsg.position = $scope.position;
+
+						listrcl.recover(editmsg)
+							.then(function(response){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
+
+								alert("success")
+								
+							}
+						});
+
+					};
+
+					$scope.del = function(){
+
+
+						var editmsg = {};
+
+						editmsg.id = checkboxselect();
+						editmsg.position = $scope.position;
+
+						listrcl.del(editmsg)
+							.then(function(response){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
+
+								alert("success")
+								
+							}
+						});
+
+					};
+
 				}
 			});
 

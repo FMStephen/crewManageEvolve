@@ -1,7 +1,5 @@
 angular.module('app',['ui.router','ngCookies']);
 
-var currentUser = {};
-
 var boyslove = "isayserious";
 
 var school = [  {"name": "请选择","value": ""},

@@ -14,46 +14,60 @@ angular.module('app')
 
 				},
 
-			add: function(editmsg){
+			resetshow: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.content = editmsg
+				var postdata = {};
 
-				return $http.post('test/get/result.json',postdata)
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post('test/get/listDprtReset.json',postdata);
 
 				},
 
-			del: function(userid){
+			add: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.userid = userid
+				var postdata = {};
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
 
 				},
 
 			rcl: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.content = editmsg
+				var postdata = {};
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
 
 				},
 
 			position: function(editmsg){
 
-				var postdata
-				postdata.auth = currentUser.auth
-				postdata.content = editmsg
+				var postdata = {};
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata)
+				return $http.post('test/get/result.json',postdata);
+
+				},
+
+			reset: function(editmsg){
+
+				var postdata = {};
+				postdata.data = {};
+
+				postdata.auth = userService.auth();
+				postdata.data.id = editmsg.id;
+				postdata.data.pw = md5(editmsg.pw);
+				postdata.data.pwcfrm = md5(editmsg.pwcfrm);
+
+				return $http.post('test/get/result.json',postdata);
 
 				}
 
-			}
-		}
-	)
+			};
+		});

@@ -6,7 +6,12 @@ angular.module('app')
 
 			login: function(editmsg){
 
-				return $http.post('test/get/login.json',editmsg);
+				var user = {};
+
+				user.studentNo = editmsg.studentNo;
+				user.password = md5(editmsg.password);
+
+				return $http.post('test/get/login.json',user);
 
 				},
 

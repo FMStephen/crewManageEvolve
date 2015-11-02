@@ -6,7 +6,7 @@ angular.module('app')
 			.state('user.info',{
 				url: '/info',
 				templateUrl: 'templates/user/info-detail.html',
-				controller: function($scope,userinfo,userService){
+				controller:  function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
