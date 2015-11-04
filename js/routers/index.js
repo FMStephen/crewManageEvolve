@@ -35,7 +35,7 @@ angular.module('app')
 						user.password = $scope.password;
 
 						userService.login(user)
-							.then(function(response){
+							.then(function(response){	
 
 								userService.cookieset(response.data.token);
 

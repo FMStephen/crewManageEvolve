@@ -1,7 +1,13 @@
 <div>
-	<form>
-		<input placeholder="username" ng-model="studentNo">
-		<input placeholder="password" ng-model="password">
-		<button login-btn ng-click="update()">login</button>
+	<form name="login" ng-submit="update()" novalidate>
+		<div ng-class="{'has-error' : login.username.$invalid && !login.username.$pristine}" >
+			<input type="text" name="username" placeholder="studentno" ng-model="studentNo" ng-pattern="/^20[0-9]{10}$/" required>
+            <p ng-show="login.username.$invalid && !login.username.$pristine && login.username.$error.pattern">error</p>
+		</div>
+        <div ng-class="{'has-error' : login.password.$invalid && !login.password.$pristine}">
+    		<input type="password" name="password" placeholder="password" ng-model="password" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
+            <p ng-show="login.password.$error.pattern">error</p>
+        </div>
+		<button type="submit" ng-disabled="login.$invalid">login</button>
 	</form>
 </div>

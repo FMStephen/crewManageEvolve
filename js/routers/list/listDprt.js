@@ -48,19 +48,27 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.note = $scope.rcl;
 
-						listdprt.rcl(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.note = $scope.rcl;
 
-							if(userService.result(response.data.code)){
+							listdprt.rcl(editmsg)
+								.then(function(response){
 
-								alert("success");
-								
-							};
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success");
+									
+								};
+							});
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -69,19 +77,27 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.position = $scope.position;
 
-						listdprt.position(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.position = $scope.position;
 
-							if(userService.result(response.data.code)){
+							listdprt.position(editmsg)
+								.then(function(response){
 
-								alert("success")
-								
-							}
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success")
+									
+								}
+							});
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -89,7 +105,15 @@ angular.module('app')
 					
 						var id = checkboxselect();
 
-						location.href = '#/list/reset/' + id ;
+						if(id != ''){
+
+							location.href = '#/list/reset/' + id ;
+
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 

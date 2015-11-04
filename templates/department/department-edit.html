@@ -1,6 +1,13 @@
 <div>
 	<a href="#/dprt/all">返回</a>
-	名称<input ng-model="dprtname"><br>
-	描述<textarea ng-model="dprtnote"></textarea><br>
-    <button ng-click="edit()">修改</button>
+	<form name="editform" ng-submit="edit()" novalidate>
+		<div ng-class="{'has-error' : editform.name.$invalid && !editform.name.$pristine}">
+			名称<input type="text" name="name" ng-model="dprtname" required>
+			<p ng-show="editform.name.$invalid && !editform.name.$pristine">error</p>
+		<div ng-class="{'has-error' : editform.note.$invalid && !editform.note.$pristine}">
+			描述<textarea type="text" name="note" ng-model="dprtnote" required></textarea>
+			<p ng-show="editform.note.$invalid && !editform.note.$pristine">error</p>
+		</div>
+	    <button type="submit" ng-disabled="editform.$invalid">修改</button>
+	</form>
 </div>

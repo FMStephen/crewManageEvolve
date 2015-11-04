@@ -1,10 +1,16 @@
 <div>
 	<a href="#list/dprt">返回</a>
-	学号<textarea ng-model="studentno"></textarea><br>
-	职位<select ng-model="position">
-	 		<option value="干事">干事</option>
-	 		<option value="主管">主管</option>
-	 		<option value="部长">部长</option>
-	    </select><br>
-    <button ng-click="add()">提交</button>
+	<form name="addform" ng-submit="add()">
+		<div ng-class="{'has-error' : addform.studentno.$invalid && !addform.studentno.$pristine && addform.studentno.$error.minlength}">
+			学号<textarea type="text" name="studentno" ng-model="studentno" ng-minlength="12" required></textarea>
+			<p ng-show="addform.studentno.$invalid && !addform.studentno.$pristine && addform.studentno.$error.minlength">error</p>
+		</div>
+		职位<select name="position" ng-model="position" required>
+		 		<option value="干事">干事</option>
+		 		<option value="主管">主管</option>
+		 		<option value="部长">部长</option>
+		    </select>
+		</div>
+    <button type="submit" ng-disabled="addform.$invalid">提交</button>
+    <form>
 </div>

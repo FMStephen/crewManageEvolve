@@ -9,8 +9,8 @@ angular.module('app')
 				controller: function($scope,userinfo,userService){
 
 					userinfo.show()
-						.then(function(response){
-								
+						.then(function(response){	
+
 							userService.cookieset(response.data.token);
 							
 							if(userService.result(response.data.code)){

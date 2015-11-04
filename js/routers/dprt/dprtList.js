@@ -23,7 +23,16 @@ angular.module('app')
 
 					$scope.edit = function(){
 
-						location.href = '#/dprt/edit/' + $scope.radio.dprt ;
+						if($scope.radio.dprt != undefined){
+
+							location.href = '#/dprt/edit/' + $scope.radio.dprt ;
+
+						} else {
+
+							alert("请选择对象");
+
+						}
+
 
 					};
 
@@ -33,17 +42,26 @@ angular.module('app')
 
 						editmsg.id = $scope.radio.dprt;
 
-						dprtall.del(editmsg)
-							.then(function(response){
+						if(editmsg.id != undefined){
 
-							userService.cookieset(response.data.token);
+							dprtall.del(editmsg)
+								.then(function(response){
 
-							if(userService.result(response.data.code)){
+								userService.cookieset(response.data.token);
 
-								alert("success");
-								
-							};
-						});
+								if(userService.result(response.data.code)){
+
+									alert("success");
+									
+								};
+							});
+
+						} else {
+
+							alert("请选择对象");
+
+						}
+		
 
 					};
 

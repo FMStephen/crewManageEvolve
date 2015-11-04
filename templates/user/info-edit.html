@@ -1,12 +1,33 @@
 <div>
-	<form>
-		<input ng-model="username" placeholder="{{content.username}}">
-		<select ng-model="gender" ng-options="x.value as x.name for x in genderopt"></select>
-		<select ng-model="school" ng-options="x.value as x.name for x in schoolopt"></select>
-		<input ng-model="room" placeholder="{{content.room}}">
-		<input ng-model="telLong" placeholder="{{content.telLong}}">
-		<input ng-model="telShort" placeholder="{{content.telShort}}">
-		<input ng-model="email" placeholder="{{content.email}}">
-		<button ng-click="infoedit()">提交</button>
+	<form name="editform" ng-submit="infoedit()" novalidate>
+		<div ng-class="{ 'has-error' : editform.username.$invalid && !editform.username.$pristine }">
+			<input type="text" name="username" placeholder="username" ng-model="username" placeholder="{{content.username}}" required>
+			<p ng-show=" editform.username.$invalid && !editform.username.$pristine">error</p>
+		</div>
+		<div ng-class="{ 'has-error' : editform.gender.$invalid && !editform.gender.$pristine }">
+			<select name="gender" placeholder="gender" ng-model="gender" ng-options="x.value as x.name for x in genderopt" required></select>
+			<p ng-show=" editform.gender.$invalid && !editform.gender.$pristine">error</p>
+		</div>
+		<div ng-class="{ 'has-error' : editform.school.$invalid && !editform.school.$pristine }">
+			<select name="school" placeholder="school" ng-model="school" ng-options="x.value as x.name for x in schoolopt" required></select>
+			<p ng-show=" editform.school.$invalid && !editform.school.$pristine">error</p>
+		</div>
+		<div ng-class="{ 'has-error' : editform.room.$invalid && !editform.room.$pristine }">
+			<input type="text" name="room" placeholder="room" ng-model="room" placeholder="{{content.room}}" ng-pattern="" required>
+			<p ng-show=" editform.room.$invalid && !editform.room.$pristine && editform.room.$error.pattern">error</p>
+		</div>
+		<div ng-class="{ 'has-error' : editform.tellong.$invalid && !editform.tellong.$pristine }">
+			<input type="tel" name="tellong" placeholder="长号" ng-model="telLong" placeholder="{{content.telLong}}" ng-pattern="" required>
+			<p ng-show=" editform.tellong.$invalid && !editform.tellong.$pristine && editform.tellong.$error.pattern">error</p>
+		</div>
+		<div ng-class="{ 'has-error' : editform.telshort.$invalid && !editform.telshort.$pristine }">
+			<input type="tel" name="telshort" placeholder="短号" ng-model="telShort" placeholder="{{content.telShort}}" ng-pattern="" required>
+			<p ng-show=" editform.telshort.$invalid && !editform.telshort.$pristine && editform.telshort.$error.pattern">error</p>
+		</div>
+		<div ng-class="{ 'has-error' : editform.email.$invalid && !editform.email.$pristine }">
+			<input type="email" name="email" placeholder="email" ng-model="email" placeholder="{{content.email}}" required>
+			<p ng-show=" editform.email.$invalid && !editform.email.$pristine">error</p>
+		</div>
+		<button type="submit" ng-disabled="editform.$invalid">提交</button>
 	<form>
 </div>

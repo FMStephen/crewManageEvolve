@@ -8,10 +8,10 @@ angular.module('app')
 
 				var user = {};
 
-				user.studentNo = editmsg.studentNo;
+				user.studentno = editmsg.studentNo;
 				user.password = md5(editmsg.password);
 
-				return $http.post('test/get/login.json',user);
+				return $http.post(host + 'Login',user);
 
 				},
 
@@ -21,7 +21,7 @@ angular.module('app')
 				var token = $cookies.get("token");
 				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
 
-				$http.post('test/get/result.json',auth);
+				$http.post(host + 'User/logout',auth);
 
 				$cookies.remove("token");
 				
@@ -52,15 +52,39 @@ angular.module('app')
 			result: function(editmsg){
 
 				switch(editmsg){
+					case 101:
+						alert("存在未输入项");
+						return false;
+						break;
 
-					case 100:
+					case 103:
 						alert("账号密码错误");
 						location.href = '#/login';
 						return false;
 						break;
 
+					case 105:
+						alert("新旧密码相同");
+						return false;
+						break;
+
+					case 106:
+						alert("确认密码不一致");
+						return false;
+						break;
+
+					case 107:
+						alert("旧密码错误");
+						return false;
+						break;
+
 					case 200:
 						return true;
+						break;
+
+					case 201:
+						location.href = '#/user/infoedit';
+						return false;
 						break;
 
 					case 300:
@@ -69,7 +93,7 @@ angular.module('app')
 						return false;
 						break;
 
-					case 400:
+					case 302:
 						alert("账号异常，请重新登录");
 						location.href = '#/login';
 						return false;

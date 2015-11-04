@@ -1,4 +1,47 @@
-angular.module('app',['ui.router','ngCookies']);
+angular.module('app',['ui.router','ngCookies'])
+    .config(['$httpProvider',function($httpProvider){
+
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+        var param = function(obj) {
+          var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+            
+          for(name in obj) {
+            value = obj[name];
+              
+            if(value instanceof Array) {
+              for(i=0; i<value.length; ++i) {
+                subValue = value[i];
+                fullSubName = name + '[' + i + ']';
+                innerObj = {};
+                innerObj[fullSubName] = subValue;
+                query += param(innerObj) + '&';
+              }
+            }
+            else if(value instanceof Object) {
+              for(subName in value) {
+                subValue = value[subName];
+                fullSubName = name + '[' + subName + ']';
+                innerObj = {};
+                innerObj[fullSubName] = subValue;
+                query += param(innerObj) + '&';
+              }
+            }
+            else if(value !== undefined && value !== null)
+              query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+          }
+            
+          return query.length ? query.substr(0, query.length - 1) : query;
+        };
+       
+        // Override $http service's default transformRequest
+        $httpProvider.defaults.transformRequest = [function(data) {
+          return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+        }];
+      }]);
+
+//var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
+var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
 
 var boyslove = "isayserious";
 
@@ -92,7 +135,7 @@ angular.module('app')
 						user.password = $scope.password;
 
 						userService.login(user)
-							.then(function(response){
+							.then(function(response){	
 
 								userService.cookieset(response.data.token);
 
@@ -138,7 +181,16 @@ angular.module('app')
 
 					$scope.edit = function(){
 
-						location.href = '#/dprt/edit/' + $scope.radio.dprt ;
+						if($scope.radio.dprt != undefined){
+
+							location.href = '#/dprt/edit/' + $scope.radio.dprt ;
+
+						} else {
+
+							alert("请选择对象");
+
+						}
+
 
 					};
 
@@ -148,17 +200,26 @@ angular.module('app')
 
 						editmsg.id = $scope.radio.dprt;
 
-						dprtall.del(editmsg)
-							.then(function(response){
+						if(editmsg.id != undefined){
 
-							userService.cookieset(response.data.token);
+							dprtall.del(editmsg)
+								.then(function(response){
 
-							if(userService.result(response.data.code)){
+								userService.cookieset(response.data.token);
 
-								alert("success");
-								
-							};
-						});
+								if(userService.result(response.data.code)){
+
+									alert("success");
+									
+								};
+							});
+
+						} else {
+
+							alert("请选择对象");
+
+						}
+		
 
 					};
 
@@ -265,6 +326,146 @@ angular.module('app')
 
 	});
 });
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+			.state('user.pw',{
+				url: '/pwedit',
+				templateUrl: 'templates/user/password-edit.html',
+				controller: function($scope,userinfo,userService){
+
+					$scope.pwedit = function(){
+
+						if($scope.newpw == $scope.cfrmpw){
+
+							var editmsg = {};
+
+								editmsg.old = $scope.oldpw;
+								editmsg.new = $scope.newpw;
+								editmsg.cfrm = $scope.cfrmpw;
+
+								userinfo.password(editmsg)
+									.then(function(response){
+
+									userService.cookieset(response.data.token);
+									
+									if(userService.result(response.data.code)){
+										
+											alert("success,请重新登录");
+
+											userService.logout();
+											location.href = '#/login';
+
+										}
+									});}
+						else{
+
+							alert("确认密码不一致");
+
+						}
+
+					};
+
+				}
+			});
+
+
+	});
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+			
+			.state('user.edit',{
+				url: '/infoedit',
+				templateUrl: 'templates/user/info-edit.html',
+				controller: function($scope,userinfo,userService){
+
+					userinfo.show()
+						.then(function(response){	
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+								$scope.content = response.data.data;
+						 
+								$scope.username = $scope.content.username;
+								$scope.room = $scope.content.room;
+								$scope.telLong = $scope.content.telLong;
+								$scope.telShort = $scope.content.telShort;
+								$scope.email = $scope.content.email;
+								$scope.genderopt = gender;
+  								$scope.gender = $scope.content.gender;
+  								$scope.schoolopt = school;
+  								$scope.school = $scope.content.school;
+
+							}
+						});
+
+					$scope.infoedit = function(){
+
+						var editmsg = {};
+
+						editmsg.username = $scope.username;
+						editmsg.gender = $scope.gender;
+						editmsg.school = $scope.school;
+						editmsg.room = $scope.room;
+						editmsg.telLong = $scope.telLong;
+						editmsg.telShort = $scope.telShort;
+						editmsg.email = $scope.email;
+
+						userinfo.edit(editmsg)
+							.then(function(response){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+									alert("success");
+									location.href = '#/user/info';
+
+								};
+							});
+						
+					};
+
+					
+
+				}
+			});
+
+
+	});
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+
+			.state('user.info',{
+				url: '/info',
+				templateUrl: 'templates/user/info-detail.html',
+				controller:  function($scope,userinfo,userService){
+
+					userinfo.show()
+						.then(function(response){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
+
+								$scope.content = response.data.data;
+
+							}
+						});
+
+				}
+			});
+			
+
+
+	});
 angular.module('app')
 	.config(function($stateProvider){
 
@@ -414,19 +615,27 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.note = $scope.rcl;
 
-						listdprt.rcl(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.note = $scope.rcl;
 
-							if(userService.result(response.data.code)){
+							listdprt.rcl(editmsg)
+								.then(function(response){
 
-								alert("success");
-								
-							};
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success");
+									
+								};
+							});
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -435,19 +644,27 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.position = $scope.position;
 
-						listdprt.position(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.position = $scope.position;
 
-							if(userService.result(response.data.code)){
+							listdprt.position(editmsg)
+								.then(function(response){
 
-								alert("success")
-								
-							}
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success")
+									
+								}
+							});
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -455,7 +672,15 @@ angular.module('app')
 					
 						var id = checkboxselect();
 
-						location.href = '#/list/reset/' + id ;
+						if(id != ''){
+
+							location.href = '#/list/reset/' + id ;
+
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -634,19 +859,28 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.position = $scope.position;
 
-						listrcl.recover(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.position = $scope.position;
 
-							if(userService.result(response.data.code)){
+							listrcl.recover(editmsg)
+								.then(function(response){
 
-								alert("success")
-								
-							}
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success")
+									
+								}
+							});
+
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -656,19 +890,29 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.position = $scope.position;
 
-						listrcl.del(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.position = $scope.position;
 
-							if(userService.result(response.data.code)){
+							listrcl.del(editmsg)
+								.then(function(response){
 
-								alert("success")
-								
-							}
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success")
+									
+								}
+							});
+
+						} else {
+
+							alert("请选择对象");
+
+						}
+							
 
 					};
 
@@ -676,137 +920,6 @@ angular.module('app')
 			});
 
 });
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-			.state('user.pw',{
-				url: '/pwedit',
-				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo,userService){
-
-					$scope.pwedit = function(){
-
-						var editmsg = {};
-
-						editmsg.old = $scope.oldpw;
-						editmsg.new = $scope.newpw;
-						editmsg.cfrm = $scope.cfrmpw;
-
-						userinfo.password(editmsg)
-							.then(function(response){
-
-							userService.cookieset(response.data.token);
-							
-							if(userService.result(response.data.code)){
-								
-									alert("success");
-									location.href = '#/user/info';
-
-								}
-							});
-
-					};
-
-				}
-			});
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-			
-			.state('user.edit',{
-				url: '/infoedit',
-				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo,userService){
-
-					userinfo.show()
-						.then(function(response){
-								
-							userService.cookieset(response.data.token);
-							
-							if(userService.result(response.data.code)){
-
-								$scope.content = response.data.data;
-						 
-								$scope.username = $scope.content.username;
-								$scope.room = $scope.content.room;
-								$scope.telLong = $scope.content.telLong;
-								$scope.telShort = $scope.content.telShort;
-								$scope.email = $scope.content.email;
-								$scope.genderopt = gender;
-  								$scope.gender = $scope.content.gender;
-  								$scope.schoolopt = school;
-  								$scope.school = $scope.content.school;
-
-							}
-						});
-
-					$scope.infoedit = function(){
-
-						var editmsg = {};
-
-						editmsg.username = $scope.username;
-						editmsg.gender = $scope.gender;
-						editmsg.school = $scope.school;
-						editmsg.room = $scope.room;
-						editmsg.telLong = $scope.telLong;
-						editmsg.telShort = $scope.telShort;
-						editmsg.email = $scope.email;
-
-						userinfo.edit(editmsg)
-							.then(function(response){
-
-							userService.cookieset(response.data.token);
-							
-							if(userService.result(response.data.code)){
-
-									alert("success");
-									location.href = '#/user/info';
-
-								};
-							});
-						
-					};
-
-					
-
-				}
-			});
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-
-			.state('user.info',{
-				url: '/info',
-				templateUrl: 'templates/user/info-detail.html',
-				controller:  function($scope,userinfo,userService){
-
-					userinfo.show()
-						.then(function(response){
-
-							userService.cookieset(response.data.token);
-
-							if(userService.result(response.data.code)){
-
-								$scope.content = response.data.data;
-
-							}
-						});
-
-				}
-			});
-			
-
-
-	});
 angular.module('app')
 	
 	.service('userService',function($http,$cookies) {
@@ -817,10 +930,10 @@ angular.module('app')
 
 				var user = {};
 
-				user.studentNo = editmsg.studentNo;
+				user.studentno = editmsg.studentNo;
 				user.password = md5(editmsg.password);
 
-				return $http.post('test/get/login.json',user);
+				return $http.post(host + 'Login',user);
 
 				},
 
@@ -830,7 +943,7 @@ angular.module('app')
 				var token = $cookies.get("token");
 				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
 
-				$http.post('test/get/result.json',auth);
+				$http.post(host + 'User/logout',auth);
 
 				$cookies.remove("token");
 				
@@ -861,15 +974,39 @@ angular.module('app')
 			result: function(editmsg){
 
 				switch(editmsg){
+					case 101:
+						alert("存在未输入项");
+						return false;
+						break;
 
-					case 100:
+					case 103:
 						alert("账号密码错误");
 						location.href = '#/login';
 						return false;
 						break;
 
+					case 105:
+						alert("新旧密码相同");
+						return false;
+						break;
+
+					case 106:
+						alert("确认密码不一致");
+						return false;
+						break;
+
+					case 107:
+						alert("旧密码错误");
+						return false;
+						break;
+
 					case 200:
 						return true;
+						break;
+
+					case 201:
+						location.href = '#/user/infoedit';
+						return false;
 						break;
 
 					case 300:
@@ -878,7 +1015,7 @@ angular.module('app')
 						return false;
 						break;
 
-					case 400:
+					case 302:
 						alert("账号异常，请重新登录");
 						location.href = '#/login';
 						return false;
@@ -961,51 +1098,6 @@ angular.module('app')
 	);
 angular.module('app')
 	
-	.service('userinfo',function($http,userService) {
-
-		return{
-
-			show: function(){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-					
-				return $http.post('test/get/userinfo.json',postdata);
-
-
-				},
-
-			edit: function(editmsg){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-				postdata.data = editmsg;
-
-				return $http.post('test/get/result.json',postdata);
-		
-			},
-
-			password: function(editmsg){
-
-				var postdata = {};
-				postdata.data = {};
-
-				postdata.auth = userService.auth();
-				postdata.data.old = md5(editmsg.old);
-				postdata.data.new = md5(editmsg.new);
-				postdata.data.cfrm = md5(editmsg.cfrm);
-
-				return $http.post('test/get/result.json',postdata);
-
-			}
-
-			};
-		}
-	);
-angular.module('app')
-	
 	.service('listall',function($http,userService) {
 
 		return{
@@ -1017,7 +1109,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/listAll.json',postdata);
+				return $http.post(host + 'User/listall',postdata);
 
 				},
 
@@ -1148,19 +1240,64 @@ angular.module('app')
 		}
 	);
 angular.module('app')
+	
+	.service('userinfo',function($http,userService) {
+
+		return{
+
+			show: function(){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				
+				return $http.post(host + 'User/info',postdata);
+
+
+				},
+
+			edit: function(editmsg){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post(host + 'User/infoEdit',postdata);
+		
+			},
+
+			password: function(editmsg){
+
+				var postdata = {};
+				postdata.data = {};
+
+				postdata.auth = userService.auth();
+				postdata.data.old = md5(editmsg.old);
+				postdata.data.new = md5(editmsg.new);
+				postdata.data.cfrm = md5(editmsg.cfrm);
+
+				return $http.post(host + 'User/pwEdit',postdata);
+
+			}
+
+			};
+		}
+	);
+angular.module('app')
 	.directive('logoutBtn',function(userService){
 		return{
 			restrict: "A",
 			link: function(scope,element,attrs){
 				element.bind("click",function(){
 					
-                	userService.logout()
+                	userService.logout();
 
-					location.href = '#/login'
+					location.href = '#/login';
 
 				})
 			}
 		}
-		
+		 
 	})
 //# sourceMappingURL=bundle.js.map

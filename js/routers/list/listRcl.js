@@ -79,19 +79,28 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.position = $scope.position;
 
-						listrcl.recover(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.position = $scope.position;
 
-							if(userService.result(response.data.code)){
+							listrcl.recover(editmsg)
+								.then(function(response){
 
-								alert("success")
-								
-							}
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success")
+									
+								}
+							});
+
+						} else {
+
+							alert("请选择对象");
+
+						}
 
 					};
 
@@ -101,19 +110,29 @@ angular.module('app')
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
-						editmsg.position = $scope.position;
 
-						listrcl.del(editmsg)
-							.then(function(response){
+						if(editmsg.id != ''){
 
-							userService.cookieset(response.data.token);
+							editmsg.position = $scope.position;
 
-							if(userService.result(response.data.code)){
+							listrcl.del(editmsg)
+								.then(function(response){
 
-								alert("success")
-								
-							}
-						});
+								userService.cookieset(response.data.token);
+
+								if(userService.result(response.data.code)){
+
+									alert("success")
+									
+								}
+							});
+
+						} else {
+
+							alert("请选择对象");
+
+						}
+							
 
 					};
 

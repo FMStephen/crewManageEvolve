@@ -5,12 +5,12 @@ angular.module('app')
 			link: function(scope,element,attrs){
 				element.bind("click",function(){
 					
-                	userService.logout()
+                	userService.logout();
 
-					location.href = '#/login'
+					location.href = '#/login';
 
 				})
 			}
 		}
-		
+		 
 	})

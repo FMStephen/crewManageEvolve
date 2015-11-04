@@ -1,9 +1,12 @@
 <div>
-	<form>
+	<form ng-show="editor" name="search" ng-submit="filter()" novalidate>
 		<select ng-model="dprt" ng-change="filter()" ng-options="x.value as x.name for x in dprtopt"></select>
 		<select ng-model="position" ng-change="filter()" ng-options="x.value as x.name for x in positionopt"></select>
-		<input ng-model="keyword">
-		<button ng-click="filter()">搜索</button>
+		<div ng-class="{'has-error' : search.keyword.$invalid && !search.keyword.$pristine}">
+			<input type="text" name="keyword" ng-model="keyword">
+			<p ng-show="search.keyword.$invalid && !search.keyword.$pristine">error</p>
+		</div>
+		<button type="submit" ng-disabled="search.$invalid">搜索</button>
 	</form>
 	<div>
 		<ul>

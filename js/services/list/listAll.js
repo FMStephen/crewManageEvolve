@@ -11,7 +11,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/listAll.json',postdata);
+				return $http.post(host + 'User/listall',postdata);
 
 				},
 
