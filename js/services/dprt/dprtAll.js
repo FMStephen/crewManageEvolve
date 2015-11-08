@@ -10,7 +10,7 @@ angular.module('app')
 
 				postdata.auth = userService.auth();
 
-				return $http.post('test/get/dprtAll.json',postdata);
+				return $http.post(host + 'Department/listAll',postdata);
 
 				},
 
@@ -21,7 +21,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/dprtedit.json',postdata);
+				return $http.post(host + 'Department/detail',postdata);
 
 				},
 
@@ -32,31 +32,31 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
+				return $http.post(host + 'Department/edit',postdata);
 
-				},
+				}//,
 
-			add: function(editmsg){
+			// add: function(editmsg){
 
-				var postdata = {};
+			// 	var postdata = {};
 
-				postdata.auth = userService.auth();
-				postdata.data = editmsg;
+			// 	postdata.auth = userService.auth();
+			// 	postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata)
+			// 	return $http.post(host + 'Department/add',postdata)
 
-				},
+			// 	},
 
-			del: function(editmsg){
+			// del: function(editmsg){
 
-				var postdata = {};
+			// 	var postdata = {};
 
-				postdata.auth = userService.auth();
-				postdata.data = editmsg;
+			// 	postdata.auth = userService.auth();
+			// 	postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
+			// 	return $http.post(host + 'Department/del',postdata);
 
-				}
+			// 	}
 
 			};
 		}

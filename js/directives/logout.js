@@ -5,6 +5,8 @@ angular.module('app')
 			link: function(scope,element,attrs){
 				element.bind("click",function(){
 					
+					scope.flag = true;
+
                 	userService.logout();
 
 					location.href = '#/login';

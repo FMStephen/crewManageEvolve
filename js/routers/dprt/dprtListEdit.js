@@ -8,6 +8,26 @@ angular.module('app')
 				templateUrl: 'templates/department/department-edit.html',
 				controller: function($scope,$stateParams,userService,dprtall){
 
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
 					var request = {};
 
 					request.id = $stateParams.id;
@@ -24,10 +44,18 @@ angular.module('app')
 								$scope.dprtname = $scope.content.dprtname;
 								$scope.dprtnote = $scope.content.dprtnote;
 
-							};
+							} else {
+
+										alertbox('danger',userService.hint(response.data.code));
+
+										setTimeout(function(){ history.back(); }, 1500);
+
+									}
 						});
 
 					$scope.edit = function(){
+
+						$scope.flag = true;
 
 						var editmsg = {};
 
@@ -42,12 +70,19 @@ angular.module('app')
 								
 								if(userService.result(response.data.code)){
 
-									alert("success");
-									location.href = '#/dprt/all';
+									alertbox('success','部门资料修改成功');
 
-								};
+									setTimeout(function(){ location.href = '#/dprt/all' }, 1500);
 
-					});
+								} else {
+
+										alertbox('danger',userService.hint(response.data.code));
+
+									}
+
+								$scope.flag = true;
+
+						});
 
 				};
 			}

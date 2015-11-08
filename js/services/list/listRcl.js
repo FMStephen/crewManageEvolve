@@ -11,7 +11,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/listRcl.json',postdata);
+				return $http.post(host + 'User/listRcl',postdata);
 
 				},
 
@@ -21,7 +21,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);		
+				return $http.post(host + 'User/del',postdata);		
 			},
 
 			recover: function(editmsg){
@@ -30,7 +30,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
+				return $http.post(host + 'User/recover',postdata);
 			}
 
 			};

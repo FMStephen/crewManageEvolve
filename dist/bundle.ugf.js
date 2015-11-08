@@ -1,4 +1,4 @@
-angular.module('app',['ui.router','ngCookies','ui.bootstrap']) 
+angular.module('app',['ui.router','ngCookies'])
     .config(['$httpProvider',function($httpProvider){
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -38,49 +38,14 @@ angular.module('app',['ui.router','ngCookies','ui.bootstrap'])
         $httpProvider.defaults.transformRequest = [function(data) {
           return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
         }];
-      }])
+      }]);
 
-//    .controller()
-//     .factory('User', ['Restangular', '$q',
-//         function (Restangular, $q) {
-//             var userCache, promises = [];
-//             return {
 
-//               getUser: function () {
 
-//                 var deferred = $q.defer();
 
-//                 if (promises.length > 0) {
 
-//                   promises.push(deferred);
-
-//                 } else if (!userCache) {
-
-//                   promises.push(deferred);
-
-//                   Restangular.all('user').getList().then(function (user) {
-//                     var i;
-//                     userCache = user[0];
-//                     for (i = promises.length; i--;) {
-//                       promises.shift().resolve(userCache);
-//                     }
-//                   });
-
-//                 } else {
-
-//                   deferred.resolve(userCache);
-
-//                 }
-
-//                 return deferred.promise;
-
-//               }
-//             };
-//           }
-// ]);
-
-var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
-//var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
+//var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
+var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
 
 var boyslove = "isayserious";
 
@@ -144,11 +109,8 @@ var superposition = [    {"name": "干事","value": "干事"},
                     {"name": "常委","value": "常委"},
                     {"name": "超级管理员","value": "超级管理员"}
                 ];
-// angular.module('app',[])
-//     .controller('alert',["$scope", 
-//     }]);
 angular.module('app')
-	.config(function($stateProvider,$urlRouterProvider){
+	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider,$urlRouterProvider){
 
 		$urlRouterProvider.when('','/login')
 						  .when('/user','/user/info')
@@ -174,31 +136,9 @@ angular.module('app')
 			.state('login',{
 				url: '/login',
 				templateUrl: 'templates/login.html',
-				controller: function($scope,$cookies,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };					
+				controller: ["$scope", "$cookies", "userService", function($scope,$cookies,userService){					
 
 					$scope.update = function(){
-
-						$scope.flag = true;
 
 						var user = {};
 
@@ -214,54 +154,28 @@ angular.module('app')
 
 									location.href = '#/user';
 
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-								}	
-
-								$scope.flag = false;
+								}
 
 							});
 
 
 					};
-				}
+				}]
 			});
 
 		
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('dprt.all',{
 				url: '/all',
 				templateUrl: 'templates/department/department-all.html',
-				controller: function($scope,userService,dprtall){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "userService", "dprtall", function($scope,userService,dprtall){
 
 					function show(){
 
@@ -275,11 +189,7 @@ angular.module('app')
 									$scope.dprts = response.data.data.dprt;
 									$scope.editor = response.data.data.editor;
 
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-								}
+								};
 
 							});
 					};
@@ -296,7 +206,7 @@ angular.module('app')
 
 					 	} else {
 
-					 		alertbox('danger','请选择操作对象');
+					 		alert("请选择对象");
 
 					 	}
 
@@ -350,24 +260,22 @@ angular.module('app')
 
 					
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('dprt.add',{
 				url: '/add',
 				templateUrl: 'templates/department/department-add.html',
-				controller: function($scope,userService,dprtall){
+				controller: ["$scope", "userService", "dprtall", function($scope,userService,dprtall){
 
 					$scope.add = function(){
-
-						$scope.flag = true;
 
 						var editmsg = {};
 
@@ -386,46 +294,24 @@ angular.module('app')
 
 								};
 
-								$scope.flag = true;
-
 					});
 
 				};
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('dprt.edit',{
 				url: '/edit/:id',
 				templateUrl: 'templates/department/department-edit.html',
-				controller: function($scope,$stateParams,userService,dprtall){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "$stateParams", "userService", "dprtall", function($scope,$stateParams,userService,dprtall){
 
 					var request = {};
 
@@ -443,18 +329,10 @@ angular.module('app')
 								$scope.dprtname = $scope.content.dprtname;
 								$scope.dprtnote = $scope.content.dprtnote;
 
-							} else {
-
-										alertbox('danger',userService.hint(response.data.code));
-
-										setTimeout(function(){ history.back(); }, 1500);
-
-									}
+							};
 						});
 
 					$scope.edit = function(){
-
-						$scope.flag = true;
 
 						var editmsg = {};
 
@@ -469,48 +347,27 @@ angular.module('app')
 								
 								if(userService.result(response.data.code)){
 
-									alertbox('success','部门资料修改成功');
+									alert("success");
+									location.href = '#/dprt/all';
 
-									setTimeout(function(){ location.href = '#/dprt/all' }, 1500);
+								};
 
-								} else {
-
-										alertbox('danger',userService.hint(response.data.code));
-
-									}
-
-								$scope.flag = true;
-
-						});
+					});
 
 				};
-			}
+			}]
 
 
 	});
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.all',{
 				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
-				controller: function($scope,$stateParams,listall,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
+				controller: ["$scope", "$stateParams", "listall", "userService", function($scope,$stateParams,listall,userService){
 
 					var x = parseInt($stateParams.current);
 
@@ -579,7 +436,7 @@ angular.module('app')
 							location.href = '#list/all/' + $scope.dprt + '&' + $scope.position + '&' + $scope.keyword + '/' + ( x + 1 )
 						}
 						else{
-							alertbox('danger','已经是最后一页');
+							alert("last")
 						}
 						
 					};
@@ -590,42 +447,22 @@ angular.module('app')
 							location.href = '#list/all/' + $scope.dprt + '&' + $scope.position + '&' + $scope.keyword + '/' + ( x - 1 )
 						}
 						else{
-							alertbox('danger','已经是第一页');
+							alert("first")
 						}
 						
 					};
 					
-				}
+				}]
 			});
-}); 
+}]); 
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.detail',{
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
-				controller: function($scope,$stateParams,listall,listdprt,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "$stateParams", "listall", "listdprt", "userService", function($scope,$stateParams,listall,listdprt,userService){
 
 					$scope.positionopt = superposition;
 
@@ -643,13 +480,7 @@ angular.module('app')
 				
 										$scope.position = $scope.content.position;
 													
-									} else {
-
-										alertbox('danger',userService.hint(response.data.code));
-
-										setTimeout(function(){ history.back(); }, 1500);
-
-									}
+									};
 							});
 					}
 
@@ -670,8 +501,6 @@ angular.module('app')
 					};
 
 					$scope.changeposition = function(){
-
-						$scope.flag = true;
 					
 						var editmsg = {};
 
@@ -686,52 +515,24 @@ angular.module('app')
 
 							if(userService.result(response.data.code)){
 
-								alertbox('success','修改职位成功');
-								showdetail();
-
-							} else {
-
-								alertbox('danger',userService.hint(response.data.code));
-								
+								alert("success");
+								showdetail();	
 							}
-
-							$scope.flag = false;
-
 						});
 
 					};
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.dprt',{
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
-				controller: function($scope,listdprt,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "listdprt", "userService", function($scope,listdprt,userService){
 
 					$scope.content = {};
 
@@ -741,7 +542,7 @@ angular.module('app')
 						.then(function(response){
 
 							userService.cookieset(response.data.token);
-
+							
 							if(userService.result(response.data.code)){
 
 								$scope.members = response.data.data.members;
@@ -848,8 +649,6 @@ angular.module('app')
 
 						if(editmsg.id != ''){
 
-							$scope.flag = true;
-
 							editmsg.note = $scope.rcl;
 
 							listdprt.rcl(editmsg)
@@ -859,21 +658,14 @@ angular.module('app')
 
 								if(userService.result(response.data.code)){
 
-									alertbox('success','置入回收站成功');
+									alert("success");
 									showdprt();
 									
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-								}
-
-								$scope.flag = false;
-
+								};
 							});
 						} else {
 
-							alertbox('danger','请选择操作对象');
+							alert("请选择对象");
 
 						}
 
@@ -887,8 +679,6 @@ angular.module('app')
 
 						if(editmsg.id != ''){
 
-							$scope.flag = true;
-
 							editmsg.position = $scope.position;
 
 							listdprt.position(editmsg)
@@ -898,21 +688,14 @@ angular.module('app')
 
 								if(userService.result(response.data.code)){
 
-									alertbox('success','修改职位成功');
+									alert("success");
 									showdprt();
 									
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
 								}
-
-								$scope.flag = false;
-
 							});
 						} else {
 
-							alertbox('danger','请选择操作对象');
+							alert("请选择对象");
 
 						}
 
@@ -928,44 +711,24 @@ angular.module('app')
 
 						} else {
 
-							alertbox('danger','请选择操作对象');
+							alert("请选择对象");
 
 						}
 
 					};
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.add',{
 				url: '/add',
 				templateUrl: 'templates/list/list-add.html',
-				controller: function($scope,listdprt,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "listdprt", "userService", function($scope,listdprt,userService){
 
 					$scope.position = "干事";
 
@@ -980,10 +743,6 @@ angular.module('app')
 
 									$scope.uncompleteds = response.data.data.uncompleteds;
 
-								} else {
-
-								alertbox('danger',userService.hint(response.data.code));
-
 								}
 							});
 
@@ -992,8 +751,6 @@ angular.module('app')
 					showuncompleted();
 
 					$scope.add = function(){
-
-						$scope.flag = true;
 
 						var editmsg = {};
 
@@ -1007,13 +764,10 @@ angular.module('app')
 
 							if(userService.result(response.data.code)){
 
-								alertbox('success','添加新成员成功，请在部门列表查看');
-
-								setTimeout(function(){ location.href = '#/list/dprt'; }, 1500);
+								alert("success");
+								location.href = '#/list/dprt';
 								
 							} else {
-
-								alertbox('danger',userService.hint(response.data.code));
 
 								var fail = response.data.data.failed;
 
@@ -1036,45 +790,21 @@ angular.module('app')
 								showuncompleted();
 
 							}
-
-							$scope.flag = false;
 						});
-
-							$scope.flag = false;
 					}
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.reset',{
 				url: '/reset/:id',
 				templateUrl: 'templates/list/list-resetpw.html',
-				controller: function($scope,$stateParams,listdprt,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "$stateParams", "listdprt", "userService", function($scope,$stateParams,listdprt,userService){
 
 					var idrequest = {};
 					idrequest.id = $stateParams.id
@@ -1086,13 +816,11 @@ angular.module('app')
 							
 							if(userService.result(response.data.code)){
 
-								alertbox('','此操作将修改对象的密码，无法撤销');
-
 								$scope.members = response.data.data.members;
 								
 							} else {
 							
-								alertbox('danger',userService.hint(response.data.code));
+								history.back();
 
 							}
 
@@ -1103,8 +831,6 @@ angular.module('app')
 						if($scope.newpw == $scope.cfrmpw){
 
 							if(window.confirm("确认强制修改密码吗?")){
-
-								$scope.flag = true;
 
 								var editmsg = {};
 
@@ -1119,67 +845,41 @@ angular.module('app')
 										
 										if(userService.result(response.data.code)){
 
-											alertbox('success','强制修改密码成功');
+											alert("success");
 
-											setTimeout(function(){ location.href = '#/list/dprt'; },1500);
+											location.href = '#/list/dprt';
 											
-										} else {
-
-											alertbox('danger',userService.hint(response.data.code));
-
 										}
-
-										$scope.flag = false;
 
 									});}
 
 						} else {
 
-							alertbox('danger','确认密码不一致');
+							alert("确认密码不一致");
 
 						}	
 
-						}}
+						}}]
 					
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('list.recycle',{
 				url: '/recycle/:current',
 				templateUrl: 'templates/list/list-recycle.html',
-				controller: function($scope,$stateParams,listrcl,userService){
+				controller: ["$scope", "$stateParams", "listrcl", "userService", function($scope,$stateParams,listrcl,userService){
 
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
-
-					var p = parseInt($stateParams.current);
+					var x = parseInt($stateParams.current);
 
 					$scope.current = $stateParams.current;
 
 					var editmsg = {};
 
-					editmsg.current = p;
+					editmsg.current = x;
 					editmsg.count = 15;
 
 					function rclshow(){
@@ -1193,13 +893,7 @@ angular.module('app')
 									$scope.members = response.data.data.members;
 									$scope.total = response.data.data.total;
 
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-									setTimeout(function(){ history.back(); }, 1500);
-
-								}
+								};
 
 							});
 					};
@@ -1234,22 +928,22 @@ angular.module('app')
 
 					$scope.pagenext = function(){
 
-						if((p + 1)<=$scope.total){
-							location.href = '#list/recycle/' + ( p + 1 ) ;
+						if((x + 1)<=$scope.total){
+							location.href = '#list/recycle/' + ( x + 1 ) ;
 						}
 						else{
-							alertbox('danger','已经是最后一页');
+							alert("last")
 						}
 						
 					};
 
 					$scope.pageprev = function(){
 
-						if((p - 1)>=1){
-							location.href = '#list/recycle/' + ( p - 1 ) ;
+						if((x - 1)>=1){
+							location.href = '#list/recycle/' + ( x - 1 ) ;
 						}
 						else{
-							alertbox('danger','已经是第一页');
+							alert("first")
 						}
 						
 					};
@@ -1280,8 +974,6 @@ angular.module('app')
 
 					$scope.recover = function(){
 
-						$scope.flag = true;
-
 						var editmsg = {};
 
 						editmsg.id = checkboxselect();
@@ -1297,23 +989,15 @@ angular.module('app')
 
 								if(userService.result(response.data.code)){
 
-									alertbox('success','恢复成功。对象被还原至部门列表');
+									alert("success");
 									rclshow();
 									
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
 								}
-
-								$scope.flag = false;
 							});
 
 						} else {
 
-							alertbox('danger','请选择要操作的对象');
-
-							$scope.flag = false;
+							alert("请选择对象");
 
 						}
 
@@ -1321,7 +1005,7 @@ angular.module('app')
 
 					$scope.del = function(){
 
-						
+						if(window.confirm("此操作将无法撤销,确认彻底删除吗?")){
 
 							var editmsg = {};
 
@@ -1329,84 +1013,48 @@ angular.module('app')
 
 							if(editmsg.id != ''){
 
-								if(window.confirm("此操作将无法撤销,确认彻底删除吗?")){
+								editmsg.position = $scope.position;
 
-									$scope.flag = true;
+								listrcl.del(editmsg)
+									.then(function(response){
 
-									editmsg.position = $scope.position;
+									userService.cookieset(response.data.token);
 
-									listrcl.del(editmsg)
-										.then(function(response){
+									if(userService.result(response.data.code)){
 
-										userService.cookieset(response.data.token);
-
-										if(userService.result(response.data.code)){
-
-											alertbox('success','彻底删除对象成功');
-											rclshow();
+										alert("success");
+										rclshow();
 										
-										} else {
-
-											alertbox('danger',userService.hint(response.data.code));
-
-											$scope.flag = false;
-
-								 	}
-
-									$scope.flag = false;
-
+									}
 								});}
 
-						}  else {
+						} else {
 
-						alertbox('danger','请选择要操作的对象');
+							alert("请选择对象");
 
 						}
-
 							
 
 					};
 
-				}
+				}]
 			});
 
-});
+}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			.state('user.pw',{
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "userinfo", "userService", function($scope,userinfo,userService){
 
 					$scope.pwedit = function(){
 
 						if($scope.newpw == $scope.cfrmpw && $scope.oldpw != $scope.newpw){
 
 							if(window.confirm("确认修改密码吗?")){
-
-								$scope.flag = true;
 
 								var editmsg = {};
 
@@ -1421,77 +1069,43 @@ angular.module('app')
 									
 									if(userService.result(response.data.code)){
 										
-											alertbox('success','密码修改成功,请重新登录');
+											alert("success,请重新登录");
 
-											setTimeout(function(){
-												userService.logout();
-												location.href = '#/login';
-											},1500);
-
-										} else {
-
-											alertbox('danger',userService.hint(response.data.code));
+											userService.logout();
+											location.href = '#/login';
 
 										}
-
-										$scope.flag = false;
-										
 									});
 
 							}
 
 						} else {
 
-							if($scope.oldpw == $scope.newpw){
-								
-								alertbox('danger','新旧密码相同');
-
-
+							if($scope.newpw == $scope.cfrmpw && $scope.oldpw == $scope.newpw){
+								alert("新旧密码相同");
 							}
-							if($scope.newpw != $scope.cfrmpw){
-
-								alertbox('danger','确认密码不一致');
-
+							if($scope.newpw == $scope.cfrmpw && $scope.oldpw == $scope.newpw){
+								alert("确认密码不一致");
 							}
 
 						}
 
 					};
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 			
 			.state('user.edit',{
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo,userService){
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
+				controller: ["$scope", "userinfo", "userService", function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
@@ -1518,19 +1132,19 @@ angular.module('app')
 
 								if(response.data.code == 201){
 
-									alertbox('',userService.hint(response.data.code));
-
 	  								$scope.gender = '';
 	  								$scope.school = '';
 
-								}
+								} else {
+
+								userService.result(response.data.code);
+
+							}
 
 							}
 						});
 
 					$scope.infoedit = function(){
-
-						$scope.flag = true;
 
 						var editmsg = {};
 
@@ -1549,38 +1163,30 @@ angular.module('app')
 							
 							if(userService.result(response.data.code)){
 
-									alertbox('success','个人资料修改成功');
+									alert("success");
+									location.href = '#/user/info';
 
-									setTimeout(function(){ location.href = '#/user/info' }, 1500);
-
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-								}
-
-							$scope.flag = false;
-
+								};
 							});
 						
 					};
 
 					
 
-				}
+				}]
 			});
 
 
-	});
+	}]);
 angular.module('app')
-	.config(function($stateProvider){
+	.config(["$stateProvider", function($stateProvider){
 
 		$stateProvider
 
 			.state('user.info',{
 				url: '/info',
 				templateUrl: 'templates/user/info-detail.html',
-				controller:  function($scope,userinfo,userService){
+				controller:  ["$scope", "userinfo", "userService", function($scope,userinfo,userService){
 
 					userinfo.show()
 						.then(function(response){
@@ -1594,15 +1200,15 @@ angular.module('app')
 							}
 						});
 
-				}
+				}]
 			});
 			
 
 
-	});
+	}]);
 angular.module('app')
 	
-	.service('userService',function($http,$cookies) {
+	.service('userService',["$http", "$cookies", function($http,$cookies) {
 
 		return{
 
@@ -1655,43 +1261,38 @@ angular.module('app')
 
 				switch(editmsg){
 					case 101:
-						// alert("存在未输入项");
-						return false;
-						break;
-
-					case 102:
-						// alert("存在未输入项");
+						alert("存在未输入项");
 						return false;
 						break;
 
 					case 103:
-						// alert("账号密码错误");
+						alert("账号密码错误");
 						location.href = '#/login';
 						return false;
 						break;
 
 					case 104:
-						// alert("宿舍号有误");
+						alert("宿舍号有误");
 						return false;
 						break;	
 
 					case 105:
-						// alert("新旧密码相同");
+						alert("新旧密码相同");
 						return false;
 						break;
 
 					case 106:
-						// alert("确认密码不一致");
+						alert("确认密码不一致");
 						return false;
 						break;
 
 					case 107:
-						// alert("旧密码错误");
+						alert("旧密码错误");
 						return false;
 						break;
 
 					case 108:
-						// alert("操作对象不能包含自己");
+						alert("操作对象不能包含自己");
 						return false;
 						break;
 
@@ -1700,13 +1301,13 @@ angular.module('app')
 						break;
 
 					case 201:
-						// alert("用户资料未完善");
+						alert("用户资料未完善");
 						location.href = '#/user/infoedit';
 						return false;
 						break;
 
 					case 202:
-						// alert("部分添加成功,未成功条目已在学号框中呈现,请检查输入");
+						alert("部分添加成功,未成功条目已在学号框中呈现,请检查输入");
 						return false;
 						break;
 
@@ -1717,99 +1318,19 @@ angular.module('app')
 						break;
 
 					case 403:
-						// alert("你不具有操作权限");
+						alert("你不具有操作权限");
 						return false;
 						break;
 
 					case 404:
-						// alert("你不具有查看权限");
-					//	history.back();
+						alert("你不具有查看权限");
+						history.back();
 						return false;
 						break;
 
 					case 500:
-						// alert("未知错误");
+						alert("未知错误");
 						return false;
-						break;
-				};
-
-				
-
-			},
-
-			hint: function(editmsg){
-
-				switch(editmsg){
-					case 101:
-						// alert("存在未输入项");
-						return '存在未输入项';
-						break;
-
-					case 102:
-						// alert("存在未输入项");
-						return '存在未输入项';
-						break;
-
-					case 103:
-						// alert("账号密码错误");
-						//location.href = '#/login';
-						return '账号或密码错误';
-						break;
-
-					case 104:
-						// alert("宿舍号有误");
-						return '宿舍号有误';
-						break;	
-
-					case 105:
-						// alert("新旧密码相同");
-						return '新旧密码相同';
-						break;
-
-					case 106:
-						// alert("确认密码不一致");
-						return '确认密码不一致';
-						break;
-
-					case 107:
-						// alert("旧密码错误");
-						return '旧密码错误';
-						break;
-
-					case 108:
-						// alert("操作对象不能包含自己");
-						return '操作对象不能包含自己';
-						break;
-
-					case 201:
-						// alert("用户资料未完善");
-						return '请先完善个人资料';
-						break;
-
-					case 202:
-						// alert("部分添加成功,未成功条目已在学号框中呈现,请检查输入");
-						return '部分添加成功，未成功条目已在输入框中列出，请检查';
-						break;
-
-					case 302:
-						//alert("账号异常，请重新登录");
-						return '';
-						break;
-
-					case 403:
-						// alert("你不具有操作权限");
-						return '你不具有该操作权限';
-						break;
-
-					case 404:
-						// alert("你不具有查看权限");
-					//	history.back();
-						return '你不具有该查看权限';
-						break;
-
-					case 500:
-						// alert("未知错误");
-						return '未知错误';
 						break;
 				};
 
@@ -1818,73 +1339,10 @@ angular.module('app')
 			}
 
 			};
-		});
+		}]);
 angular.module('app')
 	
-	.service('dprtall',function($http,userService) {
-
-		return{
-
-			show: function(){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-
-				return $http.post(host + 'Department/listAll',postdata);
-
-				},
-
-			editshow: function(editmsg){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-				postdata.data = editmsg;
-
-				return $http.post(host + 'Department/detail',postdata);
-
-				},
-
-			edit: function(editmsg){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-				postdata.data = editmsg;
-
-				return $http.post(host + 'Department/edit',postdata);
-
-				}//,
-
-			// add: function(editmsg){
-
-			// 	var postdata = {};
-
-			// 	postdata.auth = userService.auth();
-			// 	postdata.data = editmsg;
-
-			// 	return $http.post(host + 'Department/add',postdata)
-
-			// 	},
-
-			// del: function(editmsg){
-
-			// 	var postdata = {};
-
-			// 	postdata.auth = userService.auth();
-			// 	postdata.data = editmsg;
-
-			// 	return $http.post(host + 'Department/del',postdata);
-
-			// 	}
-
-			};
-		}
-	);
-angular.module('app')
-	
-	.service('listall',function($http,userService) {
+	.service('listall',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -1913,10 +1371,10 @@ angular.module('app')
 			
 
 			};
-		});
+		}]);
 angular.module('app')
 	
-	.service('listdprt',function($http,userService) {
+	.service('listdprt',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -1996,10 +1454,10 @@ angular.module('app')
 				}
 
 			};
-		});
+		}]);
 angular.module('app')
 	
-	.service('listrcl',function($http,userService) {
+	.service('listrcl',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -2033,11 +1491,74 @@ angular.module('app')
 			}
 
 			};
-		}
+		}]
 	);
 angular.module('app')
 	
-	.service('userinfo',function($http,userService) {
+	.service('dprtall',["$http", "userService", function($http,userService) {
+
+		return{
+
+			show: function(){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+
+				return $http.post(host + 'Department/listAll',postdata);
+
+				},
+
+			editshow: function(editmsg){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post(host + 'Department/detail',postdata);
+
+				},
+
+			edit: function(editmsg){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post(host + 'Department/edit',postdata);
+
+				}//,
+
+			// add: function(editmsg){
+
+			// 	var postdata = {};
+
+			// 	postdata.auth = userService.auth();
+			// 	postdata.data = editmsg;
+
+			// 	return $http.post(host + 'Department/add',postdata)
+
+			// 	},
+
+			// del: function(editmsg){
+
+			// 	var postdata = {};
+
+			// 	postdata.auth = userService.auth();
+			// 	postdata.data = editmsg;
+
+			// 	return $http.post(host + 'Department/del',postdata);
+
+			// 	}
+
+			};
+		}]
+	);
+angular.module('app')
+	
+	.service('userinfo',["$http", "userService", function($http,userService) {
 
 		return{
 
@@ -2078,17 +1599,15 @@ angular.module('app')
 			}
 
 			};
-		}
+		}]
 	);
 angular.module('app')
-	.directive('logoutBtn',function(userService){
+	.directive('logoutBtn',["userService", function(userService){
 		return{
 			restrict: "A",
 			link: function(scope,element,attrs){
 				element.bind("click",function(){
 					
-					scope.flag = true;
-
                 	userService.logout();
 
 					location.href = '#/login';
@@ -2097,5 +1616,5 @@ angular.module('app')
 			}
 		}
 		 
-	})
+	}])
 //# sourceMappingURL=bundle.js.map

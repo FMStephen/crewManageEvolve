@@ -7,11 +7,35 @@ angular.module('app')
 				templateUrl: 'templates/user/password-edit.html',
 				controller: function($scope,userinfo,userService){
 
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
 					$scope.pwedit = function(){
 
-						if($scope.newpw == $scope.cfrmpw){
+						if($scope.newpw == $scope.cfrmpw && $scope.oldpw != $scope.newpw){
 
-							var editmsg = {};
+							if(window.confirm("确认修改密码吗?")){
+
+								$scope.flag = true;
+
+								var editmsg = {};
 
 								editmsg.old = $scope.oldpw;
 								editmsg.new = $scope.newpw;
@@ -24,16 +48,38 @@ angular.module('app')
 									
 									if(userService.result(response.data.code)){
 										
-											alert("success,请重新登录");
+											alertbox('success','密码修改成功,请重新登录');
 
-											userService.logout();
-											location.href = '#/login';
+											setTimeout(function(){
+												userService.logout();
+												location.href = '#/login';
+											},1500);
+
+										} else {
+
+											alertbox('danger',userService.hint(response.data.code));
 
 										}
-									});}
-						else{
 
-							alert("确认密码不一致");
+										$scope.flag = false;
+										
+									});
+
+							}
+
+						} else {
+
+							if($scope.oldpw == $scope.newpw){
+								
+								alertbox('danger','新旧密码相同');
+
+
+							}
+							if($scope.newpw != $scope.cfrmpw){
+
+								alertbox('danger','确认密码不一致');
+
+							}
 
 						}
 

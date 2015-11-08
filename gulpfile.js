@@ -3,8 +3,8 @@ var concat = require('gulp-concat')
 var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var sourcemaps = require('gulp-sourcemaps')
-var location = [
-			    'js/app.js',
+var location = ['js/app.js',
+				'js/plugin.js',
 				'js/routers/**/*.js',
 				'js/services/**/*.js',
 				'js/directives/**/*.js']

@@ -7,6 +7,20 @@ angular.module('app')
 				templateUrl: 'templates/list/list-all.html',
 				controller: function($scope,$stateParams,listall,userService){
 
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
 					var x = parseInt($stateParams.current);
 
 					$scope.dprtopt = dprt;
@@ -35,15 +49,36 @@ angular.module('app')
 
 								$scope.members = response.data.data.members;
 								$scope.total = response.data.data.total;
+								$scope.editor = response.data.data.editor;
 
 							};
 
 						});
 
+					$scope.isEdit = function(value){
+
+						if(value){
+
+							return true;
+
+						} else {
+
+							return false;
+
+						}
+
+					};
+
 
 					$scope.filter = function(){
 
 						location.href = '#list/all/' + $scope.dprt + '&' + $scope.position + '&' + $scope.keyword + '/1'
+
+					};
+
+					$scope.reset = function(){
+
+						location.href = '#list/all/&&/1'
 
 					};
 
@@ -53,7 +88,7 @@ angular.module('app')
 							location.href = '#list/all/' + $scope.dprt + '&' + $scope.position + '&' + $scope.keyword + '/' + ( x + 1 )
 						}
 						else{
-							alert("last")
+							alertbox('danger','已经是最后一页');
 						}
 						
 					};
@@ -64,7 +99,7 @@ angular.module('app')
 							location.href = '#list/all/' + $scope.dprt + '&' + $scope.position + '&' + $scope.keyword + '/' + ( x - 1 )
 						}
 						else{
-							alert("first")
+							alertbox('danger','已经是第一页');
 						}
 						
 					};

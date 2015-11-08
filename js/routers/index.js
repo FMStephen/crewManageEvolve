@@ -25,9 +25,31 @@ angular.module('app')
 			.state('login',{
 				url: '/login',
 				templateUrl: 'templates/login.html',
-				controller: function($scope,$cookies,userService){					
+				controller: function($scope,$cookies,userService){
+
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };					
 
 					$scope.update = function(){
+
+						$scope.flag = true;
 
 						var user = {};
 
@@ -43,7 +65,13 @@ angular.module('app')
 
 									location.href = '#/user';
 
-								}
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
+								}	
+
+								$scope.flag = false;
 
 							});
 

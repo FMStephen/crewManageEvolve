@@ -1,18 +1,21 @@
 <div>
+	<section class="row">
+	    <section class="col-md-6" style="margin:50px auto; float:none">
+	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	    </section>
+	</section>
 	<form>
 		<div ng-show="editor">
-			<a href="#/dprt/add">添加部门</a>
 			<button ng-click="edit()">编辑部门</button>
-			<button ng-click="del()">删除部门</button>
 		</div>
 		<div>
-			<ul ng-repeat="dprt in dprts">
-					<li>
-						<label for="a{{dprt.id}}">
-							<input type="radio" name="dprt" id="a{{dprt.id}}" ng-model="radio.dprt" value="{{dprt.id}}">
-							{{dprt.dprtname}} {{dprt.dprtnote}}
-						</label>
-					</li>
+			<ul>
+				<li ng-repeat="dprt in dprts">
+					<label for="a{{dprt.id}}">
+						<input ng-show="editor" type="radio" name="dprt" id="a{{dprt.id}}" ng-model="radio.dprt" value="{{dprt.id}}">
+						{{dprt.dprtname}} {{dprt.dprtnote}}
+					</label>
+				</li>
 			</ul>
 		</div>
 	</form>

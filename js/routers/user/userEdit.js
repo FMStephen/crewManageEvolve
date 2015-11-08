@@ -8,12 +8,35 @@ angular.module('app')
 				templateUrl: 'templates/user/info-edit.html',
 				controller: function($scope,userinfo,userService){
 
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
 					userinfo.show()
-						.then(function(response){	
+						.then(function(response){
+
+						    $scope.genderopt = gender;
+  							$scope.schoolopt = school;	
 
 							userService.cookieset(response.data.token);
 							
-							if(userService.result(response.data.code)){
+							if(response.data.code == 200){
 
 								$scope.content = response.data.data;
 						 
@@ -22,15 +45,27 @@ angular.module('app')
 								$scope.telLong = $scope.content.telLong;
 								$scope.telShort = $scope.content.telShort;
 								$scope.email = $scope.content.email;
-								$scope.genderopt = gender;
+								
   								$scope.gender = $scope.content.gender;
-  								$scope.schoolopt = school;
   								$scope.school = $scope.content.school;
+
+							} else {
+
+								if(response.data.code == 201){
+
+									alertbox('',userService.hint(response.data.code));
+
+	  								$scope.gender = '';
+	  								$scope.school = '';
+
+								}
 
 							}
 						});
 
 					$scope.infoedit = function(){
+
+						$scope.flag = true;
 
 						var editmsg = {};
 
@@ -49,10 +84,18 @@ angular.module('app')
 							
 							if(userService.result(response.data.code)){
 
-									alert("success");
-									location.href = '#/user/info';
+									alertbox('success','个人资料修改成功');
 
-								};
+									setTimeout(function(){ location.href = '#/user/info' }, 1500);
+
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
+								}
+
+							$scope.flag = false;
+
 							});
 						
 					};

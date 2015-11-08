@@ -8,65 +8,112 @@ angular.module('app')
 				templateUrl: 'templates/department/department-all.html',
 				controller: function($scope,userService,dprtall){
 
-					dprtall.show()
-						.then(function(response){
+			        $scope.alerts = [];
 
-							userService.cookieset(response.data.token);
-							
-							if(userService.result(response.data.code)){
+			        function alertbox(type,msg){
 
-								$scope.dprts = response.data.data.dprt;
+			        	if($scope.alerts != []){
 
-							};
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
+					function show(){
+
+						dprtall.show()
+							.then(function(response){
+
+								userService.cookieset(response.data.token);
+								
+								if(userService.result(response.data.code)){
+
+									$scope.dprts = response.data.data.dprt;
+									$scope.editor = response.data.data.editor;
+
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
+								}
+
+							});
+					};
+
+					show();
 
 					$scope.radio = {};
 
 					$scope.edit = function(){
 
-						if($scope.radio.dprt != undefined){
+					 	if($scope.radio.dprt != undefined){
 
-							location.href = '#/dprt/edit/' + $scope.radio.dprt ;
+					 		location.href = '#/dprt/edit/' + $scope.radio.dprt ;
+
+					 	} else {
+
+					 		alertbox('danger','请选择操作对象');
+
+					 	}
+
+
+					 };
+
+					$scope.isEdit = function(value){
+
+						if(value){
+
+							return true;
 
 						} else {
 
-							alert("请选择对象");
+							return false;
 
 						}
-
 
 					};
 
-					$scope.del = function(){
+					// $scope.del = function(){
 
-						var editmsg = {};
+					// 	var editmsg = {};
 
-						editmsg.id = $scope.radio.dprt;
+					// 	editmsg.id = $scope.radio.dprt;
 
-						if(editmsg.id != undefined){
+					// 	if(editmsg.id != undefined){
 
-							dprtall.del(editmsg)
-								.then(function(response){
+					// 		dprtall.del(editmsg)
+					// 			.then(function(response){
 
-								userService.cookieset(response.data.token);
+					// 			userService.cookieset(response.data.token);
 
-								if(userService.result(response.data.code)){
+					// 			if(userService.result(response.data.code)){
 
-									alert("success");
+					// 				alert("success");
+					// 				show();
 									
-								};
-							});
+					// 			};
+					// 		});
 
-						} else {
+					// 	} else {
 
-							alert("请选择对象");
+					// 		alert("请选择对象");
 
-						}
+					// 	}
 		
 
-					};
+					// };
 
 
-					});
+					
 
 				}
 			});

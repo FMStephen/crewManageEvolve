@@ -1,4 +1,4 @@
-angular.module('app',['ui.router','ngCookies'])
+angular.module('app',['ui.router','ngCookies','ui.bootstrap']) 
     .config(['$httpProvider',function($httpProvider){
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -38,10 +38,49 @@ angular.module('app',['ui.router','ngCookies'])
         $httpProvider.defaults.transformRequest = [function(data) {
           return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
         }];
-      }]);
+      }])
 
-//var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
-var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
+//    .controller()
+//     .factory('User', ['Restangular', '$q',
+//         function (Restangular, $q) {
+//             var userCache, promises = [];
+//             return {
+
+//               getUser: function () {
+
+//                 var deferred = $q.defer();
+
+//                 if (promises.length > 0) {
+
+//                   promises.push(deferred);
+
+//                 } else if (!userCache) {
+
+//                   promises.push(deferred);
+
+//                   Restangular.all('user').getList().then(function (user) {
+//                     var i;
+//                     userCache = user[0];
+//                     for (i = promises.length; i--;) {
+//                       promises.shift().resolve(userCache);
+//                     }
+//                   });
+
+//                 } else {
+
+//                   deferred.resolve(userCache);
+
+//                 }
+
+//                 return deferred.promise;
+
+//               }
+//             };
+//           }
+// ]);
+
+var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
+//var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
 
 var boyslove = "isayserious";
 
@@ -97,4 +136,11 @@ var position = [    {"name": "所有职位","value": ""},
                     {"name": "主管","value": "主管"},
                     {"name": "部长","value": "部长"},
                     {"name": "常委","value": "常委"}
+                ];
+
+var superposition = [    {"name": "干事","value": "干事"},
+                    {"name": "主管","value": "主管"},
+                    {"name": "部长","value": "部长"},
+                    {"name": "常委","value": "常委"},
+                    {"name": "超级管理员","value": "超级管理员"}
                 ];

@@ -1,27 +1,34 @@
 <div>
+	<section class="row">
+	    <section class="col-md-6" style="margin:50px auto; float:none">
+	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	    </section>
+	</section>
 	<form>
 		<div>
-			<button ng-click="recover()">恢复</button>
-			<button ng-click="del()">彻底删除</button>
+			<button ng-click="recover()" ng-disabled="flag">恢复</button>
+			<button ng-click="del()" ng-disabled="flag">彻底删除</button>
 		</div>
 		<div>
-			<ul ng-repeat="member in members" ng-if="$even">
-					<li>
-						<label for="a{{member.id}}">
-							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
-						</label>
-							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
-					</li>	
+			<ul>
+				<li ng-repeat="member in members" ng-if="$even">
+					<label for="a{{member.id}}">
+						<input name="cb" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+					</label>
+					<img ng-src="{{member.photo}}">{{member.username}} {{member.position}} {{member.note}}
+				</li>	
 			</ul>
-			<ul ng-repeat="member in members" ng-if="$odd">
-					<li>
-						<label for="a{{member.id}}">
-							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
-						</label>
-							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
-					</li>	
+			<ul>
+				<li ng-repeat="member in members" ng-if="$odd">
+					<label for="a{{member.id}}">
+						<input name="cb" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+					</label>
+					<img ng-src="{{member.photo}}">{{member.username}} {{member.position}} {{member.note}}
+				</li>	
 			</ul>
 		</div>
+		<button ng-click="cbcheck()">全选</button>
+		<button ng-click="recheck()">反选</button>
 		<div>
 			第<span ng-model="current">{{current}}</span>页 
 			共<span ng-model="total">{{total}}</span>页

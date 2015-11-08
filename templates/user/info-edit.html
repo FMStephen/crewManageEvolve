@@ -1,4 +1,9 @@
 <div>
+	<section class="row">
+	    <section class="col-md-6" style="margin:50px auto; float:none">
+	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	    </section>
+	</section>
 	<form name="editform" ng-submit="infoedit()" novalidate>
 		<div ng-class="{ 'has-error' : editform.username.$invalid && !editform.username.$pristine }">
 			<input type="text" name="username" placeholder="username" ng-model="username" placeholder="{{content.username}}" required>
@@ -13,21 +18,21 @@
 			<p ng-show=" editform.school.$invalid && !editform.school.$pristine">error</p>
 		</div>
 		<div ng-class="{ 'has-error' : editform.room.$invalid && !editform.room.$pristine }">
-			<input type="text" name="room" placeholder="room" ng-model="room" placeholder="{{content.room}}" ng-pattern="" required>
+			<input type="text" name="room" placeholder="宿舍 例如:C8东-155" ng-model="room" placeholder="{{content.room}}" required>
 			<p ng-show=" editform.room.$invalid && !editform.room.$pristine && editform.room.$error.pattern">error</p>
 		</div>
 		<div ng-class="{ 'has-error' : editform.tellong.$invalid && !editform.tellong.$pristine }">
-			<input type="tel" name="tellong" placeholder="长号" ng-model="telLong" placeholder="{{content.telLong}}" ng-pattern="" required>
+			<input type="tel" name="tellong" placeholder="长号" ng-model="telLong" placeholder="{{content.telLong}}" ng-pattern="/^1[34578][0-9]{9}$/" required>
 			<p ng-show=" editform.tellong.$invalid && !editform.tellong.$pristine && editform.tellong.$error.pattern">error</p>
 		</div>
 		<div ng-class="{ 'has-error' : editform.telshort.$invalid && !editform.telshort.$pristine }">
-			<input type="tel" name="telshort" placeholder="短号" ng-model="telShort" placeholder="{{content.telShort}}" ng-pattern="" required>
+			<input type="tel" name="telshort" placeholder="短号" ng-model="telShort" placeholder="{{content.telShort}}" ng-pattern="/^[0-9]{1,6}?$/">
 			<p ng-show=" editform.telshort.$invalid && !editform.telshort.$pristine && editform.telshort.$error.pattern">error</p>
 		</div>
 		<div ng-class="{ 'has-error' : editform.email.$invalid && !editform.email.$pristine }">
 			<input type="email" name="email" placeholder="email" ng-model="email" placeholder="{{content.email}}" required>
 			<p ng-show=" editform.email.$invalid && !editform.email.$pristine">error</p>
 		</div>
-		<button type="submit" ng-disabled="editform.$invalid">提交</button>
+		<button type="submit" ng-disabled="editform.$invalid && flag">提交</button>
 	<form>
 </div>

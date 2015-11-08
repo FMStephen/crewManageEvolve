@@ -10,9 +10,19 @@ angular.module('app')
 
 				postdata.auth = userService.auth();
 
-				return $http.post('test/get/listDprt.json',postdata);
+				return $http.post(host + 'User/dprtall',postdata);
 
 				},
+
+			addshow: function(){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+
+				return $http.post(host + 'User/getUnCompleted',postdata);
+
+			},
 
 			resetshow: function(editmsg){
 
@@ -21,7 +31,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/listDprtReset.json',postdata);
+				return $http.post(host + 'User/pwApply',postdata);
 
 				},
 
@@ -31,7 +41,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
+				return $http.post(host + 'User/batchAdd',postdata);
 
 				},
 
@@ -41,7 +51,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
+				return $http.post(host + 'User/rcl',postdata);
 
 				},
 
@@ -51,7 +61,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/result.json',postdata);
+				return $http.post(host + 'User/groupChange',postdata);
 
 				},
 
@@ -65,7 +75,7 @@ angular.module('app')
 				postdata.data.pw = md5(editmsg.pw);
 				postdata.data.pwcfrm = md5(editmsg.pwcfrm);
 
-				return $http.post('test/get/result.json',postdata);
+				return $http.post(host + 'User/pwReset',postdata);
 
 				}
 

@@ -22,7 +22,7 @@ angular.module('app')
 				postdata.auth = userService.auth();
 				postdata.data = editmsg;
 
-				return $http.post('test/get/listAllDetail.json',postdata);
+				return $http.post(host + 'User/othersinfo',postdata);
 
 				}
 

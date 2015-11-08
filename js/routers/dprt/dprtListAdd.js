@@ -10,12 +10,14 @@ angular.module('app')
 
 					$scope.add = function(){
 
+						$scope.flag = true;
+
 						var editmsg = {};
 
 						editmsg.dprtname = $scope.dprtname;
 						editmsg.dprtnote = $scope.dprtnote;
 
-						dprtall.edit(editmsg)
+						dprtall.add(editmsg)
 							.then(function(response){
 
 								userService.cookieset(response.data.token);
@@ -26,6 +28,8 @@ angular.module('app')
 									location.href = '#/dprt/all';
 
 								};
+
+								$scope.flag = true;
 
 					});
 

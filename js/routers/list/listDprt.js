@@ -7,18 +7,59 @@ angular.module('app')
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
 
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
+					$scope.content = {};
+
+					function showdprt(){
+
 					listdprt.show()
 						.then(function(response){
 
 							userService.cookieset(response.data.token);
-							
+
 							if(userService.result(response.data.code)){
 
 								$scope.members = response.data.data.members;
-								
+								$scope.editor = response.data.data.editor;
 							};
 
 						});
+					};
+
+					showdprt();
+
+					$scope.isEdit = function(value){
+
+						if(value){
+
+							return true;
+
+						} else {
+
+							return false;
+
+						}
+
+					};
 					
 					$scope.checkbox = [];
 					$scope.rcl = "退休";
@@ -30,9 +71,12 @@ angular.module('app')
 
 						for(x = 0;x < $scope.checkbox.length;x++){
 					
-							if($scope.checkbox[x] != null){
+							if($scope.checkbox[x] != null && $scope.checkbox[x].column != undefined){
 					
 								id = id + $scope.checkbox[x].column + ',';
+
+								$scope.checkbox[x] = null;
+
 							};
 					
 						};
@@ -41,7 +85,54 @@ angular.module('app')
 
 						return id;
 
-					}
+					};
+
+					$scope.checkbox = [];
+
+
+					$scope.cbcheck = function(){
+
+						var cb = document.getElementsByName("cb");
+
+						for(x = 0;x < cb.length;x++){
+
+							if(!cb[x].checked){
+
+								cb[x].click();
+
+							}
+
+						}
+
+					};
+
+					$scope.recheck = function(){
+
+						var cb = document.getElementsByName("cb");
+
+						for(x = 0;x < cb.length;x++){
+
+							cb[x].click();
+
+							}				
+
+					};
+
+					$scope.decheck = function(){
+
+						var cb = document.getElementsByName("cb");
+
+						for(x = 0;x < cb.length;x++){
+
+							if(cb[x].checked){
+
+								cb[x].click();
+
+							}
+
+						}
+
+					};
 
 					$scope.recycle = function(){
 					
@@ -50,6 +141,8 @@ angular.module('app')
 						editmsg.id = checkboxselect();
 
 						if(editmsg.id != ''){
+
+							$scope.flag = true;
 
 							editmsg.note = $scope.rcl;
 
@@ -60,13 +153,21 @@ angular.module('app')
 
 								if(userService.result(response.data.code)){
 
-									alert("success");
+									alertbox('success','置入回收站成功');
+									showdprt();
 									
-								};
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
+								}
+
+								$scope.flag = false;
+
 							});
 						} else {
 
-							alert("请选择对象");
+							alertbox('danger','请选择操作对象');
 
 						}
 
@@ -80,6 +181,8 @@ angular.module('app')
 
 						if(editmsg.id != ''){
 
+							$scope.flag = true;
+
 							editmsg.position = $scope.position;
 
 							listdprt.position(editmsg)
@@ -89,13 +192,21 @@ angular.module('app')
 
 								if(userService.result(response.data.code)){
 
-									alert("success")
+									alertbox('success','修改职位成功');
+									showdprt();
 									
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
 								}
+
+								$scope.flag = false;
+
 							});
 						} else {
 
-							alert("请选择对象");
+							alertbox('danger','请选择操作对象');
 
 						}
 
@@ -103,15 +214,15 @@ angular.module('app')
 
 					$scope.reset = function(){
 					
-						var id = checkboxselect();
+						var resetid = checkboxselect();
 
-						if(id != ''){
+						if(resetid != ''){
 
-							location.href = '#/list/reset/' + id ;
+							location.href = '#/list/reset/' + resetid;
 
 						} else {
 
-							alert("请选择对象");
+							alertbox('danger','请选择操作对象');
 
 						}
 

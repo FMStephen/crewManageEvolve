@@ -1,52 +1,68 @@
 <div>
+	<section class="row">
+	    <section class="col-md-6" style="margin:50px auto; float:none">
+	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	    </section>
+	</section>
 	<form>
-		<div>
-			<a href="#/list/add">新增成员</a>
-		</div>
-		<div>
-			置入回收站
-			<select ng-model="rcl">
-				<option value="退休">退休</option>
-				<option value="离职">离职</option>
-			</select>
-			<button ng-click="recycle()">确定</button>
-		</div>
-		<div>
-			修改职位
-			<select ng-model="position">
-				<option value="干事">干事</option>
-				<option value="主管">主管</option>
-				<option value="部长">部长</option>
-			</select>
-			<button ng-click="changeposition()">确定</button>
-		</div>
-		<div>
-			重置密码
-			<button ng-click="reset()">重置密码</button>
+		<div ng-show="isEdit(editor)">
+			<div>
+				<a href="#/list/add">新增成员</a>
+		 	</div>
+
+			<div>
+				置入回收站
+				<select ng-model="rcl" >
+					<option value="退休">退休</option>
+					<option value="离职">离职</option>
+				</select>
+				<button ng-click="recycle()" ng-disabled="flag">确定</button>
+			</div>
+
+			<div>
+				修改职位
+				<select ng-model="position">
+					<option value="干事">干事</option>
+					<option value="主管">主管</option>
+					<option value="部长">部长</option>
+				</select>
+				<button ng-click="changeposition()" ng-disabled="flag">确定</button>
+			</div>
+
+			<div>
+				重置密码
+				<button ng-click="reset()">重置密码</button>
+			</div>
 		</div>
 
 		<div>
-			<ul ng-repeat="member in members" ng-if="$even">
-					<li>
-						<label for="a{{member.id}}">
-							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
-						</label>
-						<a href="#/list/detail/{{member.id}}">
-							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
-						</a>
-					</li>	
+			<ul>
+				<li ng-repeat="member in members" ng-if="$even">
+					<label ng-show="isEdit(editor)" for="a{{member.id}}">
+						<input name="cb" ng-show="isEdit(editor)" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+					</label>
+					<a href="#/list/detail/{{member.id}}">
+						<img ng-src="{{member.photo}}">{{member.username}} {{member.position}} {{member.studentno}}
+					</a>
+				</li>	
 			</ul>
-			<ul ng-repeat="member in members" ng-if="$odd">
-					<li>
-						<label for="a{{member.id}}">
-							<input id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
-						</label>
-						<a href="#/list/detail/{{member.id}}">
-							<img ng-src="{{member.photo}}">{{member.username}} {{member.position}}
-						</a>
-					</li>	
+			<ul>
+				<li ng-repeat="member in members" ng-if="$odd">
+					<label ng-show="isEdit(editor)" for="a{{member.id}}">
+						<input name="cb" ng-show="isEdit(editor)" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="">
+					</label>
+					<a href="#/list/detail/{{member.id}}">
+						<img ng-src="{{member.photo}}">{{member.username}} {{member.position}} {{member.studentno}}
+					</a>
+				</li>	
 			</ul>
 		</div>
+		<div ng-show="isEdit(editor)">
+			<button ng-click="cbcheck()">全选</button>
+			<button ng-click="recheck()">反选</button>
+			<button ng-click="decheck()">取消选择</button>
+		</div>
 	</form>
+	<!-- <span ng-bind="checkbox | json"></span> -->
 </div>
 

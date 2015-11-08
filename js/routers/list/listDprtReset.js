@@ -7,6 +7,26 @@ angular.module('app')
 				templateUrl: 'templates/list/list-resetpw.html',
 				controller: function($scope,$stateParams,listdprt,userService){
 
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
 					var idrequest = {};
 					idrequest.id = $stateParams.id
 
@@ -17,38 +37,61 @@ angular.module('app')
 							
 							if(userService.result(response.data.code)){
 
+								alertbox('','此操作将修改对象的密码，无法撤销');
+
 								$scope.members = response.data.data.members;
 								
-							};
+							} else {
+							
+								alertbox('danger',userService.hint(response.data.code));
+
+							}
 
 						});
 					
 					$scope.reset = function(){
 
-						var editmsg = {};
+						if($scope.newpw == $scope.cfrmpw){
 
-						editmsg.id = idrequest.id;
-						editmsg.pw = $scope.pw;
-						editmsg.pwcfrm = $scope.pwcfrm;
+							if(window.confirm("确认强制修改密码吗?")){
 
-						listdprt.reset(editmsg)
-							.then(function(response){
+								$scope.flag = true;
 
-								userService.cookieset(response.data.token);
-								
-								if(userService.result(response.data.code)){
+								var editmsg = {};
 
-									alert("success");
+								editmsg.id = idrequest.id;
+								editmsg.pw = $scope.newpw;
+								editmsg.pwcfrm = $scope.cfrmpw;
 
-									location.href = '#/list/dprt';
-									
-								};
+								listdprt.reset(editmsg)
+									.then(function(response){
 
-							});
+										userService.cookieset(response.data.token);
+										
+										if(userService.result(response.data.code)){
 
-					};					
+											alertbox('success','强制修改密码成功');
 
-				}
+											setTimeout(function(){ location.href = '#/list/dprt'; },1500);
+											
+										} else {
+
+											alertbox('danger',userService.hint(response.data.code));
+
+										}
+
+										$scope.flag = false;
+
+									});}
+
+						} else {
+
+							alertbox('danger','确认密码不一致');
+
+						}	
+
+						}}
+					
 			});
 
 });

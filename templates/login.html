@@ -1,4 +1,9 @@
 <div>
+	<section class="row">
+	    <section class="col-md-6" style="margin:50px auto; float:none">
+	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	    </section>
+	</section>
 	<form name="login" ng-submit="update()" novalidate>
 		<div ng-class="{'has-error' : login.username.$invalid && !login.username.$pristine}" >
 			<input type="text" name="username" placeholder="studentno" ng-model="studentNo" ng-pattern="/^20[0-9]{10}$/" required>
@@ -8,6 +13,6 @@
     		<input type="password" name="password" placeholder="password" ng-model="password" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
             <p ng-show="login.password.$error.pattern">error</p>
         </div>
-		<button type="submit" ng-disabled="login.$invalid">login</button>
+		<button type="submit" ng-disabled="login.$invalid || flag">login</button>
 	</form>
 </div>

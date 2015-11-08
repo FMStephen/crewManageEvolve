@@ -8,6 +8,7 @@
 			描述<textarea type="text" name="note" ng-model="dprtnote" required></textarea>
 			<p ng-show="addform.note.$invalid && !addform.note.$pristine">error</p>
 		</div>
-	    <button type="submit" ng-disabled="addform.$invalid">修改</button>
+	    <button type="submit" ng-disabled="addform.$invalid || flag">添加</button>
 	</form>
+
 </div>
