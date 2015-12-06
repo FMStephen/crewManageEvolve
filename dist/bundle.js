@@ -40,49 +40,15 @@ angular.module('app',['ui.router','ngCookies','ui.bootstrap'])
         }];
       }])
 
-//    .controller()
-//     .factory('User', ['Restangular', '$q',
-//         function (Restangular, $q) {
-//             var userCache, promises = [];
-//             return {
-
-//               getUser: function () {
-
-//                 var deferred = $q.defer();
-
-//                 if (promises.length > 0) {
-
-//                   promises.push(deferred);
-
-//                 } else if (!userCache) {
-
-//                   promises.push(deferred);
-
-//                   Restangular.all('user').getList().then(function (user) {
-//                     var i;
-//                     userCache = user[0];
-//                     for (i = promises.length; i--;) {
-//                       promises.shift().resolve(userCache);
-//                     }
-//                   });
-
-//                 } else {
-
-//                   deferred.resolve(userCache);
-
-//                 }
-
-//                 return deferred.promise;
-
-//               }
-//             };
-//           }
-// ]);
-
-var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
+//var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
 //var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
+var host = 'http://222.201.132.27/bbter-all/index.php/Home/' ;
 
-var boyslove = "isayserious";
+function encrypt(msg){
+
+  return sodium.crypto_box_easy(msg,sodium.from_hex(nonce),sodium.from_hex(pk),sodium.from_hex(sk),'hex');
+
+}  
 
 var school = [  {"name": "请选择","value": ""},
                 {"name": "C.材料科学与工程学院","value": "材料科学与工程学院"},
@@ -210,7 +176,7 @@ angular.module('app')
 
 								userService.cookieset(response.data.token);
 
-								if(userService.result(response.data.code)){
+								if(userService.result(response.data.code)||response.data.code==201){
 
 									location.href = '#/user';
 
@@ -1614,6 +1580,7 @@ angular.module('app')
 				user.password = md5(editmsg.password);
 
 				return $http.post(host + 'Login',user);
+				//return $http.post('http://localhost/angular/crewManageEvolve/test.php',user);
 
 				},
 
@@ -1621,7 +1588,7 @@ angular.module('app')
 
 				var timestamp = new Date().getTime();
 				var token = $cookies.get("token");
-				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
+				var auth = token + '.' + timestamp + '.' + encrypt(token + ':' + timestamp);
 
 				$http.post(host + 'User/logout',auth);
 
@@ -1633,7 +1600,7 @@ angular.module('app')
 
 				var timestamp = new Date().getTime();
 				var token = $cookies.get("token");
-				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
+				var auth = token + '.' + timestamp + '.' + encrypt(token + ':' + timestamp);
 				
 				return auth;
 
@@ -1660,13 +1627,12 @@ angular.module('app')
 						break;
 
 					case 102:
-						// alert("存在未输入项");
+						// alert("账号错误");
 						return false;
 						break;
 
 					case 103:
-						// alert("账号密码错误");
-						location.href = '#/login';
+						// alert("密码错误");、
 						return false;
 						break;
 
@@ -1700,7 +1666,7 @@ angular.module('app')
 						break;
 
 					case 201:
-						// alert("用户资料未完善");
+						alert("请先完善个人资料");
 						location.href = '#/user/infoedit';
 						return false;
 						break;
@@ -1746,12 +1712,10 @@ angular.module('app')
 						break;
 
 					case 102:
-						// alert("存在未输入项");
-						return '存在未输入项';
+						return '账号或密码错误';
 						break;
 
 					case 103:
-						// alert("账号密码错误");
 						//location.href = '#/login';
 						return '账号或密码错误';
 						break;

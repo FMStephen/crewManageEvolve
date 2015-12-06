@@ -40,49 +40,15 @@ angular.module('app',['ui.router','ngCookies','ui.bootstrap'])
         }];
       }])
 
-//    .controller()
-//     .factory('User', ['Restangular', '$q',
-//         function (Restangular, $q) {
-//             var userCache, promises = [];
-//             return {
-
-//               getUser: function () {
-
-//                 var deferred = $q.defer();
-
-//                 if (promises.length > 0) {
-
-//                   promises.push(deferred);
-
-//                 } else if (!userCache) {
-
-//                   promises.push(deferred);
-
-//                   Restangular.all('user').getList().then(function (user) {
-//                     var i;
-//                     userCache = user[0];
-//                     for (i = promises.length; i--;) {
-//                       promises.shift().resolve(userCache);
-//                     }
-//                   });
-
-//                 } else {
-
-//                   deferred.resolve(userCache);
-
-//                 }
-
-//                 return deferred.promise;
-
-//               }
-//             };
-//           }
-// ]);
-
-var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
+//var host = 'http://125.216.250.105/bbter/index.php/Home/' ;
 //var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
+var host = 'http://222.201.132.27/bbter-all/index.php/Home/' ;
 
-var boyslove = "isayserious";
+function encrypt(msg){
+
+  return sodium.crypto_box_easy(msg,sodium.from_hex(nonce),sodium.from_hex(pk),sodium.from_hex(sk),'hex');
+
+}  
 
 var school = [  {"name": "请选择","value": ""},
                 {"name": "C.材料科学与工程学院","value": "材料科学与工程学院"},

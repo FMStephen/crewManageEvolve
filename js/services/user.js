@@ -12,6 +12,7 @@ angular.module('app')
 				user.password = md5(editmsg.password);
 
 				return $http.post(host + 'Login',user);
+				//return $http.post('http://localhost/angular/crewManageEvolve/test.php',user);
 
 				},
 
@@ -19,7 +20,7 @@ angular.module('app')
 
 				var timestamp = new Date().getTime();
 				var token = $cookies.get("token");
-				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
+				var auth = token + '.' + timestamp + '.' + encrypt(token + ':' + timestamp);
 
 				$http.post(host + 'User/logout',auth);
 
@@ -31,7 +32,7 @@ angular.module('app')
 
 				var timestamp = new Date().getTime();
 				var token = $cookies.get("token");
-				var auth = token + '.' + timestamp + '.' + GibberishAES.enc(token + ':' + timestamp, boyslove);
+				var auth = token + '.' + timestamp + '.' + encrypt(token + ':' + timestamp);
 				
 				return auth;
 
@@ -58,13 +59,12 @@ angular.module('app')
 						break;
 
 					case 102:
-						// alert("存在未输入项");
+						// alert("账号错误");
 						return false;
 						break;
 
 					case 103:
-						// alert("账号密码错误");
-						location.href = '#/login';
+						// alert("密码错误");、
 						return false;
 						break;
 
@@ -98,7 +98,7 @@ angular.module('app')
 						break;
 
 					case 201:
-						// alert("用户资料未完善");
+						alert("请先完善个人资料");
 						location.href = '#/user/infoedit';
 						return false;
 						break;
@@ -144,12 +144,10 @@ angular.module('app')
 						break;
 
 					case 102:
-						// alert("存在未输入项");
-						return '存在未输入项';
+						return '账号或密码错误';
 						break;
 
 					case 103:
-						// alert("账号密码错误");
 						//location.href = '#/login';
 						return '账号或密码错误';
 						break;

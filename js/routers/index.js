@@ -61,7 +61,7 @@ angular.module('app')
 
 								userService.cookieset(response.data.token);
 
-								if(userService.result(response.data.code)){
+								if(userService.result(response.data.code)||response.data.code==201){
 
 									location.href = '#/user';
 
