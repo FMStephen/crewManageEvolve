@@ -7,7 +7,7 @@ angular.module('app')
 				url: '/edit/:id',
 				templateUrl: 'templates/department/department-edit.html',
 				controller: function($scope,$stateParams,userService,dprtall){
-
+					moreMenu();
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){

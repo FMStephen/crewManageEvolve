@@ -6,6 +6,8 @@ angular.module('app')
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
 				controller: function($scope,userinfo,userService){
+					moreMenu();
+					naviSecondery(2);
 
 			        $scope.alerts = [];
 

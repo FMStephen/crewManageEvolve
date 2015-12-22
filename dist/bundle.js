@@ -110,9 +110,42 @@ var superposition = [    {"name": "干事","value": "干事"},
                     {"name": "常委","value": "常委"},
                     {"name": "超级管理员","value": "超级管理员"}
                 ];
-// angular.module('app',[])
-//     .controller('alert',["$scope", 
-//     }]);
+function footer(){	
+	var x = window.innerWidth;
+	if(x >= 1600){
+		document.getElementById('body').style.minHeight = window.innerHeight - 272 + 'px';
+	} else {
+		document.getElementById('body').style.minHeight = window.innerHeight - 240 + 'px';
+	}
+}
+function naviSecondery(num) {
+	var naviSecondery = document.getElementsByClassName('naviSeconderyBtn');
+	for(var x = 0;x < naviSecondery.length;x++){
+		if(x != num){
+			naviSecondery[x].setAttribute('class','naviSeconderyBtn fontNormal');
+		} else {
+			naviSecondery[x].setAttribute('class','naviSeconderyBtn fontNormal naviSeconderyBtnActive');
+		}
+	}
+}
+function moreMenu(){
+	var menu = document.getElementById('moreMenu');
+	var moreBtn = document.getElementById('moreBtn');
+	document.addEventListener('click',function(e){
+		if(moreBtn == e.target && menu.style.display == 'none'){
+			menu.style.display = 'block';
+			setTimeout(function(){				
+				menu.style.opacity = '1';
+			},0)
+		}
+		if(moreBtn != e.target && menu.style.display == 'block'){
+			menu.style.opacity = '0';
+			setTimeout(function(){
+				menu.style.display = 'none';
+			},200)
+		}
+	})
+}
 angular.module('app')
 	.config(function($stateProvider,$urlRouterProvider){
 
@@ -208,7 +241,7 @@ angular.module('app')
 				url: '/all',
 				templateUrl: 'templates/department/department-all.html',
 				controller: function($scope,userService,dprtall){
-
+					moreMenu();
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){
@@ -330,7 +363,7 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/department/department-add.html',
 				controller: function($scope,userService,dprtall){
-
+					moreMenu();
 					$scope.add = function(){
 
 						$scope.flag = true;
@@ -372,7 +405,7 @@ angular.module('app')
 				url: '/edit/:id',
 				templateUrl: 'templates/department/department-edit.html',
 				controller: function($scope,$stateParams,userService,dprtall){
-
+					moreMenu();
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){
@@ -463,7 +496,9 @@ angular.module('app')
 				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
 				controller: function($scope,$stateParams,listall,userService){
-
+					moreMenu();
+					naviSecondery(0);
+					
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){
@@ -572,7 +607,9 @@ angular.module('app')
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
 				controller: function($scope,$stateParams,listall,listdprt,userService){
-
+					moreMenu();
+					naviSecondery(0);
+					
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){
@@ -654,6 +691,7 @@ angular.module('app')
 
 								alertbox('success','修改职位成功');
 								showdetail();
+								setTimeout(function(){ history.back(); }, 1500);
 
 							} else {
 
@@ -678,6 +716,8 @@ angular.module('app')
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
+					moreMenu();
+					naviSecondery(1);
 
 			        $scope.alerts = [];
 
@@ -853,29 +893,32 @@ angular.module('app')
 
 						if(editmsg.id != ''){
 
-							$scope.flag = true;
+							if(window.confirm("确认修改职位吗?")){
 
-							editmsg.position = $scope.position;
+								$scope.flag = true;
 
-							listdprt.position(editmsg)
-								.then(function(response){
+								editmsg.position = $scope.position;
 
-								userService.cookieset(response.data.token);
+								listdprt.position(editmsg)
+									.then(function(response){
 
-								if(userService.result(response.data.code)){
+									userService.cookieset(response.data.token);
 
-									alertbox('success','修改职位成功');
-									showdprt();
-									
-								} else {
+									if(userService.result(response.data.code)){
 
-									alertbox('danger',userService.hint(response.data.code));
+										alertbox('success','修改职位成功');
+										showdprt();
+										
+									} else {
 
-								}
+										alertbox('danger',userService.hint(response.data.code));
 
-								$scope.flag = false;
+									}
 
-							});
+									$scope.flag = false;
+
+								});
+							}
 						} else {
 
 							alertbox('danger','请选择操作对象');
@@ -912,6 +955,8 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/list/list-add.html',
 				controller: function($scope,listdprt,userService){
+					moreMenu();
+					naviSecondery(1);
 
 			        $scope.alerts = [];
 
@@ -1021,7 +1066,9 @@ angular.module('app')
 				url: '/reset/:id',
 				templateUrl: 'templates/list/list-resetpw.html',
 				controller: function($scope,$stateParams,listdprt,userService){
-
+					moreMenu();
+					naviSecondery(1);
+					
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){
@@ -1053,10 +1100,14 @@ angular.module('app')
 							if(userService.result(response.data.code)){
 
 								alertbox('','此操作将修改对象的密码，无法撤销');
-
-								$scope.members = response.data.data.members;
 								
 							} else {
+
+								if(response.data.code == 108){
+
+									setTimeout(function(){ history.back(); }, 1500);
+
+								}
 							
 								alertbox('danger',userService.hint(response.data.code));
 
@@ -1118,6 +1169,8 @@ angular.module('app')
 				url: '/recycle/:current',
 				templateUrl: 'templates/list/list-recycle.html',
 				controller: function($scope,$stateParams,listrcl,userService){
+					moreMenu();
+					naviSecondery(2);
 
 			        $scope.alerts = [];
 
@@ -1345,6 +1398,8 @@ angular.module('app')
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
 				controller: function($scope,userinfo,userService){
+					moreMenu();
+					naviSecondery(2);
 
 			        $scope.alerts = [];
 
@@ -1438,6 +1493,8 @@ angular.module('app')
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
 				controller: function($scope,userinfo,userService){
+					moreMenu();
+					naviSecondery(1);
 
 			        $scope.alerts = [];
 
@@ -1547,6 +1604,9 @@ angular.module('app')
 				url: '/info',
 				templateUrl: 'templates/user/info-detail.html',
 				controller:  function($scope,userinfo,userService){
+
+					moreMenu();
+					naviSecondery(0);
 
 					userinfo.show()
 						.then(function(response){
@@ -1666,7 +1726,7 @@ angular.module('app')
 						break;
 
 					case 201:
-						alert("请先完善个人资料");
+						//alert("请先完善个人资料");
 						location.href = '#/user/infoedit';
 						return false;
 						break;
@@ -2047,7 +2107,7 @@ angular.module('app')
 angular.module('app')
 	.directive('logoutBtn',function(userService){
 		return{
-			restrict: "A",
+			restrict: "A", 
 			link: function(scope,element,attrs){
 				element.bind("click",function(){
 					
@@ -2061,5 +2121,6 @@ angular.module('app')
 			}
 		}
 		 
-	})
+	});
+
 //# sourceMappingURL=bundle.js.map

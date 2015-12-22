@@ -1,9 +1,5 @@
 <div>
-	<section class="row">
-	    <section class="col-md-6" style="margin:50px auto; float:none">
-	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	    </section>
-	</section>
+	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	<form name="editform" ng-submit="infoedit()" novalidate>
 		<div ng-class="{ 'has-error' : editform.username.$invalid && !editform.username.$pristine }">
 			<input type="text" name="username" placeholder="username" ng-model="username" placeholder="{{content.username}}" required>

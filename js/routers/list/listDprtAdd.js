@@ -6,6 +6,8 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/list/list-add.html',
 				controller: function($scope,listdprt,userService){
+					moreMenu();
+					naviSecondery(1);
 
 			        $scope.alerts = [];
 

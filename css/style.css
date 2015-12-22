@@ -1,0 +1,160 @@
+/*基本*/
+body{
+	font-family: Microsoft YaHei,STHeiti;
+	background: #f9f9f9;	
+}
+.fontHuge{
+	font-size: 32px;
+	-webkit-font-smoothing: sub-antialiased;
+	text-shadow: 0 0 0.5px rgba(0,0,0,0.12);
+	-webkit-text-stroke: 0.2px rgba(0,0,0,0.26);
+}
+.fontLarge{
+	font-size: 16px;
+	-webkit-font-smoothing: sub-antialiased;
+	text-shadow: 0 0 0.5px rgba(0,0,0,0.12);
+	-webkit-text-stroke: 0.2px rgba(0,0,0,0.26);
+}
+.fontNormal{
+	font-size: 14px;
+	-webkit-font-smoothing: sub-antialiased;
+	text-shadow: 0 0 0.5px rgba(0,0,0,0.12);
+	-webkit-text-stroke: 0.2px rgba(0,0,0,0.26);
+}
+.fontSmall{
+	font-size: 12px;
+	-webkit-font-smoothing: sub-antialiased;
+	text-shadow: 0 0 0.5px rgba(0,0,0,0.12);
+	-webkit-text-stroke: 0.2px rgba(0,0,0,0.26);
+}
+.fontMin{
+	font-size: 10px;
+	-webkit-font-smoothing: sub-antialiased;
+	text-shadow: 0 0 0.5px rgba(0,0,0,0.12);
+	-webkit-text-stroke: 0.2px rgba(0,0,0,0.26);
+}
+
+/*一级导航*/
+.header{
+	background: url(../img/header.png);
+	background-size: cover;
+	background-position: 50%;
+	box-shadow: 0 0 6px 3px rgba(0,0,0,0.30);
+}
+.naviFirstBtn{
+	background: none;
+	color: rgba(255,255,255,1);
+	font-weight: 500;
+}
+.naviHover{
+	opacity: 1;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 0.2s;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 0.2s;
+	-o-transition-property: opacity;
+	-o-transition-duration: 0.2s;
+}
+.naviHover:hover{
+	opacity: 0.7;
+}
+.naviLocation{
+	color: rgba(255,255,255,1);
+	font-weight: 500;	
+}
+/*更多菜单*/
+.moreMenu{
+	border-radius: 2px;
+	background-color: #f9f9f9;
+	box-shadow: 0 4px 6px 1px rgba(0,0,0,0.26);
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 0.2s;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 0.2s;
+	-o-transition-property: opacity;
+	-o-transition-duration: 0.2s;
+}
+.menuBtn{
+	color: rgba(0,0,0,0.87);
+	background: rgba(0,0,0,0); 
+	font-weight: 500;
+	transition-property: background,color;
+	transition-duration: 0.2s;
+	-webkit-transition-property: background,color;
+	-webkit-transition-duration: 0.2s;
+	-moz-transition-property: background,color;
+	-moz-transition-duration: 0.2s;
+	-o-transition-property: background,color;
+	-o-transition-duration: 0.2s;
+}
+.menuBtnLogout{
+	border-top: 1px solid rgba(0,0,0,0.12);
+	color: rgba(0,0,0,0.87);
+}
+.menuBtn:hover{
+	background: rgba(0,0,0,0.12);
+}
+.menuBtn:active{
+	color: rgba(255,255,255,1);
+	background: rgba(0,0,0,0.26);
+}
+/*提示弹窗*/
+.alert{
+	font-size: 14px;
+	-webkit-font-smoothing: sub-antialiased;
+	text-shadow: 0 0 0.5px rgba(0,0,0,0.12);
+	-webkit-text-stroke: 0.2px rgba(0,0,0,0.26);
+	text-align: center;
+	line-height: 40px;
+	color: rgba(255,255,255,1);
+}
+.alert-danger{
+	background: #de6b6b;
+}
+.alert-warning{
+	background: #bdbdbd;
+}
+.alert-success{
+	background: #73a78a;
+}
+/*二级导航*/
+.naviLocationSecondery{
+	color: rgba(0,0,0,0.54);
+	font-weight: 500;
+}
+.naviSeconderyBtn{
+	background: none;
+	color: rgba(0,0,0,0.87);
+	font-weight: 500;
+}
+.naviSeconderyBtnActive{
+	color: #6a90b6;
+}
+
+@media (min-width: 1600px){
+	
+.fontHuge{
+	font-size: 36px;
+}
+.fontLarge{
+	font-size: 18px;
+}
+.fontNormal{
+	font-size: 16px;
+}
+.fontSmall{
+	font-size: 14px;
+}
+.fontMin{
+	font-size: 12px;
+}
+.alert{
+	font-size: 16px;
+	line-height: 44px
+}
+}

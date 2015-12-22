@@ -1,9 +1,5 @@
 <div>
-	<section class="row">
-	    <section class="col-md-6" style="margin:50px auto; float:none">
-	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	    </section>
-	</section>
+	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	<select ng-model="dprt" ng-change="filter()" ng-options="x.value as x.name for x in dprtopt"></select>
 	<select ng-model="position" ng-change="filter()" ng-options="x.value as x.name for x in positionopt"></select>
 	<form>

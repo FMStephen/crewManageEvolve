@@ -6,7 +6,9 @@ angular.module('app')
 				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
 				controller: function($scope,$stateParams,listall,userService){
-
+					moreMenu();
+					naviSecondery(0);
+					
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){

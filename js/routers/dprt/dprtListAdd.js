@@ -7,7 +7,7 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/department/department-add.html',
 				controller: function($scope,userService,dprtall){
-
+					moreMenu();
 					$scope.add = function(){
 
 						$scope.flag = true;

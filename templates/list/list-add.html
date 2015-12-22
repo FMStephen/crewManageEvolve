@@ -1,10 +1,6 @@
 <div>
 	<a href="#list/dprt">返回</a>
-	<section class="row">
-	    <section class="col-md-6" style="margin:50px auto; float:none">
-	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	    </section>
-	</section>
+	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	<form name="addform" ng-submit="add()" novalidate>
 		<div ng-class="{'has-error' : addform.studentno.$invalid && !addform.studentno.$pristine && addform.studentno.$error.minlength}">
 			学号<textarea type="text" name="studentno" ng-model="studentno" ng-minlength="12" required></textarea>

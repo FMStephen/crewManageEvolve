@@ -1,7 +1,7 @@
 angular.module('app')
 	.directive('logoutBtn',function(userService){
 		return{
-			restrict: "A",
+			restrict: "A", 
 			link: function(scope,element,attrs){
 				element.bind("click",function(){
 					
@@ -15,4 +15,4 @@ angular.module('app')
 			}
 		}
 		 
-	})
+	});

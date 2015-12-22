@@ -8,6 +8,9 @@ angular.module('app')
 				templateUrl: 'templates/user/info-detail.html',
 				controller:  function($scope,userinfo,userService){
 
+					moreMenu();
+					naviSecondery(0);
+
 					userinfo.show()
 						.then(function(response){
 

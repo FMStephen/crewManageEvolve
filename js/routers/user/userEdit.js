@@ -7,6 +7,8 @@ angular.module('app')
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
 				controller: function($scope,userinfo,userService){
+					moreMenu();
+					naviSecondery(1);
 
 			        $scope.alerts = [];
 

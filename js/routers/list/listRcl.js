@@ -6,6 +6,8 @@ angular.module('app')
 				url: '/recycle/:current',
 				templateUrl: 'templates/list/list-recycle.html',
 				controller: function($scope,$stateParams,listrcl,userService){
+					moreMenu();
+					naviSecondery(2);
 
 			        $scope.alerts = [];
 

@@ -6,7 +6,9 @@ angular.module('app')
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
 				controller: function($scope,$stateParams,listall,listdprt,userService){
-
+					moreMenu();
+					naviSecondery(0);
+					
 			        $scope.alerts = [];
 
 			        function alertbox(type,msg){
@@ -88,6 +90,7 @@ angular.module('app')
 
 								alertbox('success','修改职位成功');
 								showdetail();
+								setTimeout(function(){ history.back(); }, 1500);
 
 							} else {
 

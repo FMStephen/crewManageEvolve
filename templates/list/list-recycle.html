@@ -1,9 +1,5 @@
 <div>
-	<section class="row">
-	    <section class="col-md-6" style="margin:50px auto; float:none">
-	        <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	    </section>
-	</section>
+	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	<form>
 		<div>
 			<button ng-click="recover()" ng-disabled="flag">恢复</button>

@@ -98,7 +98,7 @@ angular.module('app')
 						break;
 
 					case 201:
-						alert("请先完善个人资料");
+						//alert("请先完善个人资料");
 						location.href = '#/user/infoedit';
 						return false;
 						break;

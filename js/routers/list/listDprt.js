@@ -6,6 +6,8 @@ angular.module('app')
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
+					moreMenu();
+					naviSecondery(1);
 
 			        $scope.alerts = [];
 
@@ -181,29 +183,32 @@ angular.module('app')
 
 						if(editmsg.id != ''){
 
-							$scope.flag = true;
+							if(window.confirm("确认修改职位吗?")){
 
-							editmsg.position = $scope.position;
+								$scope.flag = true;
 
-							listdprt.position(editmsg)
-								.then(function(response){
+								editmsg.position = $scope.position;
 
-								userService.cookieset(response.data.token);
+								listdprt.position(editmsg)
+									.then(function(response){
 
-								if(userService.result(response.data.code)){
+									userService.cookieset(response.data.token);
 
-									alertbox('success','修改职位成功');
-									showdprt();
-									
-								} else {
+									if(userService.result(response.data.code)){
 
-									alertbox('danger',userService.hint(response.data.code));
+										alertbox('success','修改职位成功');
+										showdprt();
+										
+									} else {
 
-								}
+										alertbox('danger',userService.hint(response.data.code));
 
-								$scope.flag = false;
+									}
 
-							});
+									$scope.flag = false;
+
+								});
+							}
 						} else {
 
 							alertbox('danger','请选择操作对象');
