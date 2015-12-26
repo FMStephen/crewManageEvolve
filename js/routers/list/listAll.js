@@ -57,6 +57,8 @@ angular.module('app')
 
 						});
 
+					document.getElementById('search').focus();
+
 					$scope.isEdit = function(value){
 
 						if(value){

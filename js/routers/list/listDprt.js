@@ -6,6 +6,8 @@ angular.module('app')
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
+
+					optionMenu();
 					moreMenu();
 					naviSecondery(1);
 
@@ -91,16 +93,35 @@ angular.module('app')
 
 					$scope.checkbox = [];
 
+					$scope.checkall = function(o){
 
-					$scope.cbcheck = function(){
+						var check = document.getElementById('check')
 
 						var cb = document.getElementsByName("cb");
 
-						for(x = 0;x < cb.length;x++){
+						console.log(check)
 
-							if(!cb[x].checked){
+						if(check.checked){
 
-								cb[x].click();
+							for(x = 0;x < cb.length;x++){
+
+								if(!cb[x].checked){
+
+									cb[x].click();
+
+								}
+
+							}
+
+						} else {
+
+							for(x = 0;x < cb.length;x++){
+
+								if(cb[x].checked){
+
+									cb[x].click();
+
+								}
 
 							}
 
@@ -108,33 +129,8 @@ angular.module('app')
 
 					};
 
-					$scope.recheck = function(){
 
-						var cb = document.getElementsByName("cb");
-
-						for(x = 0;x < cb.length;x++){
-
-							cb[x].click();
-
-							}				
-
-					};
-
-					$scope.decheck = function(){
-
-						var cb = document.getElementsByName("cb");
-
-						for(x = 0;x < cb.length;x++){
-
-							if(cb[x].checked){
-
-								cb[x].click();
-
-							}
-
-						}
-
-					};
+					
 
 					$scope.recycle = function(){
 					
@@ -167,6 +163,15 @@ angular.module('app')
 								$scope.flag = false;
 
 							});
+
+							var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}	
+
 						} else {
 
 							alertbox('danger','请选择操作对象');
@@ -208,7 +213,30 @@ angular.module('app')
 									$scope.flag = false;
 
 								});
+							} else {
+
+								var cb = document.getElementsByName("cb");
+
+									for(x = 0;x < cb.length;x++){
+
+										if(cb[x].checked){
+
+											cb[x].click();
+
+										}
+
+									}
+
 							}
+
+							var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}	
+								
 						} else {
 
 							alertbox('danger','请选择操作对象');

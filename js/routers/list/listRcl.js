@@ -52,9 +52,6 @@ angular.module('app')
 								} else {
 
 									alertbox('danger',userService.hint(response.data.code));
-
-									setTimeout(function(){ history.back(); }, 1500);
-
 								}
 
 							});
@@ -64,27 +61,37 @@ angular.module('app')
 
 					var cb = document.getElementsByName("cb");
 
-					$scope.cbcheck = function(){
+					$scope.checkall = function(o){
 
-						for(x = 0;x < cb.length;x++){
+						var check = document.getElementById('check')
 
-							if(!cb[x].checked){
+						var cb = document.getElementsByName("cb");
 
-								cb[x].click();
+						if(check.checked){
+
+							for(x = 0;x < cb.length;x++){
+
+								if(!cb[x].checked){
+
+									cb[x].click();
+
+								}
+
+							}
+
+						} else {
+
+							for(x = 0;x < cb.length;x++){
+
+								if(cb[x].checked){
+
+									cb[x].click();
+
+								}
 
 							}
 
 						}
-
-					};
-
-					$scope.recheck = function(){
-
-						for(x = 0;x < cb.length;x++){
-
-							cb[x].click();
-
-							}				
 
 					};
 
@@ -165,6 +172,14 @@ angular.module('app')
 								$scope.flag = false;
 							});
 
+								var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}	
+
 						} else {
 
 							alertbox('danger','请选择要操作的对象');
@@ -205,13 +220,34 @@ angular.module('app')
 
 											alertbox('danger',userService.hint(response.data.code));
 
-											$scope.flag = false;
-
-								 	}
+								 		}
 
 									$scope.flag = false;
 
-								});}
+									});
+								} else {
+
+									var cb = document.getElementsByName("cb");
+
+									for(x = 0;x < cb.length;x++){
+
+										if(cb[x].checked){
+
+											cb[x].click();
+
+										}
+
+									}
+
+								} 
+
+								var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}
 
 						}  else {
 

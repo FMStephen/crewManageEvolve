@@ -85,16 +85,16 @@ var gender = [  {"name": "请选择","value": ""},
                  ];
 
 var dprt = [    {"name": "所有部门","value": ""},
-                {"name": "B.编辑部","value": "编辑部"},
-                {"name": "C.策划推广部","value": "策划推广部"},
-                {"name": "J.技术部","value": "技术部"},
-                {"name": "J.节目部","value": "节目部"},
-                {"name": "R.人力资源部","value": "人力资源部"},
-                {"name": "S.视觉设计部","value": "视觉设计部"},
-                {"name": "S.视频部","value": "视频部"}, 
-                {"name": "W.外联部","value": "外联部"},
-                {"name": "Z.综合管理部","value": "综合管理部"},
-                {"name": "Z.综合新闻部","value": "综合新闻部"}
+                {"name": "编辑部","value": "编辑部"},
+                {"name": "策划推广部","value": "策划推广部"},
+                {"name": "技术部","value": "技术部"},
+                {"name": "节目部","value": "节目部"},
+                {"name": "人力资源部","value": "人力资源部"},
+                {"name": "视觉设计部","value": "视觉设计部"},
+                {"name": "视频部","value": "视频部"}, 
+                {"name": "外联部","value": "外联部"},
+                {"name": "综合管理部","value": "综合管理部"},
+                {"name": "综合新闻部","value": "综合新闻部"}
             ];
 
 var position = [    {"name": "所有职位","value": ""},
@@ -145,6 +145,35 @@ function moreMenu(){
 			},200)
 		}
 	})
+}
+function optionMenu(){
+	var optionMenu = document.getElementById('optionMenu');
+	var optionBtn = document.getElementById('optionBtn');
+	var cfrm = document.getElementsByClassName('txtBtn');
+	document.addEventListener('mousedown',function(e){
+		if(optionBtn == e.target && optionMenu.style.display == 'none'){
+			setTimeout(function(){				
+				optionMenu.style.display = 'block';
+			},1)
+			setTimeout(function(){				
+				optionMenu.style.opacity = '1';
+			},2)
+		}
+		if(((optionMenu != e.target && optionMenu != e.target.parentNode && optionMenu != e.target.parentNode.parentNode) || cfrm[0] == e.target || cfrm[1] == e.target) && optionMenu.style.display == 'block'){
+			console.log(e.target)
+			optionMenu.style.opacity = '0';
+			setTimeout(function(){
+				optionMenu.style.display = 'none';
+			},201)
+		}
+	})
+}
+function listCheck(o){
+	if(o.checked){
+		o.parentNode.style.backgroundImage = 'url(img/checked.png)';
+	} else {
+		o.parentNode.style.backgroundImage = 'url(img/unchecked.png)';
+	}
 }
 angular.module('app')
 	.config(function($stateProvider,$urlRouterProvider){
@@ -446,7 +475,6 @@ angular.module('app')
 
 										alertbox('danger',userService.hint(response.data.code));
 
-										setTimeout(function(){ history.back(); }, 1500);
 
 									}
 						});
@@ -488,6 +516,242 @@ angular.module('app')
 
 	});
 });
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+			.state('user.pw',{
+				url: '/pwedit',
+				templateUrl: 'templates/user/password-edit.html',
+				controller: function($scope,userinfo,userService){
+					moreMenu();
+					naviSecondery(2);
+
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
+					$scope.pwedit = function(){
+
+						if($scope.newpw == $scope.cfrmpw && $scope.oldpw != $scope.newpw){
+
+							if(window.confirm("确认修改密码吗?")){
+
+								$scope.flag = true;
+
+								var editmsg = {};
+
+								editmsg.old = $scope.oldpw;
+								editmsg.new = $scope.newpw;
+								editmsg.cfrm = $scope.cfrmpw;
+
+								userinfo.password(editmsg)
+									.then(function(response){
+
+									userService.cookieset(response.data.token);
+									
+									if(userService.result(response.data.code)){
+										
+											alertbox('success','密码修改成功,请重新登录');
+
+											setTimeout(function(){
+												userService.logout();
+												location.href = '#/login';
+											},1500);
+
+										} else {
+
+											alertbox('danger',userService.hint(response.data.code));
+
+										}
+
+										$scope.flag = false;
+										
+									});
+
+							}
+
+						} else {
+
+							if($scope.oldpw == $scope.newpw){
+								
+								alertbox('danger','新旧密码相同');
+
+
+							}
+							if($scope.newpw != $scope.cfrmpw){
+
+								alertbox('danger','确认密码不一致');
+
+							}
+
+						}
+
+					};
+
+				}
+			});
+
+
+	});
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+			
+			.state('user.edit',{
+				url: '/infoedit',
+				templateUrl: 'templates/user/info-edit.html',
+				controller: function($scope,userinfo,userService){
+					moreMenu();
+					naviSecondery(1);
+
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
+					userinfo.show()
+						.then(function(response){
+
+						    $scope.genderopt = gender;
+  							$scope.schoolopt = school;	
+
+							userService.cookieset(response.data.token);
+							
+							if(response.data.code == 200){
+
+								$scope.content = response.data.data;
+						 
+								$scope.username = $scope.content.username;
+								$scope.room = $scope.content.room;
+								$scope.telLong = $scope.content.telLong;
+								$scope.telShort = $scope.content.telShort;
+								$scope.email = $scope.content.email;
+								
+  								$scope.gender = $scope.content.gender;
+  								$scope.school = $scope.content.school;
+
+							} else {
+
+								if(response.data.code == 201){
+
+									alertbox('',userService.hint(response.data.code));
+
+	  								$scope.gender = '';
+	  								$scope.school = '';
+
+								}
+
+							}
+						});
+
+					$scope.infoedit = function(){
+
+						$scope.flag = true;
+
+						var editmsg = {};
+
+						editmsg.username = $scope.username;
+						editmsg.gender = $scope.gender;
+						editmsg.school = $scope.school;
+						editmsg.room = $scope.room;
+						editmsg.telLong = $scope.telLong;
+						editmsg.telShort = $scope.telShort;
+						editmsg.email = $scope.email;
+
+						userinfo.edit(editmsg)
+							.then(function(response){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+									alertbox('success','个人资料修改成功');
+
+									setTimeout(function(){ location.href = '#/user/info' }, 1500);
+
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
+								}
+
+							$scope.flag = false;
+
+							});
+						
+					};
+
+					
+
+				}
+			});
+
+
+	});
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+
+			.state('user.info',{
+				url: '/info',
+				templateUrl: 'templates/user/info-detail.html',
+				controller:  function($scope,userinfo,userService){
+
+					moreMenu();
+					naviSecondery(0);
+
+					userinfo.show()
+						.then(function(response){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
+
+								$scope.content = response.data.data;
+
+							}
+						});
+
+				}
+			});
+			
+
+
+	});
 angular.module('app')
 	.config(function($stateProvider){
 
@@ -546,6 +810,8 @@ angular.module('app')
 							};
 
 						});
+
+					document.getElementById('search').focus();
 
 					$scope.isEdit = function(value){
 
@@ -650,8 +916,6 @@ angular.module('app')
 
 										alertbox('danger',userService.hint(response.data.code));
 
-										setTimeout(function(){ history.back(); }, 1500);
-
 									}
 							});
 					}
@@ -716,6 +980,8 @@ angular.module('app')
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
+
+					optionMenu();
 					moreMenu();
 					naviSecondery(1);
 
@@ -801,16 +1067,35 @@ angular.module('app')
 
 					$scope.checkbox = [];
 
+					$scope.checkall = function(o){
 
-					$scope.cbcheck = function(){
+						var check = document.getElementById('check')
 
 						var cb = document.getElementsByName("cb");
 
-						for(x = 0;x < cb.length;x++){
+						console.log(check)
 
-							if(!cb[x].checked){
+						if(check.checked){
 
-								cb[x].click();
+							for(x = 0;x < cb.length;x++){
+
+								if(!cb[x].checked){
+
+									cb[x].click();
+
+								}
+
+							}
+
+						} else {
+
+							for(x = 0;x < cb.length;x++){
+
+								if(cb[x].checked){
+
+									cb[x].click();
+
+								}
 
 							}
 
@@ -818,33 +1103,8 @@ angular.module('app')
 
 					};
 
-					$scope.recheck = function(){
 
-						var cb = document.getElementsByName("cb");
-
-						for(x = 0;x < cb.length;x++){
-
-							cb[x].click();
-
-							}				
-
-					};
-
-					$scope.decheck = function(){
-
-						var cb = document.getElementsByName("cb");
-
-						for(x = 0;x < cb.length;x++){
-
-							if(cb[x].checked){
-
-								cb[x].click();
-
-							}
-
-						}
-
-					};
+					
 
 					$scope.recycle = function(){
 					
@@ -877,6 +1137,15 @@ angular.module('app')
 								$scope.flag = false;
 
 							});
+
+							var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}	
+
 						} else {
 
 							alertbox('danger','请选择操作对象');
@@ -918,7 +1187,30 @@ angular.module('app')
 									$scope.flag = false;
 
 								});
+							} else {
+
+								var cb = document.getElementsByName("cb");
+
+									for(x = 0;x < cb.length;x++){
+
+										if(cb[x].checked){
+
+											cb[x].click();
+
+										}
+
+									}
+
 							}
+
+							var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}	
+								
 						} else {
 
 							alertbox('danger','请选择操作对象');
@@ -1215,9 +1507,6 @@ angular.module('app')
 								} else {
 
 									alertbox('danger',userService.hint(response.data.code));
-
-									setTimeout(function(){ history.back(); }, 1500);
-
 								}
 
 							});
@@ -1227,27 +1516,37 @@ angular.module('app')
 
 					var cb = document.getElementsByName("cb");
 
-					$scope.cbcheck = function(){
+					$scope.checkall = function(o){
 
-						for(x = 0;x < cb.length;x++){
+						var check = document.getElementById('check')
 
-							if(!cb[x].checked){
+						var cb = document.getElementsByName("cb");
 
-								cb[x].click();
+						if(check.checked){
+
+							for(x = 0;x < cb.length;x++){
+
+								if(!cb[x].checked){
+
+									cb[x].click();
+
+								}
+
+							}
+
+						} else {
+
+							for(x = 0;x < cb.length;x++){
+
+								if(cb[x].checked){
+
+									cb[x].click();
+
+								}
 
 							}
 
 						}
-
-					};
-
-					$scope.recheck = function(){
-
-						for(x = 0;x < cb.length;x++){
-
-							cb[x].click();
-
-							}				
 
 					};
 
@@ -1328,6 +1627,14 @@ angular.module('app')
 								$scope.flag = false;
 							});
 
+								var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}	
+
 						} else {
 
 							alertbox('danger','请选择要操作的对象');
@@ -1368,13 +1675,34 @@ angular.module('app')
 
 											alertbox('danger',userService.hint(response.data.code));
 
-											$scope.flag = false;
-
-								 	}
+								 		}
 
 									$scope.flag = false;
 
-								});}
+									});
+								} else {
+
+									var cb = document.getElementsByName("cb");
+
+									for(x = 0;x < cb.length;x++){
+
+										if(cb[x].checked){
+
+											cb[x].click();
+
+										}
+
+									}
+
+								} 
+
+								var check = document.getElementById('check')
+
+								if(check.checked){
+
+									check.click();
+
+								}
 
 						}  else {
 
@@ -1390,242 +1718,6 @@ angular.module('app')
 			});
 
 });
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-			.state('user.pw',{
-				url: '/pwedit',
-				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo,userService){
-					moreMenu();
-					naviSecondery(2);
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
-
-					$scope.pwedit = function(){
-
-						if($scope.newpw == $scope.cfrmpw && $scope.oldpw != $scope.newpw){
-
-							if(window.confirm("确认修改密码吗?")){
-
-								$scope.flag = true;
-
-								var editmsg = {};
-
-								editmsg.old = $scope.oldpw;
-								editmsg.new = $scope.newpw;
-								editmsg.cfrm = $scope.cfrmpw;
-
-								userinfo.password(editmsg)
-									.then(function(response){
-
-									userService.cookieset(response.data.token);
-									
-									if(userService.result(response.data.code)){
-										
-											alertbox('success','密码修改成功,请重新登录');
-
-											setTimeout(function(){
-												userService.logout();
-												location.href = '#/login';
-											},1500);
-
-										} else {
-
-											alertbox('danger',userService.hint(response.data.code));
-
-										}
-
-										$scope.flag = false;
-										
-									});
-
-							}
-
-						} else {
-
-							if($scope.oldpw == $scope.newpw){
-								
-								alertbox('danger','新旧密码相同');
-
-
-							}
-							if($scope.newpw != $scope.cfrmpw){
-
-								alertbox('danger','确认密码不一致');
-
-							}
-
-						}
-
-					};
-
-				}
-			});
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-			
-			.state('user.edit',{
-				url: '/infoedit',
-				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo,userService){
-					moreMenu();
-					naviSecondery(1);
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
-
-					userinfo.show()
-						.then(function(response){
-
-						    $scope.genderopt = gender;
-  							$scope.schoolopt = school;	
-
-							userService.cookieset(response.data.token);
-							
-							if(response.data.code == 200){
-
-								$scope.content = response.data.data;
-						 
-								$scope.username = $scope.content.username;
-								$scope.room = $scope.content.room;
-								$scope.telLong = $scope.content.telLong;
-								$scope.telShort = $scope.content.telShort;
-								$scope.email = $scope.content.email;
-								
-  								$scope.gender = $scope.content.gender;
-  								$scope.school = $scope.content.school;
-
-							} else {
-
-								if(response.data.code == 201){
-
-									alertbox('',userService.hint(response.data.code));
-
-	  								$scope.gender = '';
-	  								$scope.school = '';
-
-								}
-
-							}
-						});
-
-					$scope.infoedit = function(){
-
-						$scope.flag = true;
-
-						var editmsg = {};
-
-						editmsg.username = $scope.username;
-						editmsg.gender = $scope.gender;
-						editmsg.school = $scope.school;
-						editmsg.room = $scope.room;
-						editmsg.telLong = $scope.telLong;
-						editmsg.telShort = $scope.telShort;
-						editmsg.email = $scope.email;
-
-						userinfo.edit(editmsg)
-							.then(function(response){
-
-							userService.cookieset(response.data.token);
-							
-							if(userService.result(response.data.code)){
-
-									alertbox('success','个人资料修改成功');
-
-									setTimeout(function(){ location.href = '#/user/info' }, 1500);
-
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-								}
-
-							$scope.flag = false;
-
-							});
-						
-					};
-
-					
-
-				}
-			});
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-
-			.state('user.info',{
-				url: '/info',
-				templateUrl: 'templates/user/info-detail.html',
-				controller:  function($scope,userinfo,userService){
-
-					moreMenu();
-					naviSecondery(0);
-
-					userinfo.show()
-						.then(function(response){
-
-							userService.cookieset(response.data.token);
-
-							if(userService.result(response.data.code)){
-
-								$scope.content = response.data.data;
-
-							}
-						});
-
-				}
-			});
-			
-
-
-	});
 angular.module('app')
 	
 	.service('userService',function($http,$cookies) {
@@ -2122,5 +2214,4 @@ angular.module('app')
 		}
 		 
 	});
-
 //# sourceMappingURL=bundle.js.map

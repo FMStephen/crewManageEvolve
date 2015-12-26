@@ -49,8 +49,6 @@ angular.module('app')
 
 										alertbox('danger',userService.hint(response.data.code));
 
-										setTimeout(function(){ history.back(); }, 1500);
-
 									}
 							});
 					}

@@ -10,7 +10,7 @@ a{
 	-webkit-appearance:none;
 	cursor: pointer;
 }
-/*input{
+input{
 	margin:0;
 	padding:0;
 	outline:none;
@@ -18,7 +18,10 @@ a{
 	background:none;
 	appearance:none;
 	-webkit-appearance:none;
-}*/
+}
+input[type="checkbox"]{
+	display: none;
+}
 button{
 	margin:0;
 	padding:0;
@@ -41,6 +44,9 @@ select{
 	appearance:none;
 	-webkit-appearance:none;
 }
+select::-ms-expand{
+    display: none;
+}
 ul{
 	margin: 0;
 	padding: 0;
@@ -55,6 +61,9 @@ li{
 	box-sizing: initial;
 	-webkit-box-sizing: initial;
 }
+p{
+	margin: 0;
+}
 
 /*顶栏*/
 .header{
@@ -63,7 +72,7 @@ li{
 	width: 100%;
 	height: 160px;
 	top: 0 ;
-	z-index: 2;
+	z-index: 5;
 }
 .headerContainer{
 	position: relative;
@@ -154,10 +163,192 @@ li{
 	width: 100%;
 	height: 40px;
 	top: 160px;
-	left: 0;	
+	left: 0;
+	z-index: 4;	
 }
 .close{
 	display: none;
+}
+
+/*表单*/
+	/*input*/
+.input{
+	 position: relative;
+	 display: block;
+	 height: 96px;
+	 margin-left: 104px;
+}
+.inputLabel{
+	position: relative;
+	display: block;
+}
+.inputValue{
+	position: relative;
+	display: block;
+	margin-top: 12px;
+	padding-left: 7px;
+	padding-bottom: 9px;
+	border-bottom: 2px solid #c2c2c2;
+}
+.inputValue:focus{
+	border-bottom: 2px solid #659c7a;
+}
+.inputError{
+	position: relative;
+	display: block;
+	margin-top: 6px;
+	margin-left: 6px;
+}
+.inputInfo{
+	width: 500px;
+}
+	/*select*/
+.selectValue{
+	position: relative;
+	display: block;
+	width:508px;
+	margin-top: 12px;
+	padding-left: 3px;
+	padding-bottom: 9px;
+	border-bottom: 2px solid #c2c2c2;
+}
+.tableSelcet{
+	margin-left: -4px;
+}
+	/*checkbox*/
+	/*radio*/
+	/*button*/
+.longBtn{
+	position: relative;
+	display: block;
+	width: 80px;
+	height: 32px;
+}
+.shortBtn{
+	position: relative;
+	display: block;
+	width: 80px;
+	height: 32px;
+}
+.listBtn{
+	margin-top: 48px;
+	margin-left: 532px;
+}
+
+/*表格*/
+.table{
+	position: relative;
+	display: block;
+	width: 624px;
+	margin-left: 16px;
+	z-index: 1;
+}
+.tableList{
+	position: relative;
+	display: block;
+}
+.listColumnHead{
+	position: relative;
+	display: block;
+	width: 624px;
+	height: 48px;
+}
+.listColumn{
+	position: relative;
+	display: block;
+	width: 624px;
+	height: 48px;
+	border-top: 1px solid rgba(0,0,0,0.12);
+}
+
+.checkbox{
+	position: relative;
+	display: block;
+	float: left;
+	width: 66px;
+	height: 48px;
+}
+.listHead{
+	position: absolute;
+	display: block;
+	float: left;
+	width:558px;
+	height: 48px;
+	left: 66px;
+}
+.listLink{
+	position: absolute;
+	display: block;
+	float: left;
+	width:558px;
+	height: 48px;
+	left:66px;
+}
+.listLinkAll{
+	width:612px;
+	left: 0;
+	padding-right: 12px;
+}
+.listColAllBlockLeft{
+	position: relative;
+	display: block;
+	float: left;
+	width: 72px;
+	margin-top: 14px;
+	margin-left: 24px;
+	overflow: hidden;
+}
+.listColAllBlockRight{
+	position: relative;
+	display: block;
+	width: 112px;
+	float: right;
+	margin-top: 14px;
+}
+.listDrop{
+	position: absolute;
+	display: block;
+    top: 21.5px;
+    left: 146px;
+}
+.listDropSec{
+    left: 258px;
+}
+.listColSelect{
+	padding-right: 4px;
+}
+.listColDprtBlockLeft{
+	position: relative;
+	display: block;
+	float: left;
+	width: 104px;
+	margin-top: 14px;
+	margin-left: 24px
+}
+.listColDprtBlockRight{
+	position: relative;
+	display: block;
+	float: right;
+	width: 144px;
+	margin-top: 14px;
+}
+.pageCtrl{
+	position: relative;
+	display: block;
+	width: 624px;
+	margin-top:32px;
+	margin-left: 16px;
+}
+.pageCtrlBtn{
+	float: right;
+	margin-left: 16px;
+}
+.pageInfo{
+	position: relative;
+	display: block;
+	float: right;
+	margin-top: 6px;
+	margin-right: 24px;
 }
 
 /*视图模板*/
@@ -175,10 +366,10 @@ li{
 	/*二级导航*/
 .sideBar{
 	position: relative;
-	display: block;
+	display: inline;
 	float: left;
 	width: 156px;
-	border-left: 4px solid #6a90b6;
+	border-left: 4px solid #659c7a;
 }
 .naviLocationSecondery{
 	position: relative;
@@ -207,18 +398,149 @@ li{
 	/*视图模板*/
 .content{
 	position: relative;
-	display: block;
+	display: inline;
 	float: left;
 	width: 656px;
+	padding-bottom: 80px;
 }
+
+/*分页*/
+	/*个人信息*/
+.userInfo{
+	position: relative;
+	display: block;
+}
+.infoHead{
+	position: relative;
+	display: block;
+	margin-left: 264px;
+	overflow: hidden;
+}
+.photo{
+	position: relative;
+	display: block;
+	float: left;
+	width: 64px;
+	height: 64px;
+	background: rgba(0,0,0,0.12);
+	border-radius: 50%
+}
+.title{
+	position: relative;
+	display: block;
+	float: left;
+	margin-left: 16px;
+}
+.name{
+	position: relative;
+	display: block;
+	margin-top: 7px;
+	margin-bottom: 6px;
+}
+.auth{
+	position: relative;
+	display: block;
+}
+.infoBody{
+	position: relative;
+	display: block;
+	margin-top: 64px;	
+	margin-left: 96px;
+	overflow: hidden;
+}
+.infoList{
+	position: relative;
+	display: block;
+	float: left;
+}
+.infoListRight{
+	margin-left: 64px;
+}
+.infoList li{
+	position: relative;
+	display: block;
+	min-height: 20px;
+	margin-bottom: 12px;
+	overflow: hidden;
+}
+.infoLabel{
+	position: relative;
+	display: block;
+	float: left;
+	margin-right: 24px;
+}
+.infoValue{
+	position: relative;
+	display: block;
+	float: left;
+	width: 184px;
+}
+/*全员列表*/
+.panel{
+	position: relative;
+	display: block;
+	width: 624px;
+	height: 54px;
+	margin-left: 16px;
+	z-index: 2
+}
+.listInput{
+	float: left;
+	margin-top: 0;
+	padding-left: 36px;
+	padding-right: 12px;
+}
+.listClearBtn{
+	float: right;
+}
+.searchIcon{
+	position: absolute;
+	display: block;
+	top: 3px;
+	left: 8px;
+}
+/*部门列表*/
+.listDprtBtn{
+	float: left;
+}
+.dprtSelect{
+	width: 192px;
+}
+.optionMenu{
+	position: absolute;
+	display: block;
+	width: 224px;
+	top: -8px;
+	left: 408px;
+}
+.optionMenuBtn{
+	margin-top: 8px;
+	margin-left: 112px;
+}
+.optionMenuColumn{
+	position: relative;
+	display: block;
+	width: 192px;
+	margin: auto;
+	padding-top: 16px;
+	padding-bottom: 8px;
+}
+hr{
+	width: 100%;
+	border: 0;
+	border-top: 1px solid rgba(0,0,0,0.12);
+}
+
+
+
 /*页脚*/
 footer{
-	position: absolute;
-	display: block;;
+	position: fixed;
+	display: block;
 	width: 100%;
-	bottom: 16px;
-	text-align: center;
-	color: rgba(0,0,0,0.26);
+	padding-top: 4px;
+	padding-bottom: 4px;
+	bottom: 0;
 }
 
 @media (min-width: 1600px){
@@ -237,11 +559,11 @@ footer{
 }
 .naviFirstBtn{
 	width: 72px;
-	padding-top: 10px;
+	padding-top: 6px;
 	padding-bottom: 8px;
 }
 .naviFirstImg{
-	top: 18px;
+	top: 14px;
 }
 .naviLocation{
 	margin-top: 40px;
@@ -273,4 +595,222 @@ footer{
 	padding-top: 6px;
 	padding-bottom: 6px;
 }
+
+/*表单*/
+	/*input*/
+.input{
+	 height: 112px;
+	 margin-left: 104px;
+}
+.inputLabel{
+	position: relative;
+	display: block;
+}
+.inputValue{
+	margin-top: 14px;
+	padding-left: 8px;
+	padding-bottom: 12px;
+	border-bottom: 2px solid #c2c2c2;
+}
+.inputValue:focus{
+	border-bottom: 2px solid #659c7a;
+}
+.inputError{
+	position: relative;
+	display: block;
+	margin-top: 10px;
+	margin-left: 8px;
+}
+.inputInfo{
+	width: 528px;
+}
+	/*select*/
+.selectValue{
+	position: relative;
+	display: block;
+	width:536px;
+	margin-top: 14px;
+	padding-left: 5px;
+	padding-bottom: 12px;
+	border-bottom: 2px solid #c2c2c2;
+}
+	/*checkbox*/
+	/*radio*/
+	/*button*/
+.longBtn{
+	position: relative;
+	display: block;
+	width: 96px;
+	height: 40px;
+}
+.shortBtn{
+	position: relative;
+	display: block;
+	width: 96px;
+	height: 40px;
+}
+.listBtn{
+	margin-top: 48px;
+	margin-left: 546px;
+}
+
+
+
+/*分页*/
+	/*个人信息*/
+.infoHead{
+	margin-left: 272px;
+	overflow: hidden;
+}
+.title{
+	position: relative;
+	display: block;
+	float: left;
+	margin-left: 16px;
+}
+.name{
+	position: relative;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 6px;
+}
+.auth{
+	position: relative;
+	display: block;
+}
+.infoBody{
+	margin-top: 80px;
+	margin-left: 80px;
+}
+.infoListRight{
+	margin-left: 80px;
+}
+.infoList li{
+	min-height: 22px;
+	margin-bottom: 16px;
+	overflow: hidden;
+}
+.infoLabel{
+	margin-right: 32px;
+}
+.infoValue{
+	width: 208px;
+}
+/*全员列表*/
+.panel{
+	width: 720px;
+	height: 64px;
+	margin-left: 0;
+}
+.listInput{
+	float: left;
+	margin-top: 2px;
+	padding-left: 36px;
+	padding-right: 12px;
+}
+.listClearBtn{
+	float: right;
+}
+.searchIcon{
+	top: 6px;
+	left: 8px;
+}
+
+/*表格*/
+.table{
+	width: 720px;
+	margin-left: 0;
+}
+.tableList{
+	position: relative;
+	display: block;
+}
+.listColumnHead{
+	width: 720px;
+	height: 54px;
+}
+.listColumn{
+	width: 720px;
+	height: 54px;
+}
+.listDrop{
+	top: 25px;
+    left: 208px;
+}
+.listDropSec{
+    left: 328px;
+}
+.checkbox{
+	width: 74px;
+	height: 54px;
+}
+.listHead{
+	width:646px;
+	height: 54px;
+}
+.listLink{
+	width:646px;
+	height: 54px;
+}
+.listLinkAll{
+	width: 704px;
+	padding-right: 16px;
+}
+.listColAllBlockLeft{
+	width: 104px;
+	margin-top: 16px;
+	margin-left: 32px;
+}
+.listColAllBlockRight{
+	width: 120px;
+	margin-top: 16px;
+}
+.listColDprtBlockLeft{
+	width: 104px;
+	margin-top: 16px;
+	margin-left: 24px
+}
+.listColDprtBlockRight{
+	width: 176px;
+	margin-top: 16px;
+}
+.pageCtrl{
+	width: 720px;
+	margin-top:32px;
+	margin-left: 0;
+}
+.pageCtrlBtn{
+	float: right;
+	margin-left: 16px;
+}
+.pageInfo{
+	position: relative;
+	display: block;
+	float: right;
+	margin-top: 9px;
+}
+
+.dprtSelect{
+	width: 256px;
+}
+.optionMenu{
+	position: absolute;
+	display: block;
+	width: 288px;
+	top: -8px;
+	left: 446px;
+}
+.optionMenuBtn{
+	margin-top: 16px;
+	margin-left: 160px;
+}
+.optionMenuColumn{
+	position: relative;
+	display: block;
+	width: 256px;
+	margin: auto;
+	padding-top: 16px;
+	padding-bottom: 8px;
+}
+
 }

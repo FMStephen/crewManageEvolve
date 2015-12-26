@@ -85,16 +85,16 @@ var gender = [  {"name": "请选择","value": ""},
                  ];
 
 var dprt = [    {"name": "所有部门","value": ""},
-                {"name": "B.编辑部","value": "编辑部"},
-                {"name": "C.策划推广部","value": "策划推广部"},
-                {"name": "J.技术部","value": "技术部"},
-                {"name": "J.节目部","value": "节目部"},
-                {"name": "R.人力资源部","value": "人力资源部"},
-                {"name": "S.视觉设计部","value": "视觉设计部"},
-                {"name": "S.视频部","value": "视频部"}, 
-                {"name": "W.外联部","value": "外联部"},
-                {"name": "Z.综合管理部","value": "综合管理部"},
-                {"name": "Z.综合新闻部","value": "综合新闻部"}
+                {"name": "编辑部","value": "编辑部"},
+                {"name": "策划推广部","value": "策划推广部"},
+                {"name": "技术部","value": "技术部"},
+                {"name": "节目部","value": "节目部"},
+                {"name": "人力资源部","value": "人力资源部"},
+                {"name": "视觉设计部","value": "视觉设计部"},
+                {"name": "视频部","value": "视频部"}, 
+                {"name": "外联部","value": "外联部"},
+                {"name": "综合管理部","value": "综合管理部"},
+                {"name": "综合新闻部","value": "综合新闻部"}
             ];
 
 var position = [    {"name": "所有职位","value": ""},
