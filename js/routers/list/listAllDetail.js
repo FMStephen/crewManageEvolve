@@ -6,6 +6,11 @@ angular.module('app')
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
 				controller: function($scope,$stateParams,listall,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(0);
 					

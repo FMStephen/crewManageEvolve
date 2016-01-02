@@ -7,6 +7,11 @@ angular.module('app')
 				url: '/edit/:id',
 				templateUrl: 'templates/department/department-edit.html',
 				controller: function($scope,$stateParams,userService,dprtall){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 			        $scope.alerts = [];
 

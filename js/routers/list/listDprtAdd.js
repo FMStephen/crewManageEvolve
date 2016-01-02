@@ -6,6 +6,11 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/list/list-add.html',
 				controller: function($scope,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(1);
 
@@ -53,13 +58,18 @@ angular.module('app')
 
 					showuncompleted();
 
+
 					$scope.add = function(){
+
+						var str1 = document.getElementById('studentNo').innerHTML;
+						var str2 = str1.replace(/<div>/g, '');
+						var str3 = str2.replace(/\<\/div\>/g, ' ');
 
 						$scope.flag = true;
 
 						var editmsg = {};
 
-						editmsg.studentno = $scope.studentno;
+						editmsg.studentno = str3;
 						editmsg.position = $scope.position;
 
 						listdprt.add(editmsg)

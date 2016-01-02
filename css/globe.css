@@ -22,6 +22,8 @@ input{
 input[type="checkbox"]{
 	display: none;
 }
+textarea{
+}
 button{
 	margin:0;
 	padding:0;
@@ -175,8 +177,8 @@ p{
 .input{
 	 position: relative;
 	 display: block;
-	 height: 96px;
-	 margin-left: 104px;
+	 min-height: 96px;
+	 margin-left: 48px;
 }
 .inputLabel{
 	position: relative;
@@ -215,6 +217,18 @@ p{
 .tableSelcet{
 	margin-left: -4px;
 }
+	/*textarea*/
+.textareaValue{
+	position: relative;
+	display: block;
+	width:536px;
+	margin-top: 12px;
+	padding-left: 5px;
+	padding-bottom: 12px;
+	border: 0;
+	border-bottom: 2px solid #c2c2c2;
+
+}
 	/*checkbox*/
 	/*radio*/
 	/*button*/
@@ -232,7 +246,7 @@ p{
 }
 .listBtn{
 	margin-top: 48px;
-	margin-left: 532px;
+	margin-left: 476px;
 }
 
 /*表格*/
@@ -251,13 +265,13 @@ p{
 	position: relative;
 	display: block;
 	width: 624px;
-	height: 48px;
+	min-height: 48px;
 }
 .listColumn{
 	position: relative;
 	display: block;
 	width: 624px;
-	height: 48px;
+	min-height: 48px;
 	border-top: 1px solid rgba(0,0,0,0.12);
 }
 
@@ -281,7 +295,7 @@ p{
 	display: block;
 	float: left;
 	width:558px;
-	height: 48px;
+	min-height: 48px;
 	left:66px;
 }
 .listLinkAll{
@@ -331,6 +345,30 @@ p{
 	float: right;
 	width: 144px;
 	margin-top: 14px;
+}
+.listColDprtListBlockLeft{
+	position: relative;
+	display: block;
+	float: left;
+	width: 104px;
+	margin-top: 14px;
+	margin-left: 24px
+}
+.listColDprtListBlockRight{
+	position: relative;
+	display: block;
+	float: left;
+	width: 344px;
+	height: 21px;
+	margin-left: 16px;
+	margin-top: 14px;
+	overflow: hidden;
+}
+.listTargetBlockLeft{
+	width: 108px;
+	margin-left: 48px;
+}
+.listTargetBlockRight{
 }
 .pageCtrl{
 	position: relative;
@@ -530,8 +568,89 @@ hr{
 	border: 0;
 	border-top: 1px solid rgba(0,0,0,0.12);
 }
+	/*重置密码*/
+.addReset{
+	float: left;
+	min-height: 248px;
+	margin-left: 48px;
+}
+.tableEdit{
+	width: 304px;
+}
+.addResetRight{
 
-
+}
+.inputreset{
+	width: 240px;
+	margin-left: 0;
+}
+.ipnutResetBtn{
+	margin-top: 16px;
+	margin-left: 168px;
+}
+	/*增加成员*/
+.selectAdd{
+	width: 248px;
+}
+	/*登陆*/
+.loginHeader{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 304px;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	background: #eeeeee;
+}
+.loginLogo{
+	position: absolute;
+	display: block;
+	width: 272px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	opacity: 0.87;
+}
+.loginT{
+	position: absolute;
+	display: block;
+}
+#loginLeft{
+	bottom: 0;
+	left: 0;
+	width: 240px;
+}
+#loginRight{
+	bottom: 0;
+	right: 0;
+	width: 224px;
+}
+.loginForm{
+	margin-top: 64px;
+	margin-bottom: 64px;
+}
+.inputLogin{
+	width: 200px;
+	margin: auto;
+	margin-top: 24px;
+	padding-left: 0;
+	text-align: center;
+}
+.loginBtn{
+	position: relative;
+	display: block;
+	width: 208px;
+	margin: auto;
+	margin-top: 40px;
+}
+	/*部门编辑*/
+/*.dprtedit{
+	margin-left: 0;
+}
+.dprteditBtn{
+	margin-left: 428px;
+}*/
 
 /*页脚*/
 footer{
@@ -599,8 +718,8 @@ footer{
 /*表单*/
 	/*input*/
 .input{
-	 height: 112px;
-	 margin-left: 104px;
+	 min-height: 112px;
+	 margin-left: 48px;
 }
 .inputLabel{
 	position: relative;
@@ -634,6 +753,8 @@ footer{
 	padding-bottom: 12px;
 	border-bottom: 2px solid #c2c2c2;
 }
+	/*textarea*/
+
 	/*checkbox*/
 	/*radio*/
 	/*button*/
@@ -651,7 +772,7 @@ footer{
 }
 .listBtn{
 	margin-top: 48px;
-	margin-left: 546px;
+	margin-left: 488px;
 }
 
 
@@ -731,7 +852,7 @@ footer{
 }
 .listColumn{
 	width: 720px;
-	height: 54px;
+	min-height: 54px;
 }
 .listDrop{
 	top: 25px;
@@ -750,7 +871,7 @@ footer{
 }
 .listLink{
 	width:646px;
-	height: 54px;
+	min-height: 54px;
 }
 .listLinkAll{
 	width: 704px;
@@ -771,6 +892,26 @@ footer{
 	margin-left: 24px
 }
 .listColDprtBlockRight{
+	width: 176px;
+	margin-top: 16px;
+}
+.listColDprtListBlockLeft{
+	width: 104px;
+	margin-top: 15px;
+	margin-left: 24px
+}
+.listColDprtListBlockRight{
+	width: 400px;
+	height: 21px;
+	margin-left:24px;
+	margin-top: 15px;
+}
+.listTarget BlockLeft{
+	width: 104px;
+	margin-top: 16px;
+	margin-left: 24px
+}
+.listTarget BlockRight{
 	width: 176px;
 	margin-top: 16px;
 }
@@ -811,6 +952,65 @@ footer{
 	margin: auto;
 	padding-top: 16px;
 	padding-bottom: 8px;
+}
+
+.addReset{
+	margin-left: 24px;
+}
+.addResetRight{
+	margin-left: 64px;
+}
+.inputreset{
+	margin-left: 0;
+}
+.tableEdit{
+	width: 344px;
+}
+.inputreset{
+	width: 264px;
+}
+.listTargetBlockLeft{
+	width: 116px;
+	margin-left: 44px;
+}
+.ipnutResetBtn{
+	margin-left: 172px;
+}
+
+
+.loginHeader{
+	height: 480px;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	background: #eeeeee;
+}
+.loginLogo{
+	width: 440px;
+}
+.loginForm{
+	margin-top: 64px;
+	margin-bottom: 64px;
+}
+#loginLeft{
+	width: 400px;
+	bottom: 0;
+	left: 0;
+}
+#loginRight{
+	bottom: 0;
+	right: 0;
+	width: 368px;
+}
+.inputLogin{
+	width: 256px;
+	margin: auto;
+	margin-top: 24px;
+	padding-left: 0;
+	text-align: center;
+}
+.loginBtn{
+	width: 264px;
+	margin: auto;
+	margin-top: 48px;
 }
 
 }

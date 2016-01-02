@@ -6,6 +6,11 @@ angular.module('app')
 				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
 				controller: function($scope,$stateParams,listall,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(0);
 					

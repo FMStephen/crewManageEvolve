@@ -7,6 +7,11 @@ angular.module('app')
 				url: '/infoedit',
 				templateUrl: 'templates/user/info-edit.html',
 				controller: function($scope,userinfo,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(1);
 

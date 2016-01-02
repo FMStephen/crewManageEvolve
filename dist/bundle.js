@@ -44,6 +44,10 @@ angular.module('app',['ui.router','ngCookies','ui.bootstrap'])
 //var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
 var host = 'http://222.201.132.27/bbter-all/index.php/Home/' ;
 
+new Image().src='img/TZH.png';
+new Image().src='img/TMH.png';
+new Image().src='img/checked.png';
+
 function encrypt(msg){
 
   return sodium.crypto_box_easy(msg,sodium.from_hex(nonce),sodium.from_hex(pk),sodium.from_hex(sk),'hex');
@@ -175,10 +179,34 @@ function listCheck(o){
 		o.parentNode.style.backgroundImage = 'url(img/unchecked.png)';
 	}
 }
+function secretShow(){
+	var hl = document.getElementById('loginLeft');
+	var hr = document.getElementById('loginRight');
+	var secretInput = document.getElementById('secret');
+	hl.src = 'img/TZ.png';
+	hr.src = 'img/TM.png';
+}
+function secretHide(){
+	var hl = document.getElementById('loginLeft');
+	var hr = document.getElementById('loginRight');
+	var secretInput = document.getElementById('secret');
+	hl.src = 'img/TZH.png';
+	hr.src = 'img/TMH.png';
+}
+function radio(o){
+	o.parentNode.style.backgroundImage = 'url(img/checked.png)';
+	var radios = document.getElementsByTagName('label');
+    for(var x=0;x<radios.length;x++){
+	  if(radios[x] != o.parentNode){
+	  	radios[x].style.backgroundImage = 'url(img/unchecked.png)';
+	  }
+	}
+
+}
 angular.module('app')
 	.config(function($stateProvider,$urlRouterProvider){
 
-		$urlRouterProvider.when('','/login')
+		$urlRouterProvider.when('','/user/info')
 						  .when('/user','/user/info')
 						  .when('/list','/list/all/&&/1')
 						  .when('/dprt','/dprt/all')
@@ -270,6 +298,11 @@ angular.module('app')
 				url: '/all',
 				templateUrl: 'templates/department/department-all.html',
 				controller: function($scope,userService,dprtall){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 			        $scope.alerts = [];
 
@@ -392,6 +425,11 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/department/department-add.html',
 				controller: function($scope,userService,dprtall){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					$scope.add = function(){
 
@@ -434,6 +472,11 @@ angular.module('app')
 				url: '/edit/:id',
 				templateUrl: 'templates/department/department-edit.html',
 				controller: function($scope,$stateParams,userService,dprtall){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 			        $scope.alerts = [];
 
@@ -520,246 +563,15 @@ angular.module('app')
 	.config(function($stateProvider){
 
 		$stateProvider
-			.state('user.pw',{
-				url: '/pwedit',
-				templateUrl: 'templates/user/password-edit.html',
-				controller: function($scope,userinfo,userService){
-					moreMenu();
-					naviSecondery(2);
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
-
-					$scope.pwedit = function(){
-
-						if($scope.newpw == $scope.cfrmpw && $scope.oldpw != $scope.newpw){
-
-							if(window.confirm("确认修改密码吗?")){
-
-								$scope.flag = true;
-
-								var editmsg = {};
-
-								editmsg.old = $scope.oldpw;
-								editmsg.new = $scope.newpw;
-								editmsg.cfrm = $scope.cfrmpw;
-
-								userinfo.password(editmsg)
-									.then(function(response){
-
-									userService.cookieset(response.data.token);
-									
-									if(userService.result(response.data.code)){
-										
-											alertbox('success','密码修改成功,请重新登录');
-
-											setTimeout(function(){
-												userService.logout();
-												location.href = '#/login';
-											},1500);
-
-										} else {
-
-											alertbox('danger',userService.hint(response.data.code));
-
-										}
-
-										$scope.flag = false;
-										
-									});
-
-							}
-
-						} else {
-
-							if($scope.oldpw == $scope.newpw){
-								
-								alertbox('danger','新旧密码相同');
-
-
-							}
-							if($scope.newpw != $scope.cfrmpw){
-
-								alertbox('danger','确认密码不一致');
-
-							}
-
-						}
-
-					};
-
-				}
-			});
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-			
-			.state('user.edit',{
-				url: '/infoedit',
-				templateUrl: 'templates/user/info-edit.html',
-				controller: function($scope,userinfo,userService){
-					moreMenu();
-					naviSecondery(1);
-
-			        $scope.alerts = [];
-
-			        function alertbox(type,msg){
-
-			        	if($scope.alerts != []){
-
-			        		$scope.alerts.splice(0,1);
-
-			        	}
-
-			        	$scope.alerts.push({type : type ,msg : msg});
-
-			        };
-
-			        $scope.closeAlert = function(index){
-
-			            $scope.alerts.splice(index,1);
-
-			        };
-
-					userinfo.show()
-						.then(function(response){
-
-						    $scope.genderopt = gender;
-  							$scope.schoolopt = school;	
-
-							userService.cookieset(response.data.token);
-							
-							if(response.data.code == 200){
-
-								$scope.content = response.data.data;
-						 
-								$scope.username = $scope.content.username;
-								$scope.room = $scope.content.room;
-								$scope.telLong = $scope.content.telLong;
-								$scope.telShort = $scope.content.telShort;
-								$scope.email = $scope.content.email;
-								
-  								$scope.gender = $scope.content.gender;
-  								$scope.school = $scope.content.school;
-
-							} else {
-
-								if(response.data.code == 201){
-
-									alertbox('',userService.hint(response.data.code));
-
-	  								$scope.gender = '';
-	  								$scope.school = '';
-
-								}
-
-							}
-						});
-
-					$scope.infoedit = function(){
-
-						$scope.flag = true;
-
-						var editmsg = {};
-
-						editmsg.username = $scope.username;
-						editmsg.gender = $scope.gender;
-						editmsg.school = $scope.school;
-						editmsg.room = $scope.room;
-						editmsg.telLong = $scope.telLong;
-						editmsg.telShort = $scope.telShort;
-						editmsg.email = $scope.email;
-
-						userinfo.edit(editmsg)
-							.then(function(response){
-
-							userService.cookieset(response.data.token);
-							
-							if(userService.result(response.data.code)){
-
-									alertbox('success','个人资料修改成功');
-
-									setTimeout(function(){ location.href = '#/user/info' }, 1500);
-
-								} else {
-
-									alertbox('danger',userService.hint(response.data.code));
-
-								}
-
-							$scope.flag = false;
-
-							});
-						
-					};
-
-					
-
-				}
-			});
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
-
-			.state('user.info',{
-				url: '/info',
-				templateUrl: 'templates/user/info-detail.html',
-				controller:  function($scope,userinfo,userService){
-
-					moreMenu();
-					naviSecondery(0);
-
-					userinfo.show()
-						.then(function(response){
-
-							userService.cookieset(response.data.token);
-
-							if(userService.result(response.data.code)){
-
-								$scope.content = response.data.data;
-
-							}
-						});
-
-				}
-			});
-			
-
-
-	});
-angular.module('app')
-	.config(function($stateProvider){
-
-		$stateProvider
 			.state('list.all',{
 				url: '/all/:dprt&:position&:keyword/:current',
 				templateUrl: 'templates/list/list-all.html',
 				controller: function($scope,$stateParams,listall,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(0);
 					
@@ -873,6 +685,11 @@ angular.module('app')
 				url: '/detail/:id',
 				templateUrl: 'templates/list/list-detail.html',
 				controller: function($scope,$stateParams,listall,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(0);
 					
@@ -980,6 +797,11 @@ angular.module('app')
 				url: '/dprt',
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 
 					optionMenu();
 					moreMenu();
@@ -1247,6 +1069,11 @@ angular.module('app')
 				url: '/add',
 				templateUrl: 'templates/list/list-add.html',
 				controller: function($scope,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(1);
 
@@ -1294,13 +1121,18 @@ angular.module('app')
 
 					showuncompleted();
 
+
 					$scope.add = function(){
+
+						var str1 = document.getElementById('studentNo').innerHTML;
+						var str2 = str1.replace(/<div>/g, '');
+						var str3 = str2.replace(/\<\/div\>/g, ' ');
 
 						$scope.flag = true;
 
 						var editmsg = {};
 
-						editmsg.studentno = $scope.studentno;
+						editmsg.studentno = str3;
 						editmsg.position = $scope.position;
 
 						listdprt.add(editmsg)
@@ -1358,6 +1190,11 @@ angular.module('app')
 				url: '/reset/:id',
 				templateUrl: 'templates/list/list-resetpw.html',
 				controller: function($scope,$stateParams,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(1);
 					
@@ -1392,6 +1229,8 @@ angular.module('app')
 							if(userService.result(response.data.code)){
 
 								alertbox('','此操作将修改对象的密码，无法撤销');
+
+								$scope.members = response.data.data.members;
 								
 							} else {
 
@@ -1461,6 +1300,11 @@ angular.module('app')
 				url: '/recycle/:current',
 				templateUrl: 'templates/list/list-recycle.html',
 				controller: function($scope,$stateParams,listrcl,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(2);
 
@@ -1719,6 +1563,256 @@ angular.module('app')
 
 });
 angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+			.state('user.pw',{
+				url: '/pwedit',
+				templateUrl: 'templates/user/password-edit.html',
+				controller: function($scope,userinfo,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
+					moreMenu();
+					naviSecondery(2);
+
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
+					$scope.pwedit = function(){
+
+						if($scope.newpw == $scope.cfrmpw && $scope.oldpw != $scope.newpw){
+
+							if(window.confirm("确认修改密码吗?")){
+
+								$scope.flag = true;
+
+								var editmsg = {};
+
+								editmsg.old = $scope.oldpw;
+								editmsg.new = $scope.newpw;
+								editmsg.cfrm = $scope.cfrmpw;
+
+								userinfo.password(editmsg)
+									.then(function(response){
+
+									userService.cookieset(response.data.token);
+									
+									if(userService.result(response.data.code)){
+										
+											alertbox('success','密码修改成功,请重新登录');
+
+											setTimeout(function(){
+												userService.logout();
+												location.href = '#/login';
+											},1500);
+
+										} else {
+
+											alertbox('danger',userService.hint(response.data.code));
+
+										}
+
+										$scope.flag = false;
+										
+									});
+
+							}
+
+						} else {
+
+							if($scope.oldpw == $scope.newpw){
+								
+								alertbox('danger','新旧密码相同');
+
+
+							}
+							if($scope.newpw != $scope.cfrmpw){
+
+								alertbox('danger','确认密码不一致');
+
+							}
+
+						}
+
+					};
+
+				}
+			});
+
+
+	});
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+			
+			.state('user.edit',{
+				url: '/infoedit',
+				templateUrl: 'templates/user/info-edit.html',
+				controller: function($scope,userinfo,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
+					moreMenu();
+					naviSecondery(1);
+
+			        $scope.alerts = [];
+
+			        function alertbox(type,msg){
+
+			        	if($scope.alerts != []){
+
+			        		$scope.alerts.splice(0,1);
+
+			        	}
+
+			        	$scope.alerts.push({type : type ,msg : msg});
+
+			        };
+
+			        $scope.closeAlert = function(index){
+
+			            $scope.alerts.splice(index,1);
+
+			        };
+
+					userinfo.show()
+						.then(function(response){
+
+						    $scope.genderopt = gender;
+  							$scope.schoolopt = school;	
+
+							userService.cookieset(response.data.token);
+							
+							if(response.data.code == 200){
+
+								$scope.content = response.data.data;
+						 
+								$scope.username = $scope.content.username;
+								$scope.room = $scope.content.room;
+								$scope.telLong = $scope.content.telLong;
+								$scope.telShort = $scope.content.telShort;
+								$scope.email = $scope.content.email;
+								
+  								$scope.gender = $scope.content.gender;
+  								$scope.school = $scope.content.school;
+
+							} else {
+
+								if(response.data.code == 201){
+
+									alertbox('',userService.hint(response.data.code));
+
+	  								$scope.gender = '';
+	  								$scope.school = '';
+
+								}
+
+							}
+						});
+
+					$scope.infoedit = function(){
+
+						$scope.flag = true;
+
+						var editmsg = {};
+
+						editmsg.username = $scope.username;
+						editmsg.gender = $scope.gender;
+						editmsg.school = $scope.school;
+						editmsg.room = $scope.room;
+						editmsg.telLong = $scope.telLong;
+						editmsg.telShort = $scope.telShort;
+						editmsg.email = $scope.email;
+
+						userinfo.edit(editmsg)
+							.then(function(response){
+
+							userService.cookieset(response.data.token);
+							
+							if(userService.result(response.data.code)){
+
+									alertbox('success','个人资料修改成功');
+
+									setTimeout(function(){ location.href = '#/user/info' }, 1500);
+
+								} else {
+
+									alertbox('danger',userService.hint(response.data.code));
+
+								}
+
+							$scope.flag = false;
+
+							});
+						
+					};
+
+					
+
+				}
+			});
+
+
+	});
+angular.module('app')
+	.config(function($stateProvider){
+
+		$stateProvider
+
+			.state('user.info',{
+				url: '/info',
+				templateUrl: 'templates/user/info-detail.html',
+				controller:  function($scope,userinfo,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
+					moreMenu();
+					naviSecondery(0);
+
+					userinfo.show()
+						.then(function(response){
+
+							userService.cookieset(response.data.token);
+
+							if(userService.result(response.data.code)){
+
+								$scope.content = response.data.data;
+
+							}
+						});
+
+				}
+			});
+			
+
+
+	});
+angular.module('app')
 	
 	.service('userService',function($http,$cookies) {
 
@@ -1735,6 +1829,12 @@ angular.module('app')
 				//return $http.post('http://localhost/angular/crewManageEvolve/test.php',user);
 
 				},
+
+			logincheck: function(){
+
+				return token = $cookies.get("token");
+
+			},
 
 			logout: function(user){
 
@@ -1869,7 +1969,7 @@ angular.module('app')
 
 					case 103:
 						//location.href = '#/login';
-						return '账号或密码错误';
+						return '账号或密码错误, 如忘记密码请咨询部长';
 						break;
 
 					case 104:

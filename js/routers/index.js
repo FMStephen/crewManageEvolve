@@ -1,7 +1,7 @@
 angular.module('app')
 	.config(function($stateProvider,$urlRouterProvider){
 
-		$urlRouterProvider.when('','/login')
+		$urlRouterProvider.when('','/user/info')
 						  .when('/user','/user/info')
 						  .when('/list','/list/all/&&/1')
 						  .when('/dprt','/dprt/all')

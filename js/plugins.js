@@ -63,3 +63,27 @@ function listCheck(o){
 		o.parentNode.style.backgroundImage = 'url(img/unchecked.png)';
 	}
 }
+function secretShow(){
+	var hl = document.getElementById('loginLeft');
+	var hr = document.getElementById('loginRight');
+	var secretInput = document.getElementById('secret');
+	hl.src = 'img/TZ.png';
+	hr.src = 'img/TM.png';
+}
+function secretHide(){
+	var hl = document.getElementById('loginLeft');
+	var hr = document.getElementById('loginRight');
+	var secretInput = document.getElementById('secret');
+	hl.src = 'img/TZH.png';
+	hr.src = 'img/TMH.png';
+}
+function radio(o){
+	o.parentNode.style.backgroundImage = 'url(img/checked.png)';
+	var radios = document.getElementsByTagName('label');
+    for(var x=0;x<radios.length;x++){
+	  if(radios[x] != o.parentNode){
+	  	radios[x].style.backgroundImage = 'url(img/unchecked.png)';
+	  }
+	}
+
+}

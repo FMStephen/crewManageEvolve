@@ -1,14 +1,29 @@
 <div>
+	<style>
+		.alert{
+			top: 304px;
+		}
+		@media (min-width: 1600px){
+		.alert{
+			top: 480px;
+		}	
+		}
+	</style>
+	<div class="loginHeader">
+		<img class="loginLogo" src="img/loginLogo.png">
+		<img id="loginLeft" class="loginT" src="img/TZ.png">
+		<img id="loginRight" class="loginT" src="img/TM.png">
+	</div>
 	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form name="login" ng-submit="update()" novalidate>
+	<form class="loginForm" name="login" ng-submit="update()" novalidate>
 		<div ng-class="{'has-error' : login.username.$invalid && !login.username.$pristine}" >
-			<input type="text" name="username" placeholder="studentno" ng-model="studentNo" ng-pattern="/^20[0-9]{10}$/" required>
-            <p ng-show="login.username.$invalid && !login.username.$pristine && login.username.$error.pattern">error</p>
+			<input class="inputValue fontLarge inputLogin" type="text" name="username" placeholder="请输入学号" ng-model="studentNo" ng-pattern="/^20[0-9]{10}$/" required>
+            <!-- <p ng-show="login.username.$invalid && !login.username.$pristine && login.username.$error.pattern">error</p> -->
 		</div>
         <div ng-class="{'has-error' : login.password.$invalid && !login.password.$pristine}">
-    		<input type="password" name="password" placeholder="password" ng-model="password" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
-            <p ng-show="login.password.$error.pattern">error</p>
+    		<input id="secret" class="inputValue fontLarge inputLogin" type="password" name="password" placeholder="请输入密码" ng-model="password" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" onfocus="secretHide()" onblur="secretShow()" required>
+            <!-- <p ng-show="login.password.$error.pattern">error</p> -->
         </div>
-		<button type="submit" ng-disabled="login.$invalid || flag">login</button>
+		<button class="mainBtn loginBtn fontNormal" type="submit" ng-disabled="login.$invalid || flag">登录</button>
 	</form>
 </div>

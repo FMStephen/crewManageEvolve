@@ -7,6 +7,11 @@ angular.module('app')
 				templateUrl: 'templates/list/list-department.html',
 				controller: function($scope,listdprt,userService){
 
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
+
 					optionMenu();
 					moreMenu();
 					naviSecondery(1);

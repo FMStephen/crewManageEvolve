@@ -44,6 +44,10 @@ angular.module('app',['ui.router','ngCookies','ui.bootstrap'])
 //var host = 'http://192.168.1.120/bbter/index.php/Home/' ;
 var host = 'http://222.201.132.27/bbter-all/index.php/Home/' ;
 
+new Image().src='img/TZH.png';
+new Image().src='img/TMH.png';
+new Image().src='img/checked.png';
+
 function encrypt(msg){
 
   return sodium.crypto_box_easy(msg,sodium.from_hex(nonce),sodium.from_hex(pk),sodium.from_hex(sk),'hex');

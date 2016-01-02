@@ -8,6 +8,10 @@ angular.module('app')
 				templateUrl: 'templates/user/info-detail.html',
 				controller:  function($scope,userinfo,userService){
 
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(0);
 

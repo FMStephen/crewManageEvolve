@@ -6,6 +6,11 @@ angular.module('app')
 				url: '/pwedit',
 				templateUrl: 'templates/user/password-edit.html',
 				controller: function($scope,userinfo,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(2);
 

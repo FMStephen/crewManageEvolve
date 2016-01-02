@@ -16,6 +16,12 @@ angular.module('app')
 
 				},
 
+			logincheck: function(){
+
+				return token = $cookies.get("token");
+
+			},
+
 			logout: function(user){
 
 				var timestamp = new Date().getTime();
@@ -149,7 +155,7 @@ angular.module('app')
 
 					case 103:
 						//location.href = '#/login';
-						return '账号或密码错误';
+						return '账号或密码错误, 如忘记密码请咨询部长';
 						break;
 
 					case 104:

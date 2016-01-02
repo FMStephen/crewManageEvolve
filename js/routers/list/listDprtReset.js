@@ -6,6 +6,11 @@ angular.module('app')
 				url: '/reset/:id',
 				templateUrl: 'templates/list/list-resetpw.html',
 				controller: function($scope,$stateParams,listdprt,userService){
+
+					if(userService.logincheck()==null){
+						location.href = '#/login';
+					}
+
 					moreMenu();
 					naviSecondery(1);
 					
@@ -40,6 +45,8 @@ angular.module('app')
 							if(userService.result(response.data.code)){
 
 								alertbox('','此操作将修改对象的密码，无法撤销');
+
+								$scope.members = response.data.data.members;
 								
 							} else {
 

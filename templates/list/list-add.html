@@ -1,27 +1,37 @@
 <div>
-	<a href="#list/dprt">返回</a>
 	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form name="addform" ng-submit="add()" novalidate>
-		<div ng-class="{'has-error' : addform.studentno.$invalid && !addform.studentno.$pristine && addform.studentno.$error.minlength}">
-			学号<textarea type="text" name="studentno" ng-model="studentno" ng-minlength="12" required></textarea>
-			<p ng-show="addform.studentno.$invalid && !addform.studentno.$pristine && addform.studentno.$error.minlength">error</p>
-		</div>
-		<div ng-class="{ 'has-error' : addform.position.$invalid && !addform.position.$pristine }">
-		职位<select name="position" ng-model="position" required>
-		 		<option value="干事">干事</option>
-		 		<option value="主管">主管</option>
-		 		<option value="部长">部长</option>
-		    </select>
-			<p ng-show="addform.position.$invalid && !addform.position.$pristine">error</p>
-		</div>
-    <button type="submit" ng-disabled="addform.$invalid || flag">提交</button>
-    <form>
-    <div>尚未完善资料成员
-		<ul>
-			<li ng-repeat="uncompleted in uncompleteds">
-					{{uncompleted.studentno}}
-					{{uncompleted.position}}
-			</li>		
+	<div class="addReset">
+		<form name="addform" ng-submit="add()" novalidate>
+			<div class="input inputreset">
+				<span class="inputLabel fontSmall">职位</span>
+			<select class="selectValue fontLarge inputreset selectAdd" name="position" ng-model="position" required>
+			 		<option value="干事">干事</option>
+			 		<option value="主管">主管</option>
+			 		<option value="部长">部长</option>
+			    </select>
+			</div>
+			<div class="input inputreset">
+				<span class="inputLabel fontSmall">学号</span>
+				<span id="studentNo" class="textareaValue fontLarge inputreset" ng-model="studentno" contenteditable="true" required></span>
+			</div>
+	    	<button class="mainBtn shortBtn ipnutResetBtn fontNormal" type="submit" ng-disabled="flag">提交</button>
+	    </form>
+	</div>
+    <div class="table tableEdit addReset addResetRight">
+		<ul class="tableList">
+			<li class="listColumnHead tableEdit">
+				<div class="listHead listLinkAll fontNormal tableEdit">
+					<!-- <img ng-src="{{member.photo}}"> -->
+					<span class="listColAllBlockLeft  listTargetBlockLeft">未完善信息账号</span>
+					<span class="listColAllBlockRight listTargetBlockRight">职位</span>
+				</div>
+			</li>
+			<li class="listColumn tableEdit" ng-repeat="uncompleted in uncompleteds">
+				<div class="listLink listLinkAll fontNormal tableEdit">
+					<span class="listColAllBlockLeft listTargetBlockLeft">{{uncompleted.studentno}}</span> 
+					<span class="listColAllBlockRight listTargetBlockRight">{{uncompleted.position}}</span> 
+				</div>
+			</li>
 		</ul>
 	</div>
 </div>
