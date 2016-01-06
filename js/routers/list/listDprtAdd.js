@@ -62,7 +62,7 @@ angular.module('app')
 					$scope.add = function(){
 
 						var str1 = document.getElementById('studentNo').innerHTML;
-						var str2 = str1.replace(/\<\/span><span style="-webkit-text-stroke-width: 0.2px;"><br><\/span>\<\/div><div style="-webkit-text-stroke-width: 0.2px;"><span style="-webkit-text-stroke-width: 0.2px;">/g, '.').replace(/\<span style="-webkit-text-stroke-width: 0.2px;"\>/g, '').replace(/\<\/span\>\<br style="-webkit-text-stroke-width: 0.2px;"\>\<div style="-webkit-text-stroke-width: 0.2px;"\>/g, '').replace(/<\/span><\/div>/g, '').replace(/<\/span><div style="-webkit-text-stroke-width: 0.2px;">/g,'').replace(/<div style="-webkit-text-stroke-width: 0.2px;"><br>/g,'').replace(/<div style="-webkit-text-stroke-width: 0.2px;">/g,'').replace(/<br>/g,'');
+						var str2 = str1.replace(/\<\/span><span style="-webkit-text-stroke-width: 0.2px;"><br><\/span>\<\/div><div style="-webkit-text-stroke-width: 0.2px;"><span style="-webkit-text-stroke-width: 0.2px;">/g, '.').replace(/\<span style="-webkit-text-stroke-width: 0.2px;"\>/g, '').replace(/\<\/span\>\<br style="-webkit-text-stroke-width: 0.2px;"\>\<div style="-webkit-text-stroke-width: 0.2px;"\>/g, '').replace(/<\/span><\/div>/g, '').replace(/<\/span><div style="-webkit-text-stroke-width: 0.2px;">/g,'').replace(/<div style="-webkit-text-stroke-width: 0.2px;"><br>/g,'').replace(/<div style="-webkit-text-stroke-width: 0.2px;">/g,'').replace(/<br>/g,'').replace(/<\/span>/g,'.').replace(/<\/div>/g,'').replace(/<div>/g,'').replace(/<span>/g,'');
 						
 						//console.log(str2)
 
