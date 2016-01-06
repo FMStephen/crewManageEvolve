@@ -1119,7 +1119,7 @@ angular.module('app')
 
 					};
 
-					//showuncompleted();
+					showuncompleted();
 
 
 					$scope.add = function(){
@@ -1127,7 +1127,7 @@ angular.module('app')
 						var str1 = document.getElementById('studentNo').innerHTML;
 						var str2 = str1.replace(/\<\/span><span style="-webkit-text-stroke-width: 0.2px;"><br><\/span>\<\/div><div style="-webkit-text-stroke-width: 0.2px;"><span style="-webkit-text-stroke-width: 0.2px;">/g, '.').replace(/\<span style="-webkit-text-stroke-width: 0.2px;"\>/g, '').replace(/\<\/span\>\<br style="-webkit-text-stroke-width: 0.2px;"\>\<div style="-webkit-text-stroke-width: 0.2px;"\>/g, '').replace(/<\/span><\/div>/g, '').replace(/<\/span><div style="-webkit-text-stroke-width: 0.2px;">/g,'').replace(/<div style="-webkit-text-stroke-width: 0.2px;"><br>/g,'').replace(/<div style="-webkit-text-stroke-width: 0.2px;">/g,'').replace(/<br>/g,'');
 						
-						console.log(str2)
+						//console.log(str2)
 
 						$scope.flag = true;
 
@@ -2101,51 +2101,6 @@ angular.module('app')
 	);
 angular.module('app')
 	
-	.service('userinfo',function($http,userService) {
-
-		return{
-
-			show: function(){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-				
-				return $http.post(host + 'User/info',postdata);
-
-
-				},
-
-			edit: function(editmsg){
-
-				var postdata = {};
-
-				postdata.auth = userService.auth();
-				postdata.data = editmsg;
-
-				return $http.post(host + 'User/infoEdit',postdata);
-		
-			},
-
-			password: function(editmsg){
-
-				var postdata = {};
-				postdata.data = {};
-
-				postdata.auth = userService.auth();
-				postdata.data.old = md5(editmsg.old);
-				postdata.data.new = md5(editmsg.new);
-				postdata.data.cfrm = md5(editmsg.cfrm);
-
-				return $http.post(host + 'User/pwEdit',postdata);
-
-			}
-
-			};
-		}
-	);
-angular.module('app')
-	
 	.service('listall',function($http,userService) {
 
 		return{
@@ -2292,6 +2247,51 @@ angular.module('app')
 				postdata.data = editmsg;
 
 				return $http.post(host + 'User/recover',postdata);
+			}
+
+			};
+		}
+	);
+angular.module('app')
+	
+	.service('userinfo',function($http,userService) {
+
+		return{
+
+			show: function(){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				
+				return $http.post(host + 'User/info',postdata);
+
+
+				},
+
+			edit: function(editmsg){
+
+				var postdata = {};
+
+				postdata.auth = userService.auth();
+				postdata.data = editmsg;
+
+				return $http.post(host + 'User/infoEdit',postdata);
+		
+			},
+
+			password: function(editmsg){
+
+				var postdata = {};
+				postdata.data = {};
+
+				postdata.auth = userService.auth();
+				postdata.data.old = md5(editmsg.old);
+				postdata.data.new = md5(editmsg.new);
+				postdata.data.cfrm = md5(editmsg.cfrm);
+
+				return $http.post(host + 'User/pwEdit',postdata);
+
 			}
 
 			};
