@@ -4,31 +4,17 @@ angular.module('app')
     return {
 
       show() {
-        var postdata = {}
-
-        postdata.auth = userService.auth()
-
-        return $http.post('Department/listAll', postdata)
+        return $http.post('Department/listAll')
 
       },
 
-      editshow(editmsg) {
-        var postdata = {}
-
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
-
-        return $http.post('Department/detail', postdata)
+      editshow(data) {
+        return $http.post('Department/detail', { data })
 
       },
 
-      edit(editmsg) {
-        var postdata = {}
-
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
-
-        return $http.post('Department/edit', postdata)
+      edit(data) {
+        return $http.post('Department/edit', { data })
 
       } // ,
       // add(editmsg){
