@@ -5,7 +5,7 @@ angular.module('app')
       .state('dprt.all', {
         url: '/all',
         templateUrl: 'templates/department/department-all.html',
-        controller($scope, userService, dprtall) {
+        controller($scope, $state, dprtall) {
 
           moreMenu()
           $scope.alerts = []

@@ -5,7 +5,7 @@ angular.module('app')
       .state('user.pw', {
         url: '/pwedit',
         templateUrl: 'templates/user/password-edit.html',
-        controller($scope, userinfo, userService) {
+        controller($scope, $state, userinfo) {
 
           moreMenu()
           naviSecondery(2)
@@ -56,7 +56,7 @@ angular.module('app')
               })
 
               .catch(({ message }) => {
-                alertbox('danger', userService.hint(response.data.code))
+                alertbox('danger', message)
               })
 
               .then(() => {

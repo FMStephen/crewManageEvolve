@@ -5,7 +5,7 @@ angular.module('app')
       .state('dprt.edit', {
         url: '/edit/:id',
         templateUrl: 'templates/department/department-edit.html',
-        controller($scope, $stateParams, userService, dprtall) {
+        controller($scope, $stateParams, $state, dprtall) {
 
           moreMenu()
           $scope.alerts = []

@@ -58,7 +58,7 @@ angular.module('app')
               })
 
               .catch(({ message }) => {
-                alertbox('danger', userService.hint(response.data.code))
+                alertbox('danger', message)
                 $scope.studentno = response.data.data.failed.join('\r\n')
                 showuncompleted()
               })

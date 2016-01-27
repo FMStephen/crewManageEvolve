@@ -5,7 +5,7 @@ angular.module('app')
       .state('dprt.add', {
         url: '/add',
         templateUrl: 'templates/department/department-add.html',
-        controller($scope, userService, dprtall) {
+        controller($scope, $state, dprtall) {
 
           moreMenu()
 

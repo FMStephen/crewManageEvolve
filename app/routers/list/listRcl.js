@@ -5,7 +5,7 @@ angular.module('app')
       .state('list.recycle', {
         url: '/recycle/:current',
         templateUrl: 'templates/list/list-recycle.html',
-        controller($scope, $stateParams, listrcl) {
+        controller($scope, $stateParams, $state, listrcl) {
 
           moreMenu()
           naviSecondery(2)

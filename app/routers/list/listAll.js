@@ -5,7 +5,7 @@ angular.module('app')
       .state('list.all', {
         url: '/all/:dprt&:position&:keyword/:current',
         templateUrl: 'templates/list/list-all.html',
-        controller($scope, $stateParams, listall, userService) {
+        controller($scope, $stateParams, $state, listall) {
 
           moreMenu()
           naviSecondery(0)

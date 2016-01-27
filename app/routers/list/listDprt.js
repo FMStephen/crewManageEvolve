@@ -5,7 +5,7 @@ angular.module('app')
       .state('list.dprt', {
         url: '/dprt',
         templateUrl: 'templates/list/list-department.html',
-        controller($scope, listdprt, userService) {
+        controller($scope, $state, listdprt) {
 
           optionMenu()
           moreMenu()

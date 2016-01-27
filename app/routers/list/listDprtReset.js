@@ -5,7 +5,7 @@ angular.module('app')
       .state('list.reset', {
         url: '/reset/:id',
         templateUrl: 'templates/list/list-resetpw.html',
-        controller($scope, $stateParams, listdprt, userService) {
+        controller($scope, $stateParams, $state, listdprt) {
 
           moreMenu()
           naviSecondery(1)
