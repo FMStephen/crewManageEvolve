@@ -8,7 +8,7 @@ angular.module('app')
 
         postdata.auth = userService.auth()
 
-        return $http.post(host + 'Department/listAll', postdata)
+        return $http.post('Department/listAll', postdata)
 
       },
 
@@ -18,7 +18,7 @@ angular.module('app')
         postdata.auth = userService.auth()
         postdata.data = editmsg
 
-        return $http.post(host + 'Department/detail', postdata)
+        return $http.post('Department/detail', postdata)
 
       },
 
@@ -28,7 +28,7 @@ angular.module('app')
         postdata.auth = userService.auth()
         postdata.data = editmsg
 
-        return $http.post(host + 'Department/edit', postdata)
+        return $http.post('Department/edit', postdata)
 
       } // ,
       // add(editmsg){
@@ -37,7 +37,7 @@ angular.module('app')
       // 	postdata.auth = userService.auth()
       // 	postdata.data = editmsg
 
-      // 	return $http.post(host + 'Department/add',postdata)
+      // 	return $http.post('Department/add',postdata)
 
       // 	},
 
@@ -48,7 +48,7 @@ angular.module('app')
       // 	postdata.auth = userService.auth()
       // 	postdata.data = editmsg
 
-      // 	return $http.post(host + 'Department/del',postdata)
+      // 	return $http.post('Department/del',postdata)
 
       // 	}
 
