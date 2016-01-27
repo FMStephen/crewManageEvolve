@@ -1,13 +1,11 @@
 angular.module('app')
   .config($stateProvider => {
     $stateProvider
+
       .state('list.reset', {
         url: '/reset/:id',
         templateUrl: 'templates/list/list-resetpw.html',
         controller($scope, $stateParams, listdprt, userService) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
 
           moreMenu()
           naviSecondery(1)

@@ -31,7 +31,7 @@ angular.module('app')
       },
 
       logincheck() {
-        return window.token = $cookies.get('token')
+        return $cookies.get('token')
       },
 
       logout(user) {

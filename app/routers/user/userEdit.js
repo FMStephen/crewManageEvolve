@@ -5,10 +5,7 @@ angular.module('app')
       .state('user.edit', {
         url: '/infoedit',
         templateUrl: 'templates/user/info-edit.html',
-        controller($scope, userinfo, userService) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
+        controller($scope, $state, userinfo, userService) {
 
           moreMenu()
           naviSecondery(1)

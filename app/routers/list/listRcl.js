@@ -1,13 +1,11 @@
 angular.module('app')
   .config($stateProvider => {
     $stateProvider
+
       .state('list.recycle', {
         url: '/recycle/:current',
         templateUrl: 'templates/list/list-recycle.html',
         controller($scope, $stateParams, listrcl, userService) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
 
           moreMenu()
           naviSecondery(2)

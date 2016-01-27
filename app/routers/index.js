@@ -1,35 +1,54 @@
 angular.module('app')
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(($stateProvider, $urlRouterProvider) => {
+
+    function authenticate ($timeout, $state, userService) {
+      if (!userService.logincheck()) {
+        $timeout(() => $state.go('login'))
+        return Promise.reject()
+      }
+    }
+
     $urlRouterProvider.when('', '/user/info')
       .when('/user', '/user/info')
       .when('/list', '/list/all/&&/1')
       .when('/dprt', '/dprt/all')
 
     $stateProvider
+
       .state('user', {
         abstract: true,
         url: '/user',
-        templateUrl: 'templates/navi/navi-user.html'
+        templateUrl: 'templates/navi/navi-user.html',
+        resolve: { authenticate }
       })
       .state('list', {
         url: '/list',
         abstract: true,
-        templateUrl: 'templates/navi/navi-list.html'
+        templateUrl: 'templates/navi/navi-list.html',
+        resolve: { authenticate }
       })
       .state('dprt', {
         url: '/dprt',
         abstract: true,
-        templateUrl: 'templates/navi/navi-dprt.html'
+        templateUrl: 'templates/navi/navi-dprt.html',
+        resolve: { authenticate }
       })
       .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
-        controller($scope, $cookies, userService) {
-          $scope.alerts = []
+        resolve: {
+          check($timeout, $state, userService) {
+            if (userService.logincheck()) {
+              $timeout(() => $state.go('/user/info'))
+              return Promise.reject()
+            }
+          }
+        },
+        controller($scope, $state, $cookies, userService) {
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -41,21 +60,20 @@ angular.module('app')
           $scope.update = async function () {
             $scope.flag = true
 
-            var user = {
-              studentNo: $scope.studentNo,
-              password: $scope.password,
-            }
+            userService.login($scope)
+              .then(response => {
 
-            const response = await userService.login(user)
-
-            userService.cookieset(response.data.token)
-
-            if (userService.result(response.data.code) || response.data.code == 201) {
-              location.href = '#/user'
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-            $scope.flag = false
+                userService.cookieset(response.data.token)
+                if (userService.result(response.data.code) || response.data.code == 201) {
+                  $state.go('user')
+                } else {
+                  alertbox('danger', userService.hint(response.data.code))
+                }
+                $scope.flag = false
+              })
+              .catch(error => {
+                alertbox('danger', '未知错误')
+              })
           }
         }
       })

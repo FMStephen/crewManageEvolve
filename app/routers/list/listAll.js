@@ -1,13 +1,11 @@
 angular.module('app')
   .config($stateProvider => {
     $stateProvider
+
       .state('list.all', {
         url: '/all/:dprt&:position&:keyword/:current',
         templateUrl: 'templates/list/list-all.html',
         controller($scope, $stateParams, listall, userService) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
 
           moreMenu()
           naviSecondery(0)
@@ -16,12 +14,12 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
 
-          var x = parseInt($stateParams.current)
+          var x = $stateParams.current | 0
 
           $scope.dprtopt = dprt
           $scope.positionopt = position
@@ -54,11 +52,7 @@ angular.module('app')
           document.getElementById('search').focus()
 
           $scope.isEdit = function (value) {
-            if (value) {
-              return true
-            } else {
-              return false
-            }
+            return !!value;
           }
 
           $scope.filter = function () {

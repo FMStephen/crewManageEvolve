@@ -1,13 +1,11 @@
 angular.module('app')
   .config($stateProvider => {
     $stateProvider
+
       .state('user.pw', {
         url: '/pwedit',
         templateUrl: 'templates/user/password-edit.html',
         controller($scope, userinfo, userService) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
 
           moreMenu()
           naviSecondery(2)
@@ -46,7 +44,6 @@ angular.module('app')
               cfrm: $scope.cfrmpw,
               'new': $scope.newpw,
             }
-
 
             const response = await userinfo.password(editmsg)
 

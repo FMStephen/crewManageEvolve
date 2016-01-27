@@ -6,9 +6,6 @@ angular.module('app')
         url: '/add',
         templateUrl: 'templates/department/department-add.html',
         controller($scope, userService, dprtall) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
 
           moreMenu()
           $scope.add = async function () {

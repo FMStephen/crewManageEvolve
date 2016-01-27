@@ -1,13 +1,11 @@
 angular.module('app')
   .config($stateProvider => {
     $stateProvider
+
       .state('list.add', {
         url: '/add',
         templateUrl: 'templates/list/list-add.html',
         controller($scope, listdprt, userService) {
-          if (userService.logincheck() == null) {
-            location.href = '#/login'
-          }
 
           moreMenu()
           naviSecondery(1)
