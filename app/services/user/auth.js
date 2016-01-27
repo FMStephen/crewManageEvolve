@@ -10,7 +10,7 @@ angular.module('app')
         this.token = token
         var expires = new Date()
         expires.setDate(expires.getDate() + 7)
-        $cookies.put('token', editmsg, { expires })
+        $cookies.put('token', token, { expires })
       }
     }
   })

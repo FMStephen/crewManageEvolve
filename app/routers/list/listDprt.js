@@ -31,8 +31,8 @@ angular.module('app')
             listdprt.show()
 
               .then(({ data }) => {
-                $scope.members = response.data.data.members
-                $scope.editor = response.data.data.editor
+                $scope.members = data.members
+                $scope.editor = data.editor
               })
 
               .catch(({ message }) => {
@@ -52,7 +52,7 @@ angular.module('app')
 
           function checkboxselect () {
             var id = []
-            for (x = 0;x < $scope.checkbox.length;x++) {
+            for (let x = 0; x < $scope.checkbox.length; x++) {
               if ($scope.checkbox[x] != null && $scope.checkbox[x].column != undefined) {
                 id.push($scope.checkbox[x].column)
                 $scope.checkbox[x] = null
@@ -69,7 +69,7 @@ angular.module('app')
 
             const checked = check.checked
 
-            for (x = 0;x < cb.length;x++) {
+            for (let x = 0; x < cb.length; x++) {
               cb[x].checked = checked
             }
           }
