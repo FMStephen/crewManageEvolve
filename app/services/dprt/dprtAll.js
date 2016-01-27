@@ -1,20 +1,20 @@
 angular.module('app')
 
-  .service('dprtall', ($http, userService) => {
+  .service('dprtall', requestService => {
     return {
 
       show() {
-        return $http.post('Department/listAll')
+        return requestService.post('Department/listAll')
 
       },
 
       editshow(data) {
-        return $http.post('Department/detail', { data })
+        return requestService.post('Department/detail', { data })
 
       },
 
       edit(data) {
-        return $http.post('Department/edit', { data })
+        return requestService.post('Department/edit', { data })
 
       } // ,
       // add(editmsg){
