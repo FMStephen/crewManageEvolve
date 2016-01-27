@@ -1,41 +1,35 @@
 angular.module('app')
-  .config(function ($stateProvider) {
+  .config($stateProvider => {
     $stateProvider
 
       .state('dprt.add', {
         url: '/add',
         templateUrl: 'templates/department/department-add.html',
-        controller: function ($scope, userService, dprtall) {
+        controller($scope, userService, dprtall) {
           if (userService.logincheck() == null) {
             location.href = '#/login'
           }
 
           moreMenu()
-          $scope.add = function () {
+          $scope.add = async function () {
             $scope.flag = true
 
-            var editmsg = {}
+            var editmsg = {
+              dprtname: $scope.dprtname,
+              dprtnote: $scope.dprtnote,
+            }
 
-            editmsg.dprtname = $scope.dprtname
-            editmsg.dprtnote = $scope.dprtnote
+            const response = await dprtall.add(editmsg);
 
-            dprtall.add(editmsg)
-              .then(function (response) {
-                userService.cookieset(response.data.token)
+            userService.cookieset(response.data.token)
 
-                if (userService.result(response.data.code)) {
-                  alert('success')
-                  location.href = '#/dprt/all'
+            if (userService.result(response.data.code)) {
+              alert('success')
+              location.href = '#/dprt/all'
+            }
 
-                }
-
-                $scope.flag = true
-
-              })
-
+            $scope.flag = true
           }
-
         }
       })
-
   })

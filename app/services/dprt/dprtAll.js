@@ -1,8 +1,9 @@
 angular.module('app')
 
-  .service('dprtall', function ($http, userService) {
+  .service('dprtall', ($http, userService) => {
     return {
-      show: function () {
+
+      show() {
         var postdata = {}
 
         postdata.auth = userService.auth()
@@ -11,7 +12,7 @@ angular.module('app')
 
       },
 
-      editshow: function (editmsg) {
+      editshow(editmsg) {
         var postdata = {}
 
         postdata.auth = userService.auth()
@@ -21,7 +22,7 @@ angular.module('app')
 
       },
 
-      edit: function (editmsg) {
+      edit(editmsg) {
         var postdata = {}
 
         postdata.auth = userService.auth()
@@ -30,9 +31,7 @@ angular.module('app')
         return $http.post(host + 'Department/edit', postdata)
 
       } // ,
-
-      // add: function(editmsg){
-
+      // add(editmsg){
       // 	var postdata = {}
 
       // 	postdata.auth = userService.auth()
@@ -42,7 +41,7 @@ angular.module('app')
 
       // 	},
 
-      // del: function(editmsg){
+      // del(editmsg){
 
       // 	var postdata = {}
 

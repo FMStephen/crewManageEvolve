@@ -1,28 +1,23 @@
 angular.module('app')
 
-  .service('listall', function ($http, userService) {
+  .service('listall', ($http, userService) => {
     return {
-      show: function (editmsg) {
-        var postdata = {}
-
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
+      show(editmsg) {
+        var postdata = {
+          auth: userService.auth(),
+          data: editmsg,
+        }
 
         return $http.post(host + 'User/listall', postdata)
-
       },
 
-      detail: function (editmsg) {
-        var postdata = {}
-
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
+      detail(editmsg) {
+        var postdata = {
+          auth: userService.auth(),
+          data: editmsg,
+        }
 
         return $http.post(host + 'User/othersinfo', postdata)
-
       }
-
-
-
     }
   })

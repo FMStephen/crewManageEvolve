@@ -1,5 +1,5 @@
 angular.module('app', ['ui.router', 'ngCookies', 'ui.bootstrap'])
-  .config(['$httpProvider', function ($httpProvider) {
+  .config(['$httpProvider', $httpProvider => {
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
 
     var param = function (obj) {
@@ -49,7 +49,6 @@ new Image().src = 'img/checked.png'
 
 function encrypt (msg) {
   return sodium.crypto_box_easy(msg, sodium.from_hex(nonce), sodium.from_hex(pk), sodium.from_hex(sk), 'hex')
-
 }
 
 var school = [

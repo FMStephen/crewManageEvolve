@@ -1,33 +1,33 @@
 angular.module('app')
 
-  .service('listrcl', function ($http, userService) {
+  .service('listrcl', ($http, userService) => {
     return {
-      show: function (editmsg) {
-        var postdata = {}
-
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
+      show(editmsg) {
+        var postdata = {
+          auth: userService.auth(),
+          data: editmsg,
+        }
 
         return $http.post(host + 'User/listRcl', postdata)
-
       },
 
-      del: function (editmsg) {
-        var postdata = {}
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
+      del(editmsg) {
+        var postdata = {
+          auth: userService.auth(),
+          data: editmsg,
+        }
 
         return $http.post(host + 'User/del', postdata)
       },
 
-      recover: function (editmsg) {
-        var postdata = {}
-        postdata.auth = userService.auth()
-        postdata.data = editmsg
+      recover(editmsg) {
+        var postdata = {
+          auth: userService.auth(),
+          data: editmsg,
+        }
 
         return $http.post(host + 'User/recover', postdata)
       }
-
     }
   }
 )
