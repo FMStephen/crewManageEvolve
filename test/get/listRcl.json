@@ -4,7 +4,8 @@
   "detial": "",
   "data": {
     "total": 15,
-    "members": [{
+    "members": [
+      {
         "id": "23",
         "username": "FMS",
         "position": "部长",
@@ -17,6 +18,7 @@
         "position": "部长",
         "note": "退休",
         "photo": "img/baidu/com/head.img"
-      }]
+      }
+    ]
   }
 }

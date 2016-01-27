@@ -3,15 +3,17 @@
   "token": "122efefsadfdsagxvxccvsdfdsdfsd",
   "detial": "",
   "data": {
-    "dprt": [{
-      "id": 12,
-      "dprtname": "技术部",
-      "dprtnote": "长得帅"
-    },
-   {
-   	  "id": 32,
-      "dprtname": "策推",
-      "dprtnote": "额。。。"
-    }]
+    "dprt": [
+      {
+        "id": 12,
+        "dprtname": "技术部",
+        "dprtnote": "长得帅"
+      },
+      {
+        "id": 32,
+        "dprtname": "策推",
+        "dprtnote": "额。。。"
+      }
+    ]
   }
 }

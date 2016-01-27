@@ -4,7 +4,8 @@
   "detial": "",
   "data": {
     "total": 10,
-    "members": [{
+    "members": [
+      {
         "id": 5,
         "username": "FMS",
         "position": "部长",
@@ -21,6 +22,7 @@
         "telLong": "18826456228",
         "telShort": "666228",
         "photo": "img/baidu/com/head.img"
-      }]  
-    }
+      }
+    ]
+  }
 }
