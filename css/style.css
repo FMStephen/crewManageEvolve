@@ -2,6 +2,7 @@
 body{
 	font-family: Microsoft YaHei,STHeiti;
 	background: #f9f9f9;	
+  overflow-y: scroll;
 }
 .fontHuge{
 	font-size: 32px;

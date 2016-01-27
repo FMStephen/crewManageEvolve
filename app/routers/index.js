@@ -39,7 +39,7 @@ angular.module('app')
         resolve: {
           check($timeout, $state, userService) {
             if (userService.logincheck()) {
-              $timeout(() => $state.go('/user/info'))
+              $timeout(() => $state.go('user.info'))
               return Promise.reject()
             }
           }
@@ -65,7 +65,7 @@ angular.module('app')
 
                 userService.cookieset(response.data.token)
                 if (userService.result(response.data.code) || response.data.code == 201) {
-                  $state.go('user')
+                  $state.go('user.info')
                 } else {
                   alertbox('danger', userService.hint(response.data.code))
                 }
