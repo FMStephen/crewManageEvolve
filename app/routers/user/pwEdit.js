@@ -14,7 +14,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -23,12 +23,12 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          $scope.pwedit = async function () {
+          $scope.pwedit = function () {
+
             if ($scope.newpw != $scope.cfrmpw || $scope.oldpw == $scope.newpw) {
               if ($scope.oldpw == $scope.newpw) {
                 alertbox('danger', '新旧密码相同')
-              }
-              if ($scope.newpw != $scope.cfrmpw) {
+              } else if ($scope.newpw != $scope.cfrmpw) {
                 alertbox('danger', '确认密码不一致')
               }
               return
@@ -37,29 +37,31 @@ angular.module('app')
             if (!window.confirm('确认修改密码吗?')) {
               return
             }
+
             $scope.flag = true
 
-            var editmsg = {
+            userinfo.password({
               old: $scope.oldpw,
               cfrm: $scope.cfrmpw,
               'new': $scope.newpw,
-            }
+            })
 
-            const response = await userinfo.password(editmsg)
+              .then(response => {
+                alertbox('success', '密码修改成功,请重新登录')
 
-            userService.cookieset(response.data.token)
+                setTimeout(() => {
+                  userService.logout()
+                  $state.go('login')
+                }, 1500)
+              })
 
-            if (userService.result(response.data.code)) {
-              alertbox('success', '密码修改成功,请重新登录')
+              .catch(({ message }) => {
+                alertbox('danger', userService.hint(response.data.code))
+              })
 
-              setTimeout(function () {
-                userService.logout()
-                location.href = '#/login'
-              }, 1500)
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-            $scope.flag = false
+              .then(() => {
+                $scope.flag = false
+              })
           }
         }
       })

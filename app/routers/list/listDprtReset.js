@@ -14,7 +14,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -23,54 +23,51 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          var idrequest = {}
-          idrequest.id = $stateParams.id
+          listdprt.resetshow({ id: $stateParams.id })
 
-          listdprt.resetshow(idrequest)
-            .then(function (response) {
-              userService.cookieset(response.data.token)
-
-              if (userService.result(response.data.code)) {
-                
-                alertbox('', '此操作将修改对象的密码，无法撤销')
-                $scope.members = response.data.data.members
-
-              } else {
-                if (response.data.code == 108) {
-                  setTimeout(function () { history.back(); }, 1500)
-                }
-                alertbox('danger', userService.hint(response.data.code))
-              }
+            .then(({ data }) => {
+              alertbox('', '此操作将修改对象的密码，无法撤销')
+              $scope.members = data.members
             })
 
-          $scope.reset = async function () {
+            .catch(({ code, message }) => {
+              if (code == 108) {
+                setTimeout(() => { history.back() }, 1500)
+              }
+              alertbox('danger', message)
+            })
+
+          $scope.reset = function () {
+
             if ($scope.newpw != $scope.cfrmpw) {
               alertbox('danger', '确认密码不一致')
               return;
             }
+
             if (!window.confirm('确认强制修改密码吗?')) {
               return;
             }
+
             $scope.flag = true
 
-            var editmsg = {
+            listdprt.reset({
               id: idrequest.id,
               pw: $scope.newpw,
               pwcfrm: $scope.cfrmpw,
-            }
+            })
 
-            const response = await listdprt.reset(editmsg)
+              .then(() => {
+                alertbox('success', '强制修改密码成功')
+                setTimeout(function () { $state.go('list.dprt') }, 1500)
+              })
 
-            userService.cookieset(response.data.token)
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
 
-            if (userService.result(response.data.code)) {
-              alertbox('success', '强制修改密码成功')
-              setTimeout(function () { location.href = '#/list/dprt'; }, 1500)
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-
-            $scope.flag = false
+              .then(() => {
+                $scope.flag = false
+              })
           }}
       })
   })

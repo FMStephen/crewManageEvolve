@@ -1,4 +1,5 @@
 var gulp = require('gulp')
+var gutil = require('gulp-util');
 var babel = require('gulp-babel')
 var concat = require('gulp-concat')
 var rename = require('gulp-rename')
@@ -22,6 +23,7 @@ gulp.task('build', function () {
 	gulp.src(location)
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(babel({ presets: ['es2015', 'stage-0'] }))
+		.on('error', gutil.log.bind(gutil))
 		.pipe(concat('bundle.min.js'))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('dist/'))

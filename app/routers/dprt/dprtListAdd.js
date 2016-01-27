@@ -8,24 +8,28 @@ angular.module('app')
         controller($scope, userService, dprtall) {
 
           moreMenu()
-          $scope.add = async function () {
+
+          $scope.add = function () {
+
             $scope.flag = true
 
-            var editmsg = {
+            dprtall.add({
               dprtname: $scope.dprtname,
               dprtnote: $scope.dprtnote,
-            }
+            })
 
-            const response = await dprtall.add(editmsg);
+              .then(() => {
+                alertbox('success', '部门资料修改成功')
+                setTimeout(() => { $state.go('dprt.all') }, 1500)
+              })
 
-            userService.cookieset(response.data.token)
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
 
-            if (userService.result(response.data.code)) {
-              alert('success')
-              location.href = '#/dprt/all'
-            }
-
-            $scope.flag = true
+              .then(() => {
+                $scope.flag = false
+              })
           }
         }
       })

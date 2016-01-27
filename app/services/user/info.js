@@ -1,33 +1,23 @@
 angular.module('app')
 
-  .service('userinfo', ($http, userService) => {
+  .service('userinfo', requestService => {
     return {
       show() {
-        var postdata = {auth: userService.auth()}
-
-        return $http.post(host + 'User/info', postdata)
+        return requestService.post('User/info')
       },
 
-      edit(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
-          data: editmsg,
-        }
-
-        return $http.post(host + 'User/infoEdit', postdata)
+      edit(data) {
+        return requestService.post('User/infoEdit', { data })
       },
 
       password(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
+        return requestService.post('User/pwEdit', {
           data: {
             old: md5(editmsg.old),
             cfrm: md5(editmsg.cfrm),
             'new': md5(editmsg['new']),
           }
-        }
-
-        return $http.post(host + 'User/pwEdit', postdata)
+        })
       }
     }
   }

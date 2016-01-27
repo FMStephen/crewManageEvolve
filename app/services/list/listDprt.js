@@ -1,66 +1,41 @@
 angular.module('app')
 
-  .service('listdprt', ($http, userService) => {
+  .service('listdprt', requestService => {
+    
     return {
-      show() {
-        var postdata = {auth: userService.auth()}
 
-        return $http.post(host + 'User/dprtall', postdata)
+      show() {
+        return requestService.post('User/dprtall')
       },
 
       addshow() {
-        var postdata = {auth: userService.auth()}
-
-        return $http.post(host + 'User/getUnCompleted', postdata)
+        return requestService.post('User/getUnCompleted')
       },
 
-      resetshow(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
-          data: editmsg,
-        }
-
-        return $http.post(host + 'User/pwApply', postdata)
+      resetshow(data) {
+        return requestService.post('User/pwApply', { data })
       },
 
-      add(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
-          data: editmsg,
-        }
-
-        return $http.post(host + 'User/batchAdd', postdata)
+      add(data) {
+        return requestService.post('User/batchAdd', { data })
       },
 
-      rcl(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
-          data: editmsg,
-        }
-
-        return $http.post(host + 'User/rcl', postdata)
+      rcl(data) {
+        return requestService.post('User/rcl', { data })
       },
 
-      position(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
-          data: editmsg,
-        }
-
-        return $http.post(host + 'User/groupChange', postdata)
+      position(data) {
+        return requestService.post('User/groupChange', { data })
       },
 
       reset(editmsg) {
-        var postdata = {
-          auth: userService.auth(),
+        return requestService.post('User/pwReset', {
           data: {
             id: editmsg.id,
             pw: md5(editmsg.pw),
             pwcfrm: md5(editmsg.pwcfrm),
           },
-        }
-
-        return $http.post(host + 'User/pwReset', postdata)
+        })
       }
 
     }

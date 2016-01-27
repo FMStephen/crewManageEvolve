@@ -12,7 +12,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -21,60 +21,30 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          async function show () {
-            const response = await dprtall.show()
-            userService.cookieset(response.data.token)
+          dprtall.show()
 
-            if (userService.result(response.data.code)) {
-              $scope.dprts = response.data.data.dprt
-              $scope.editor = response.data.data.editor
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-          }
+            .then(({ data }) => {
+              $scope.dprts = data.dprt
+              $scope.editor = data.editor
+            })
 
-          show()
+            .catch(({ message }) => {
+              alertbox('danger', message)
+            })
 
           $scope.radio = {}
 
           $scope.edit = function () {
             if ($scope.radio.dprt != null) {
-              location.href = `#/dprt/edit/${$scope.radio.dprt}`
+              $state.go('dprt.edit', { id: $scope.radio.dprt })
             } else {
               alertbox('danger', '请选择操作对象')
             }
           }
 
           $scope.isEdit = function (value) {
-            if (value) {
-              return true
-            } else {
-              return false
-            }
+            return !!value
           }
-
-          // $scope.del = function(){
-          // 
-          // 	var editmsg = {}
-          //
-          // 	editmsg.id = $scope.radio.dprt
-          //
-          // 	if(editmsg.id != undefined){
-          //
-          // 		dprtall.del(editmsg)
-          // 			.then(function(response){
-          //
-          // 			userService.cookieset(response.data.token)
-          //
-          // 			if(userService.result(response.data.code)){
-          // 				alert("success")
-          // 				show()
-          // 			}
-          // 		})
-          // 	} else {
-          // 		alert("请选择对象")
-          // 	}
-          // }
         }
       })
   })

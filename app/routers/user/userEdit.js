@@ -5,7 +5,7 @@ angular.module('app')
       .state('user.edit', {
         url: '/infoedit',
         templateUrl: 'templates/user/info-edit.html',
-        controller($scope, $state, userinfo, userService) {
+        controller($scope, $state, userinfo) {
 
           moreMenu()
           naviSecondery(1)
@@ -14,7 +14,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -24,35 +24,36 @@ angular.module('app')
           }
 
           userinfo.show()
-            .then(function (response) {
+
+            .then(function ({ data }) {
               $scope.genderopt = gender
               $scope.schoolopt = school
 
-              userService.cookieset(response.data.token)
+              $scope.content = data
 
-              if (response.data.code == 200) {
-                $scope.content = response.data.data
+              $scope.username = data.username
+              $scope.room = data.room
+              $scope.telLong = data.telLong
+              $scope.telShort = data.telShort
+              $scope.email = data.email
 
-                $scope.username = $scope.content.username
-                $scope.room = $scope.content.room
-                $scope.telLong = $scope.content.telLong
-                $scope.telShort = $scope.content.telShort
-                $scope.email = $scope.content.email
-
-                $scope.gender = $scope.content.gender
-                $scope.school = $scope.content.school
-
-              } else if (response.data.code == 201) {
-                alertbox('', userService.hint(response.data.code))
-                $scope.gender = ''
-                $scope.school = ''
-              }
+              $scope.gender = data.gender
+              $scope.school = data.school
             })
 
-          $scope.infoedit = async function () {
+            .catch(({ message, code }) => {
+              let type = 'danger'
+              if (code === 201) {
+                type = ''
+                $scope.gender = $scope.school = ''
+              }
+              alertbox(type, message)
+            })
+
+          $scope.infoedit = function () {
             $scope.flag = true
 
-            var editmsg = {
+            userinfo.edit({
               username: $scope.username,
               gender: $scope.gender,
               school: $scope.school,
@@ -60,19 +61,20 @@ angular.module('app')
               telLong: $scope.telLong,
               telShort: $scope.telShort,
               email: $scope.email,
-            }
+            })
 
-            const response = await userinfo.edit(editmsg)
+              .then(() => {
+                alertbox('success', '个人资料修改成功')
+                setTimeout(() => { $state.go('user.info') }, 1500)
+              })
 
-            userService.cookieset(response.data.token)
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
 
-            if (userService.result(response.data.code)) {
-              alertbox('success', '个人资料修改成功')
-              setTimeout(function () { location.href = '#/user/info' }, 1500)
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-            $scope.flag = false
+              .then(() => {
+                $scope.flag = false
+              })
           }
         }
       })

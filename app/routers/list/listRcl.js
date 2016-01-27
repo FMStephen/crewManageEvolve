@@ -5,7 +5,7 @@ angular.module('app')
       .state('list.recycle', {
         url: '/recycle/:current',
         templateUrl: 'templates/list/list-recycle.html',
-        controller($scope, $stateParams, listrcl, userService) {
+        controller($scope, $stateParams, listrcl) {
 
           moreMenu()
           naviSecondery(2)
@@ -14,7 +14,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -23,28 +23,20 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          var p = parseInt($stateParams.current)
+          const current = $stateParams.current | 0
 
-          $scope.current = $stateParams.current
+          $scope.current = current
 
-          var editmsg = {
-            current: p,
-            count: 15,
-          }
+          listrcl.show({ current: current, count: 15 })
 
-          async function rclshow () {
-            const response = await listrcl.show(editmsg)
-            userService.cookieset(response.data.token)
+            .then(({ data }) => {
+              $scope.members = data.members
+              $scope.total = data.total
+            })
 
-            if (userService.result(response.data.code)) {
-              $scope.members = response.data.data.members
-              $scope.total = response.data.data.total
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-          }
-
-          rclshow()
+            .catch(({ message }) => {
+              alertbox('danger', message)
+            })
 
           var cb = document.getElementsByName('cb')
 
@@ -52,32 +44,24 @@ angular.module('app')
             var check = document.getElementById('check')
             var cb = document.getElementsByName('cb')
 
-            if (check.checked) {
-              for (x = 0;x < cb.length;x++) {
-                if (!cb[x].checked) {
-                  cb[x].click()
-                }
-              }
-            } else {
-              for (x = 0;x < cb.length;x++) {
-                if (cb[x].checked) {
-                  cb[x].click()
-                }
-              }
+            const checked = check.checked
+
+            for (x = 0;x < cb.length;x++) {
+              cb[x].checked = checked
             }
           }
 
           $scope.pagenext = function () {
-            if ((p + 1) <= $scope.total) {
-              location.href = '#list/recycle/' + (p + 1)
+            if ((current + 1) <= $scope.total) {
+              $state.go('list.recycle', { current: current + 1 })
             } else {
               alertbox('danger', '已经是最后一页')
             }
           }
 
           $scope.pageprev = function () {
-            if ((p - 1) >= 1) {
-              location.href = '#list/recycle/' + (p - 1)
+            if ((current - 1) >= 1) {
+              $state.go('list.recycle', { current: current - 1 })
             } else {
               alertbox('danger', '已经是第一页')
             }
@@ -86,92 +70,81 @@ angular.module('app')
           $scope.checkbox = []
 
           function checkboxselect () {
-            var id = ''
+            var id = []
 
             for (x = 0;x < $scope.checkbox.length;x++) {
               if ($scope.checkbox[x] != null && $scope.checkbox[x].column != undefined) {
-                id = id + $scope.checkbox[x].column + ','
+                id.push($scope.checkbox[x].column)
                 $scope.checkbox[x] = null
               }
             }
-            return id.substring(0, id.length - 1)
+            return id.join(',')
           }
 
-          $scope.recover = async function () {
+          $scope.recover = function () {
+
+            const id = checkboxselect()
+
+            if (!id) {
+              alertbox('danger', '请选择要操作的对象')
+              return
+            }
+
+            var check = document.getElementById('check')
+            if (check.checked) {
+              check.click()
+            }
+
             $scope.flag = true
 
-            var editmsg = {id: checkboxselect()}
+            listrcl.recover({ id, position: $scope.position })
 
-            if (editmsg.id == '') {
-              alertbox('danger', '请选择要操作的对象')
-              $scope.flag = false
-              return
-            }
-            editmsg.position = $scope.position
+              .then(response => {
+                alertbox('success', '恢复成功。对象被还原至部门列表')
+              })
 
-            var check = document.getElementById('check')
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
 
-            if (check.checked) {
-              check.click()
-            }
-
-            const response = await listrcl.recover(editmsg)
-
-            userService.cookieset(response.data.token)
-
-            if (userService.result(response.data.code)) {
-              alertbox('success', '恢复成功。对象被还原至部门列表')
-              rclshow()
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-
-            $scope.flag = false
+              .then(() => {
+                $scope.flag = false
+              })
           }
 
-          $scope.del = async function () {
-            var editmsg = {id: checkboxselect()}
+          $scope.del = function () {
 
-            if (editmsg.id == '') {
+            const id = checkboxselect()
+
+            if (!id) {
               alertbox('danger', '请选择要操作的对象')
               return
             }
 
-            const confirm = window.confirm('此操作将无法撤销,确认彻底删除吗?')
-
-            if (!confirm) {
-              var cb = document.getElementsByName('cb')
-
-              for (x = 0;x < cb.length;x++) {
-                if (cb[x].checked) {
-                  cb[x].click()
-                }
-              }
+            if (!window.confirm('此操作将无法撤销,确认彻底删除吗?')) {
+              return
             }
 
             var check = document.getElementById('check')
-
             if (check.checked) {
               check.click()
             }
 
-            if (!confirm) {
-              $scope.flag = true
+            $scope.flag = true
 
-              editmsg.position = $scope.position
+            listrcl.del({ id, position: $scope.position })
 
-              const response = await listrcl.del(editmsg)
-
-              userService.cookieset(response.data.token)
-
-              if (userService.result(response.data.code)) {
+              .then(() => {
                 alertbox('success', '彻底删除对象成功')
-                rclshow()
-              } else {
-                alertbox('danger', userService.hint(response.data.code))
-              }
-              $scope.flag = false
-            }
+              })
+
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
+
+              .then(() => {
+                $scope.flag = false
+              })
           }
         }
       })

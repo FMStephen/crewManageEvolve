@@ -1,8 +1,9 @@
 angular.module('app')
+
   .config(($stateProvider, $urlRouterProvider) => {
 
-    function authenticate ($timeout, $state, userService) {
-      if (!userService.logincheck()) {
+    function authenticate ($timeout, $state, authService) {
+      if (!authService.token) {
         $timeout(() => $state.go('login'))
         return Promise.reject()
       }
@@ -37,8 +38,8 @@ angular.module('app')
         url: '/login',
         templateUrl: 'templates/login.html',
         resolve: {
-          check($timeout, $state, userService) {
-            if (userService.logincheck()) {
+          check($timeout, $state, authService) {
+            if (authService.token) {
               $timeout(() => $state.go('user.info'))
               return Promise.reject()
             }
@@ -46,6 +47,7 @@ angular.module('app')
         },
         controller($scope, $state, $cookies, userService) {
 
+          $scope.alerts = []
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
               $scope.alerts.shift()
@@ -57,22 +59,21 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          $scope.update = async function () {
+          $scope.update = function () {
+
             $scope.flag = true
-
             userService.login($scope)
-              .then(response => {
 
-                userService.cookieset(response.data.token)
-                if (userService.result(response.data.code) || response.data.code == 201) {
-                  $state.go('user.info')
-                } else {
-                  alertbox('danger', userService.hint(response.data.code))
-                }
-                $scope.flag = false
+              .then(() => {
+                $state.go('user.info')
               })
-              .catch(error => {
-                alertbox('danger', '未知错误')
+
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
+
+              .then(() => {
+                $scope.flag = false
               })
           }
         }

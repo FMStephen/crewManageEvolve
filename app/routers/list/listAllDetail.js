@@ -14,7 +14,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -25,18 +25,19 @@ angular.module('app')
 
           $scope.positionopt = superposition
 
-          async function showdetail () {
-            const response = await listall.detail($stateParams)
+          function showdetail () {
 
-            userService.cookieset(response.data.token)
+            listall.detail($stateParams)
 
-            if (userService.result(response.data.code)) {
-              $scope.content = response.data.data.content
-              $scope.editor = response.data.data.editor
-              $scope.position = $scope.content.position
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
+              .then(({ data }) => {
+                $scope.content = data.content
+                $scope.editor = data.editor
+                $scope.position = $scope.content.position
+              })
+
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
           }
 
           showdetail()
@@ -49,7 +50,7 @@ angular.module('app')
             }
           }
 
-          $scope.changeposition = async function () {
+          $scope.changeposition = function () {
             $scope.flag = true
 
             var editmsg = {
@@ -57,19 +58,21 @@ angular.module('app')
               position: $scope.position,
             }
 
-            const response = await listdprt.position(editmsg)
+            listdprt.position(editmsg)
 
-            userService.cookieset(response.data.token)
+              .then(() => {
+                alertbox('success', '修改职位成功')
+                showdetail()
+                setTimeout(() => { history.back() }, 1500)
+              })
 
-            if (userService.result(response.data.code)) {
-              alertbox('success', '修改职位成功')
-              showdetail()
-              setTimeout(function () { history.back(); }, 1500)
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
 
-            $scope.flag = false
+              .then(() => {
+                $scope.flag = false
+              })
           }
         }
       })

@@ -12,7 +12,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -21,42 +21,42 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          var request = {id: $stateParams.id}
+          const id = $stateParams.id
 
-          dprtall.editshow(request)
-            .then(function (response) {
-              userService.cookieset(response.data.token)
+          dprtall.editshow({ id })
 
-              if (userService.result(response.data.code)) {
-                $scope.content = response.data.data
-                $scope.dprtname = $scope.content.dprtname
-                $scope.dprtnote = $scope.content.dprtnote
-              } else {
-                alertbox('danger', userService.hint(response.data.code))
-              }
+            .then(function ({ data }) {
+              $scope.content = data
+              $scope.dprtname = $scope.content.dprtname
+              $scope.dprtnote = $scope.content.dprtnote
             })
 
-          $scope.edit = async function () {
-            $scope.flag = true
+            .catch(({ message }) => {
+              alertbox('danger', message)
+            })
 
-            var editmsg = {}
-
-            editmsg.id = request.id
-            editmsg.dprtname = $scope.dprtname
-            editmsg.dprtnote = $scope.dprtnote
-
-            const response = await dprtall.edit(editmsg)
-
-            userService.cookieset(response.data.token)
-
-            if (userService.result(response.data.code)) {
-              alertbox('success', '部门资料修改成功')
-              setTimeout(function () { location.href = '#/dprt/all' }, 1500)
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
+          $scope.edit = function () {
 
             $scope.flag = true
+
+            dprtall.edit({
+              id,
+              dprtname: $scope.dprtname,
+              dprtnote: $scope.dprtnote,
+            })
+
+              .then(() => {
+                alertbox('success', '部门资料修改成功')
+                setTimeout(() => { $state.go('dprt.all') }, 1500)
+              })
+
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
+
+              .then(() => {
+                $scope.flag = false
+              })
           }
         }
       })

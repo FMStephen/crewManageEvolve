@@ -15,7 +15,7 @@ angular.module('app')
 
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
-              $scope.alerts.splice(0, 1)
+              $scope.alerts.shift()
             }
             $scope.alerts.push({type: type, msg: msg})
           }
@@ -26,25 +26,24 @@ angular.module('app')
 
           $scope.content = {}
 
-          async function showdprt () {
-            const response = await listdprt.show()
+          function showdprt () {
 
-            userService.cookieset(response.data.token)
+            listdprt.show()
 
-            if (userService.result(response.data.code)) {
-              $scope.members = response.data.data.members
-              $scope.editor = response.data.data.editor
-            }
+              .then(({ data }) => {
+                $scope.members = response.data.data.members
+                $scope.editor = response.data.data.editor
+              })
+
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
           }
 
           showdprt()
 
           $scope.isEdit = function (value) {
-            if (value) {
-              return true
-            } else {
-              return false
-            }
+            return !!value
           }
 
           $scope.checkbox = []
@@ -52,15 +51,14 @@ angular.module('app')
           $scope.position = '主管'
 
           function checkboxselect () {
-            var id = ''
-
+            var id = []
             for (x = 0;x < $scope.checkbox.length;x++) {
               if ($scope.checkbox[x] != null && $scope.checkbox[x].column != undefined) {
-                id = id + $scope.checkbox[x].column + ','
+                id.push($scope.checkbox[x].column)
                 $scope.checkbox[x] = null
               }
             }
-            return id.substring(0, id.length - 1)
+            return id.join(',')
           }
 
           $scope.checkbox = []
@@ -69,118 +67,89 @@ angular.module('app')
             var check = document.getElementById('check')
             var cb = document.getElementsByName('cb')
 
-            if (check.checked) {
-              for (x = 0;x < cb.length;x++) {
-                if (!cb[x].checked) {
-                  cb[x].click()
-                }
-              }
-            } else {
-              for (x = 0;x < cb.length;x++) {
-                if (cb[x].checked) {
-                  cb[x].click()
-                }
-              }
+            const checked = check.checked
+
+            for (x = 0;x < cb.length;x++) {
+              cb[x].checked = checked
             }
           }
 
-          $scope.recycle = async function () {
-            var editmsg = {id: checkboxselect()}
+          $scope.recycle = function () {
 
-            if (editmsg.id == '') {
-              alertbox('danger', '请选择操作对象')
-              return;
+            const id = checkboxselect()
+
+            if (!id) {
+              alertbox('danger', '请选择要操作的对象')
+              return
             }
+
+            var check = document.getElementById('check')
+            if (check.checked) {
+              check.click()
+            }
+
             $scope.flag = true
 
-            editmsg.note = $scope.rcl
+            listdprt.rcl({ id, note: $scope.rcl })
 
-            var check = document.getElementById('check')
-            if (check.checked) {
-              check.click()
-            }
+              .then(() => {
+                alertbox('success', '置入回收站成功')
+                showdprt()
+              })
 
-            const response = await listdprt.rcl(editmsg)
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
 
-            userService.cookieset(response.data.token)
-
-            if (userService.result(response.data.code)) {
-              alertbox('success', '置入回收站成功')
-              showdprt()
-            } else {
-              alertbox('danger', userService.hint(response.data.code))
-            }
-            $scope.flag = false
+              .then(() => {
+                $scope.flag = false
+              })
           }
 
-          $scope.changeposition = async function () {
-            var editmsg = {}
+          $scope.changeposition = function () {
 
-            editmsg.id = checkboxselect()
+            const id = checkboxselect()
 
-            if (editmsg.id == '') {
-              alertbox('danger', '请选择操作对象')
-              return;
+            if (!id) {
+              alertbox('danger', '请选择要操作的对象')
+              return
             }
 
-            const confirm = window.confirm('确认修改职位吗?')
+            if (!window.confirm('确认修改职位吗?')) {
+              return
+            }
 
             var check = document.getElementById('check')
-
             if (check.checked) {
               check.click()
             }
 
-            if (!confirm) {
-              var cb = document.getElementsByName('cb')
+            $scope.flag = true
 
-              for (x = 0;x < cb.length;x++) {
-                if (cb[x].checked) {
-                  cb[x].click()
-                }
-              }
-            }
+            listdprt.position({ id, position: $scope.position })
 
-            var check = document.getElementById('check')
-
-            if (check.checked) {
-              check.click()
-            }
-
-            if (confirm) {
-              $scope.flag = true
-
-              editmsg.position = $scope.position
-
-              const response = await listdprt.position(editmsg)
-
-              userService.cookieset(response.data.token)
-
-              if (userService.result(response.data.code)) {
+              .then(() => {
                 alertbox('success', '修改职位成功')
                 showdprt()
-              } else {
-                alertbox('danger', userService.hint(response.data.code))
-              }
+              })
 
-              $scope.flag = false
-            }
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })
+
+              .then(() => {
+                $scope.flag = false
+              })
           }
 
           $scope.reset = function () {
-            var resetid = checkboxselect()
-
-            if (resetid != '') {
-              location.href = '#/list/reset/' + resetid
-
+            var id = checkboxselect()
+            if (id) {
+              $state.go('list.reset', { id })
             } else {
               alertbox('danger', '请选择操作对象')
-
             }
-
           }
-
         }
       })
-
   })
