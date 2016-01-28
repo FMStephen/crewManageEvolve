@@ -50,28 +50,15 @@ angular.module('app')
           $scope.rcl = '退休'
           $scope.position = '主管'
 
+          $scope.checkbox = []
+          $scope.allchecked = false
+
           function checkboxselect () {
-            var id = []
-            for (let x = 0; x < $scope.checkbox.length; x++) {
-              if ($scope.checkbox[x] != null && $scope.checkbox[x].column != undefined) {
-                id.push($scope.checkbox[x].column)
-                $scope.checkbox[x] = null
-              }
-            }
-            return id.join(',')
+            return $scope.checkbox.map((checked, index) => checked && $scope.members[index].column).filter(v => v).join(',')
           }
 
-          $scope.checkbox = []
-
           $scope.checkall = function (o) {
-            var check = document.getElementById('check')
-            var cb = document.getElementsByName('cb')
-
-            const checked = check.checked
-
-            for (let x = 0; x < cb.length; x++) {
-              cb[x].checked = checked
-            }
+            $scope.checkbox = $scope.members.map(() => $scope.allchecked)
           }
 
           $scope.recycle = function () {

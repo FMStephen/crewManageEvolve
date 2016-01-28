@@ -30,7 +30,7 @@
 			<ul class="tableList">
 				<li class="listColumnHead">
 					<label for="check" class="checkbox" ng-show="isEdit(editor)">
-						<input id="check" type="checkbox" ng-click="checkall()" onclick="listCheck(this)">
+						<input id="check" type="checkbox" ng-model="allchecked" ng-change="checkall()">
 					</label>
 					<div class="listHead fontNormal">
 						<!-- <img ng-src="{{member.photo}}"> -->
@@ -41,7 +41,7 @@
 				</li>	
 				<li class="listColumn" ng-repeat="member in members">
 					<label class="checkbox" ng-show="isEdit(editor)" for="a{{member.id}}" >
-						<input name="cb" ng-show="isEdit(editor)" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="" onclick="listCheck(this)">
+						<input name="cb" ng-show="isEdit(editor)" type="checkbox" ng-model="checkbox[$index]">
 					</label>
 					<a class="listLink fontNormal" href="#/list/detail/{{member.id}}">
 						<!-- <img ng-src="{{member.photo}}"> -->

@@ -324,18 +324,6 @@ body{
 	opacity: 0.54;
 }
 .checkbox{
-	background-image: url(../img/unchecked.png);
-	background-repeat: no-repeat;
-	background-position: center;
-	cursor: pointer;
-	transition-property: background-image;
-	transition-duration: 0.1s;
-	-webkit-transition-property: background;
-	-webkit-transition-duration: 0.1s;
-	-moz-transition-property: background;
-	-moz-transition-duration: 0.1s;
-	-o-transition-property: background;
-	-o-transition-duration: 0.1s;
 }
 .listHead{
 	color: rgba(0,0,0,0.54);
