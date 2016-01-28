@@ -54,7 +54,7 @@ angular.module('app')
           $scope.allchecked = false
 
           function checkboxselect () {
-            return $scope.checkbox.map((checked, index) => checked && $scope.members[index].column).filter(v => v).join(',')
+            return $scope.checkbox.map((checked, index) => checked && $scope.members[index].id).filter(v => v).join(',')
           }
 
           $scope.checkall = function (o) {
@@ -104,11 +104,6 @@ angular.module('app')
 
             if (!window.confirm('确认修改职位吗?')) {
               return
-            }
-
-            var check = document.getElementById('check')
-            if (check.checked) {
-              check.click()
             }
 
             $scope.flag = true
