@@ -8,8 +8,8 @@
 		<div class="table">
 			<ul class="tableList">
 				<li class="listColumnHead">
-					<label for="check" class="checkbox">
-						<input id="check" type="checkbox" ng-click="checkall()" onclick="listCheck(this)">
+					<label class="checkbox">
+            <input type="checkbox" ng-model="allchecked" ng-change="checkall()">
 					</label>
 					<div class="listHead fontNormal">
 						<!-- <img ng-src="{{member.photo}}"> -->

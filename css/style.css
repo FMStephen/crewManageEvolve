@@ -324,6 +324,7 @@ body{
 	opacity: 0.54;
 }
 .checkbox{
+  cursor: pointer;
 }
 .listHead{
 	color: rgba(0,0,0,0.54);
