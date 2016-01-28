@@ -40,8 +40,8 @@
 					</div>
 				</li>	
 				<li class="listColumn" ng-repeat="member in members">
-					<label class="checkbox" ng-show="isEdit(editor)" for="a{{member.id}}" >
-						<input name="cb" ng-show="isEdit(editor)" type="checkbox" ng-model="checkbox[$index]">
+					<label class="checkbox" ng-show="isEdit(editor)">
+						<input name="cb" type="checkbox" ng-model="checkbox[$index]">
 					</label>
 					<a class="listLink fontNormal" href="#/list/detail/{{member.id}}">
 						<!-- <img ng-src="{{member.photo}}"> -->

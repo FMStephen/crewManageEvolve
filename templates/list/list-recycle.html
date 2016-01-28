@@ -19,8 +19,8 @@
 					</div>
 				</li>
 				<li class="listColumn" ng-repeat="member in members">
-					<label class="checkbox" for="a{{member.id}}">
-						<input name="cb" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="" onclick="listCheck(this)">
+					<label class="checkbox">
+						<input name="cb" type="checkbox" ng-model="checkbox[$index]">
 					</label>
 					<div class="listLink fontNormal">
 						<!-- <img ng-src="{{member.photo}}"> -->

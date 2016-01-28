@@ -38,19 +38,6 @@ angular.module('app')
               alertbox('danger', message)
             })
 
-          var cb = document.getElementsByName('cb')
-
-          $scope.checkall = function (o) {
-            var check = document.getElementById('check')
-            var cb = document.getElementsByName('cb')
-
-            const checked = check.checked
-
-            for (let x = 0; x < cb.length; x++) {
-              cb[x].checked = checked
-            }
-          }
-
           $scope.pagenext = function () {
             if ((current + 1) <= $scope.total) {
               $state.go('list.recycle', { current: current + 1 })
@@ -68,17 +55,14 @@ angular.module('app')
           }
 
           $scope.checkbox = []
+          $scope.allchecked = false
 
           function checkboxselect () {
-            var id = []
+            return $scope.checkbox.map((checked, index) => checked && $scope.members[index].column).filter(v => v).join(',')
+          }
 
-            for (let x = 0; x < $scope.checkbox.length; x++) {
-              if ($scope.checkbox[x] != null && $scope.checkbox[x].column != undefined) {
-                id.push($scope.checkbox[x].column)
-                $scope.checkbox[x] = null
-              }
-            }
-            return id.join(',')
+          $scope.checkall = function (o) {
+            $scope.checkbox = $scope.members.map(() => $scope.allchecked)
           }
 
           $scope.recover = function () {
