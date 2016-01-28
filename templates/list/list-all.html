@@ -1,43 +1,43 @@
 <div>
-	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<div class="panel">
-		<img class="searchIcon" src="img/search.png">
-		<input id="search" class="inputValue fontLarge listInput" type="text" name="keyword" placeholder="搜索" title="姓名,学号,长号,短号" ng-model="keyword" ng-keyup="filter()">
-		<button class="longBtn subBtn fontNormal listClearBtn" ng-click="reset()">重置筛选</button>
-	</div>
-	<div class="table">
-		<ul class="tableList">
-			<li class="listColumnHead">
-				<div class="listHead listLinkAll fontNormal">
-					<!-- <img ng-src="{{member.photo}}"> -->
-					<img class="listDrop" src="img/pointerDown.png">
-					<img class="listDrop listDropSec" src="img/pointerDown.png">
-					<span class="listColAllBlockLeft">姓名</span>
-					<span class="listColAllBlockRight">长号</span>
-					<span class="listColAllBlockRight">短号</span>
-					<span class="listColAllBlockRight listColSelect">
-						<select class="tableSelect fontNormal" ng-model="dprt" ng-change="filter()" ng-options="x.value as x.name for x in dprtopt"></select>
-					</span>
-					<span class="listColAllBlockRight">
-						<select class="tableSelect fontNormal" ng-model="position" ng-change="filter()" ng-options="x.value as x.name for x in positionopt"></select>
-					</span>
-				</div>
-			</li>	
-			<li class="listColumn" ng-repeat="member in members">
-				<a class="listLink listLinkAll fontNormal" href="#/list/detail/{{member.id}}">
-					<!-- <img ng-src="{{member.photo}}"> -->
-					<span class="listColAllBlockLeft">{{member.username}}</span>
-					<span class="listColAllBlockRight">{{member.telLong}}</span>
-					<span class="listColAllBlockRight">{{member.telShort}}</span>
-					<span class="listColAllBlockRight">{{member.dprt}}</span>
-					<span class="listColAllBlockRight">{{member.position}}</span>
-				</a>
-			</li>
-		</ul>
-	</div>
-	<div class="pageCtrl">
-		<button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pagenext()">下一页</button>
-		<button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pageprev()">上一页</button>
-		<span class="pageInfo fontNormal pageInfo">第<span class="fontNormal" ng-model="current"> {{current}} </span>页&nbsp;&nbsp;共<span class="fontNormal" ng-model="total"> {{total}} </span>页</span>		
-	</div>
+  <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  <div class="panel">
+    <img class="searchIcon" src="img/search.png">
+    <input id="search" class="inputValue fontLarge listInput" type="text" name="keyword" placeholder="搜索" title="姓名,学号,长号,短号" ng-model="keyword" ng-keyup="filter()">
+    <button class="longBtn subBtn fontNormal listClearBtn" ng-click="reset()">重置筛选</button>
+  </div>
+  <div class="table">
+    <ul class="tableList">
+      <li class="listColumnHead">
+        <div class="listHead listLinkAll fontNormal">
+          <!-- <img ng-src="{{member.photo}}"> -->
+          <img class="listDrop" src="img/pointerDown.png">
+          <img class="listDrop listDropSec" src="img/pointerDown.png">
+          <span class="listColAllBlockLeft">姓名</span>
+          <span class="listColAllBlockRight">长号</span>
+          <span class="listColAllBlockRight">短号</span>
+          <span class="listColAllBlockRight listColSelect">
+            <select class="tableSelect fontNormal" ng-model="dprt" ng-change="filter()" ng-options="x.value as x.name for x in dprtopt"></select>
+          </span>
+          <span class="listColAllBlockRight">
+            <select class="tableSelect fontNormal" ng-model="position" ng-change="filter()" ng-options="x.value as x.name for x in positionopt"></select>
+          </span>
+        </div>
+      </li>  
+      <li class="listColumn" ng-repeat="member in members">
+        <a class="listLink listLinkAll fontNormal" href="#/list/detail/{{member.id}}">
+          <!-- <img ng-src="{{member.photo}}"> -->
+          <span class="listColAllBlockLeft">{{member.username}}</span>
+          <span class="listColAllBlockRight">{{member.telLong}}</span>
+          <span class="listColAllBlockRight">{{member.telShort}}</span>
+          <span class="listColAllBlockRight">{{member.dprt}}</span>
+          <span class="listColAllBlockRight">{{member.position}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="pageCtrl">
+    <button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pagenext()">下一页</button>
+    <button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pageprev()">上一页</button>
+    <span class="pageInfo fontNormal pageInfo">第<span class="fontNormal" ng-model="current"> {{current}} </span>页&nbsp;&nbsp;共<span class="fontNormal" ng-model="total"> {{total}} </span>页</span>    
+  </div>
 </div>

@@ -1,14 +1,14 @@
 <div>
-	<a href="#/dprt/all">返回</a>
-	<form name="addform" ng-submit="add()" novalidate>
-		<div ng-class="{'has-error' : addform.name.$invalid && !addform.name.$pristine}">
-			名称<input type="text" name="name" ng-model="dprtname" required>
-			<p ng-show="addform.name.$invalid && !addform.name.$pristine">error</p>
-		<div ng-class="{'has-error' : addform.note.$invalid && !addform.note.$pristine}">
-			描述<textarea type="text" name="note" ng-model="dprtnote" required></textarea>
-			<p ng-show="addform.note.$invalid && !addform.note.$pristine">error</p>
-		</div>
-	    <button type="submit" ng-disabled="addform.$invalid || flag">添加</button>
-	</form>
+  <a href="#/dprt/all">返回</a>
+  <form name="addform" ng-submit="add()" novalidate>
+    <div ng-class="{'has-error' : addform.name.$invalid && !addform.name.$pristine}">
+      名称<input type="text" name="name" ng-model="dprtname" required>
+      <p ng-show="addform.name.$invalid && !addform.name.$pristine">error</p>
+    <div ng-class="{'has-error' : addform.note.$invalid && !addform.note.$pristine}">
+      描述<textarea type="text" name="note" ng-model="dprtnote" required></textarea>
+      <p ng-show="addform.note.$invalid && !addform.note.$pristine">error</p>
+    </div>
+      <button type="submit" ng-disabled="addform.$invalid || flag">添加</button>
+  </form>
 
 </div>

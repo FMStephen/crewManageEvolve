@@ -1,58 +1,58 @@
 <div>
-	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form>
-		<div class="panel" ng-show="isEdit(editor)">
-			<a class="longBtn mainBtn fontNormal listDprtBtn" href="#/list/add">新增成员</a>
-			<button id="optionBtn" class="longBtn subBtn fontNormal listClearBtn">更多操作</button>
-			<button class="longBtn subBtn fontNormal listClearBtn" ng-click="reset()" style="margin-right:16px;">重置密码</button>
-			<div id="optionMenu" class="optionMenu" ng-show="isEdit(editor)" style="display:none;opacity:0;">
-				<div class="optionMenuColumn">
-					<span class="inputLabel fontSmall">置入回收站</span>
-					<select class="selectValue fontLarge dprtSelect" ng-model="rcl" >
-						<option value="退休">退休</option>
-						<option value="离职">离职</option>
-					</select>
-					<button class="longBtn txtBtn fontNormal optionMenuBtn" ng-click="recycle()" ng-disabled="flag">确定</button>
-				</div>
-				<hr>
-				<div  class="optionMenuColumn">
-					<span class="inputLabel fontSmall">修改职位</span>
-					<select class="selectValue fontLarge dprtSelect" ng-model="position">
-						<option value="干事">干事</option>
-						<option value="主管">主管</option>
-						<option value="部长">部长</option>
-					</select>
-					<button class="longBtn txtBtn fontNormal optionMenuBtn" ng-click="changeposition()" ng-disabled="flag">确定</button>
-				</div>
-			</div>
-		</div>
-		<div class="table">
-			<ul class="tableList">
-				<li class="listColumnHead">
-					<label class="checkbox" ng-show="isEdit(editor)">
-						<input type="checkbox" ng-model="allchecked" ng-change="checkall()">
-					</label>
-					<div class="listHead fontNormal">
-						<!-- <img ng-src="{{member.photo}}"> -->
-						<span class="listColDprtBlockLeft">姓名</span>
-						<span class="listColDprtBlockRight">学号</span>
-						<span class="listColDprtBlockRight">职位</span>
-					</div>
-				</li>	
-				<li class="listColumn" ng-repeat="member in members">
-					<label class="checkbox" ng-show="isEdit(editor)">
-						<input name="cb" type="checkbox" ng-model="checkbox[$index]">
-					</label>
-					<a class="listLink fontNormal" href="#/list/detail/{{member.id}}">
-						<!-- <img ng-src="{{member.photo}}"> -->
-						<span class="listColDprtBlockLeft">{{member.username}}</span>
-						<span class="listColDprtBlockRight">{{member.studentno}}</span>
-						<span class="listColDprtBlockRight">{{member.position}}</span>
-					</a>
-				</li>	
-			</ul>
-		</div>
-	</form>
-	<!-- <span ng-bind="checkbox | json"></span> -->
+  <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  <form>
+    <div class="panel" ng-show="isEdit(editor)">
+      <a class="longBtn mainBtn fontNormal listDprtBtn" href="#/list/add">新增成员</a>
+      <button id="optionBtn" class="longBtn subBtn fontNormal listClearBtn">更多操作</button>
+      <button class="longBtn subBtn fontNormal listClearBtn" ng-click="reset()" style="margin-right:16px;">重置密码</button>
+      <div id="optionMenu" class="optionMenu" ng-show="isEdit(editor)" style="display:none;opacity:0;">
+        <div class="optionMenuColumn">
+          <span class="inputLabel fontSmall">置入回收站</span>
+          <select class="selectValue fontLarge dprtSelect" ng-model="rcl" >
+            <option value="退休">退休</option>
+            <option value="离职">离职</option>
+          </select>
+          <button class="longBtn txtBtn fontNormal optionMenuBtn" ng-click="recycle()" ng-disabled="flag">确定</button>
+        </div>
+        <hr>
+        <div  class="optionMenuColumn">
+          <span class="inputLabel fontSmall">修改职位</span>
+          <select class="selectValue fontLarge dprtSelect" ng-model="position">
+            <option value="干事">干事</option>
+            <option value="主管">主管</option>
+            <option value="部长">部长</option>
+          </select>
+          <button class="longBtn txtBtn fontNormal optionMenuBtn" ng-click="changeposition()" ng-disabled="flag">确定</button>
+        </div>
+      </div>
+    </div>
+    <div class="table">
+      <ul class="tableList">
+        <li class="listColumnHead">
+          <label class="checkbox" ng-show="isEdit(editor)">
+            <input type="checkbox" ng-model="allchecked" ng-change="checkall()">
+          </label>
+          <div class="listHead fontNormal">
+            <!-- <img ng-src="{{member.photo}}"> -->
+            <span class="listColDprtBlockLeft">姓名</span>
+            <span class="listColDprtBlockRight">学号</span>
+            <span class="listColDprtBlockRight">职位</span>
+          </div>
+        </li>  
+        <li class="listColumn" ng-repeat="member in members">
+          <label class="checkbox" ng-show="isEdit(editor)">
+            <input name="cb" type="checkbox" ng-model="checkbox[$index]">
+          </label>
+          <a class="listLink fontNormal" href="#/list/detail/{{member.id}}">
+            <!-- <img ng-src="{{member.photo}}"> -->
+            <span class="listColDprtBlockLeft">{{member.username}}</span>
+            <span class="listColDprtBlockRight">{{member.studentno}}</span>
+            <span class="listColDprtBlockRight">{{member.position}}</span>
+          </a>
+        </li>  
+      </ul>
+    </div>
+  </form>
+  <!-- <span ng-bind="checkbox | json"></span> -->
 </div>
 

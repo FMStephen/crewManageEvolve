@@ -1,42 +1,42 @@
 <div>
-	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form name="editform" ng-submit="infoedit()" novalidate>
-		<div class="input inputInfo" ng-class="{ 'has-error' : editform.username.$invalid && !editform.username.$pristine }">
-			<span class="inputLabel fontSmall">姓名</span>
-			<input class="inputValue fontLarge inputInfo" type="text" name="username" placeholder="" ng-model="username" placeholder="{{content.username}}" required>
-			<p class="inputError fontMin" ng-show=" editform.username.$invalid && !editform.username.$pristine">姓名不能为空</p>
-		</div>
-		<div class="input inputInfo" ng-class="{ 'has-error' : editform.gender.$invalid && !editform.gender.$pristine }">
-			<span class="inputLabel fontSmall">性别</span>
-			<select class="selectValue fontLarge inputInfo" name="gender" placeholder="gender" ng-model="gender" ng-options="x.value as x.name for x in genderopt" required></select>
-			<p class="inputError fontMin" ng-show=" editform.gender.$invalid && !editform.gender.$pristine">请选择性别</p>
-		</div>
-		<div class="input inputInfo" ng-class="{ 'has-error' : editform.school.$invalid && !editform.school.$pristine }">
-			<span class="inputLabel fontSmall">学院</span>
-			<select class="selectValue fontLarge inputInfo" name="school" placeholder="school" ng-model="school" ng-options="x.value as x.name for x in schoolopt" required></select>
-			<p class="inputError fontMin" ng-show=" editform.school.$invalid && !editform.school.$pristine">请选择学院</p>
-		</div>
-		<div class="input inputInfo" ng-class="{ 'has-error' : editform.room.$invalid && !editform.room.$pristine }">
-			<span class="inputLabel fontSmall">宿舍</span>
-			<input class="inputValue fontLarge inputInfo" type="text" name="room" placeholder="格式如: C8东-155" ng-model="room" placeholder="{{content.room}}" required>
-			<p class="inputError fontMin" ng-show=" editform.room.$invalid && !editform.room.$pristine">宿舍不能为空</p>
-		</div>
-		<div class="input inputInfo" ng-class="{ 'has-error' : editform.tellong.$invalid && !editform.tellong.$pristine }">
-			<span class="inputLabel fontSmall">长号</span>
-			<input class="inputValue fontLarge inputInfo" type="tel" name="tellong" placeholder="11位手机号" ng-model="telLong" placeholder="{{content.telLong}}" ng-pattern="/^1[34578][0-9]{9}$/" required>
-			<p class="inputError fontMin" ng-show=" editform.tellong.$invalid && !editform.tellong.$pristine">长号输入有误</p>
-		</div>
-		<div class="input inputInfo" ng-class="{ 'has-error' : !editform.telshort.$pristine }">
-			<span class="inputLabel fontSmall">短号</span>
-			<input class="inputValue fontLarge inputInfo" type="tel" name="telshort" placeholder="校内的短号" ng-model="telShort" placeholder="{{content.telShort}}" ng-pattern="/^[0-9]{1,6}?$/">
-			<p class="inputError fontMin" ng-show=" editform.telshort.$invalid && !editform.telshort.$pristine && editform.telshort.$error.pattern">短号格式错误</p>
+  <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  <form name="editform" ng-submit="infoedit()" novalidate>
+    <div class="input inputInfo" ng-class="{ 'has-error' : editform.username.$invalid && !editform.username.$pristine }">
+      <span class="inputLabel fontSmall">姓名</span>
+      <input class="inputValue fontLarge inputInfo" type="text" name="username" placeholder="" ng-model="username" placeholder="{{content.username}}" required>
+      <p class="inputError fontMin" ng-show=" editform.username.$invalid && !editform.username.$pristine">姓名不能为空</p>
+    </div>
+    <div class="input inputInfo" ng-class="{ 'has-error' : editform.gender.$invalid && !editform.gender.$pristine }">
+      <span class="inputLabel fontSmall">性别</span>
+      <select class="selectValue fontLarge inputInfo" name="gender" placeholder="gender" ng-model="gender" ng-options="x.value as x.name for x in genderopt" required></select>
+      <p class="inputError fontMin" ng-show=" editform.gender.$invalid && !editform.gender.$pristine">请选择性别</p>
+    </div>
+    <div class="input inputInfo" ng-class="{ 'has-error' : editform.school.$invalid && !editform.school.$pristine }">
+      <span class="inputLabel fontSmall">学院</span>
+      <select class="selectValue fontLarge inputInfo" name="school" placeholder="school" ng-model="school" ng-options="x.value as x.name for x in schoolopt" required></select>
+      <p class="inputError fontMin" ng-show=" editform.school.$invalid && !editform.school.$pristine">请选择学院</p>
+    </div>
+    <div class="input inputInfo" ng-class="{ 'has-error' : editform.room.$invalid && !editform.room.$pristine }">
+      <span class="inputLabel fontSmall">宿舍</span>
+      <input class="inputValue fontLarge inputInfo" type="text" name="room" placeholder="格式如: C8东-155" ng-model="room" placeholder="{{content.room}}" required>
+      <p class="inputError fontMin" ng-show=" editform.room.$invalid && !editform.room.$pristine">宿舍不能为空</p>
+    </div>
+    <div class="input inputInfo" ng-class="{ 'has-error' : editform.tellong.$invalid && !editform.tellong.$pristine }">
+      <span class="inputLabel fontSmall">长号</span>
+      <input class="inputValue fontLarge inputInfo" type="tel" name="tellong" placeholder="11位手机号" ng-model="telLong" placeholder="{{content.telLong}}" ng-pattern="/^1[34578][0-9]{9}$/" required>
+      <p class="inputError fontMin" ng-show=" editform.tellong.$invalid && !editform.tellong.$pristine">长号输入有误</p>
+    </div>
+    <div class="input inputInfo" ng-class="{ 'has-error' : !editform.telshort.$pristine }">
+      <span class="inputLabel fontSmall">短号</span>
+      <input class="inputValue fontLarge inputInfo" type="tel" name="telshort" placeholder="校内的短号" ng-model="telShort" placeholder="{{content.telShort}}" ng-pattern="/^[0-9]{1,6}?$/">
+      <p class="inputError fontMin" ng-show=" editform.telshort.$invalid && !editform.telshort.$pristine && editform.telshort.$error.pattern">短号格式错误</p>
 
-		</div>
-		<div class="input inputInfo" ng-class="{ 'has-error' : editform.email.$invalid && !editform.email.$pristine }">
-			<span class="inputLabel fontSmall">邮箱</span>
-			<input class="inputValue fontLarge inputInfo" type="email" name="email" placeholder="example@xxx.xxx" ng-model="email" placeholder="{{content.email}}" required>
-			<p class="inputError fontMin" ng-show=" editform.email.$invalid && !editform.email.$pristine">邮箱不能为空</p>
-		</div>
-		<button class="mainBtn shortBtn listBtn fontNormal" type="submit" ng-disabled="editform.$invalid || editform.$pristine || flag">提交</button>
-	<form>
+    </div>
+    <div class="input inputInfo" ng-class="{ 'has-error' : editform.email.$invalid && !editform.email.$pristine }">
+      <span class="inputLabel fontSmall">邮箱</span>
+      <input class="inputValue fontLarge inputInfo" type="email" name="email" placeholder="example@xxx.xxx" ng-model="email" placeholder="{{content.email}}" required>
+      <p class="inputError fontMin" ng-show=" editform.email.$invalid && !editform.email.$pristine">邮箱不能为空</p>
+    </div>
+    <button class="mainBtn shortBtn listBtn fontNormal" type="submit" ng-disabled="editform.$invalid || editform.$pristine || flag">提交</button>
+  <form>
 </div>
