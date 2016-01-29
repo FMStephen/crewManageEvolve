@@ -1,36 +1,41 @@
 var gulp = require('gulp')
+var gutil = require('gulp-util');
+var babel = require('gulp-babel')
 var concat = require('gulp-concat')
-var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
+var uglify = require('gulp-uglify')
 var sourcemaps = require('gulp-sourcemaps')
-var location = ['js/app.js',
-				'js/plugins.js',
-				'js/routers/**/*.js',
-				'js/services/**/*.js',
-				'js/directives/**/*.js']
 
-var lib = ['lib/angular.min.js',
-			    'lib/angular-ui-router.min.js',
-			    'lib/angular-cookies.min.js',
-			    'dist/aes.min.js']
+var location = [
+	'app/**/*.js'
+]
 
-var aes = ['lib/gibberish-aes.js',
-			'lib/md5.js']
+var lib = [
+	'lib/**/*.js',
+	'!lib/**/*.min.js'
+]
 
-var inject = ['dist/bundle.inject.js']
+gulp.task('default', ['build'])
 
+gulp.task('build-all', ['build', 'build-lib'])
 
-gulp.task('default', function () {
+gulp.task('build', function () {
 	gulp.src(location)
-//	gulp.src(lib)
 		.pipe(sourcemaps.init({loadMaps: true}))
-		.pipe(concat('bundle.js'))
+		.pipe(babel({ presets: ['es2015', 'stage-0'] }))
+		.on('error', gutil.log.bind(gutil))
+		.pipe(concat('bundle.min.js'))
 		.pipe(sourcemaps.write('./'))
-//		.pipe(uglify().on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-//		.pipe(rename({ basename: 'lib.min' }))
 		.pipe(gulp.dest('dist/'))
 })
 
-gulp.task('watch', function (){
-	gulp.watch(location, ['default']);
+gulp.task('build-lib', function () {
+	gulp.src(lib)
+		.pipe(uglify())
+		.pipe(rename({ suffix: '.min' }))
+		.pipe(gulp.dest('lib/'))
+})
+
+gulp.task('watch', ['build'], function (){
+	gulp.watch(location, ['default'])
 })

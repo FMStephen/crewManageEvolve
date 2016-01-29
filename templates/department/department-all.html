@@ -1,29 +1,29 @@
 <div>
-	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form>
-		<div div class="panel" ng-show="editor">
-			<button class="longBtn mainBtn fontNormal listDprtBtn" ng-click="edit()">编辑部门</button>
-		</div>
-		<div class="table">
-			<ul class="tableList">
-				<li class="listColumnHead">
-					<div class="listHead fontNormal">
-						<!-- <img ng-src="{{member.photo}}"> -->
-						<span class="listColDprtListBlockLeft">部门</span>
-						<span class="listColDprtListBlockRight">备注</span>
-					</div>
-				</li>	
-				<li class="listColumn" ng-repeat="dprt in dprts">
-					<label class="checkbox" ng-show="editor" for="a{{dprt.id}}" >
-						<input ng-show="editor" type="radio" name="dprt" id="a{{dprt.id}}" ng-model="radio.dprt" value="{{dprt.id}}" onclick="radio(this)">
-					</label>
-					<div class="listLink fontNormal">
-						<!-- <img ng-src="{{member.photo}}"> -->
-						<span class="listColDprtListBlockLeft">{{dprt.dprtname}}</span>
-						<span class="listColDprtListBlockRight">{{dprt.dprtnote}}</span>
-					</div>
-				</li>	
-			</ul>
-		</div>
-	</form>
+  <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  <form>
+    <div div class="panel" ng-show="editor">
+      <button class="longBtn mainBtn fontNormal listDprtBtn" ng-click="edit()">编辑部门</button>
+    </div>
+    <div class="table">
+      <ul class="tableList">
+        <li class="listColumnHead">
+          <div class="listHead fontNormal">
+            <!-- <img ng-src="{{member.photo}}"> -->
+            <span class="listColDprtListBlockLeft">部门</span>
+            <span class="listColDprtListBlockRight">备注</span>
+          </div>
+        </li>  
+        <li class="listColumn" ng-repeat="dprt in dprts">
+          <label class="checkbox" ng-show="editor">
+            <input type="radio" ng-model="radio.dprt" value="{{dprt.id}}">
+          </label>
+          <div class="listLink fontNormal">
+            <!-- <img ng-src="{{member.photo}}"> -->
+            <span class="listColDprtListBlockLeft">{{dprt.dprtname}}</span>
+            <span class="listColDprtListBlockRight">{{dprt.dprtnote}}</span>
+          </div>
+        </li>  
+      </ul>
+    </div>
+  </form>
 </div>

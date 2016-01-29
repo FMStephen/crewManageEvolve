@@ -3,17 +3,17 @@
   "token": "122efefsadfdsagxvxccvsdfdsdfsd",
   "detial": "",
   "data": {
-      "id": 15,
-      "username": "FMS",
-      "position": "部长",
-      "dprt": "技术部",
-      "studentno": "201330564129",
-      "gender": "男",
-      "school": "经贸",
-      "room": "c7-188",
-      "telLong": "18826456228",
-      "telShort": "666228",
-      "email": "38448282@gmail.com",
-      "photo": "img/baidu/com/head.img"
+    "id": 15,
+    "username": "FMS",
+    "position": "部长",
+    "dprt": "技术部",
+    "studentno": "201330564129",
+    "gender": "男",
+    "school": "经贸",
+    "room": "c7-188",
+    "telLong": "18826456228",
+    "telShort": "666228",
+    "email": "38448282@gmail.com",
+    "photo": "img/baidu/com/head.img"
   }
 }

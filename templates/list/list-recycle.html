@@ -1,40 +1,40 @@
 <div>
-	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form>
-		<div class="panel">
-			<button class="longBtn subBtn fontNormal listClearBtn" ng-click="del()" ng-disabled="flag">彻底删除</button>
-			<button class="longBtn mainBtn fontNormal listClearBtn" ng-click="recover()" ng-disabled="flag" style="margin-right:16px;margin-top:1px">恢复</button>
-		</div>
-		<div class="table">
-			<ul class="tableList">
-				<li class="listColumnHead">
-					<label for="check" class="checkbox">
-						<input id="check" type="checkbox" ng-click="checkall()" onclick="listCheck(this)">
-					</label>
-					<div class="listHead fontNormal">
-						<!-- <img ng-src="{{member.photo}}"> -->
-						<span class="listColDprtBlockLeft">姓名</span>
-						<span class="listColDprtBlockRight">职位</span>
-						<span class="listColDprtBlockRight">备注</span>
-					</div>
-				</li>
-				<li class="listColumn" ng-repeat="member in members">
-					<label class="checkbox" for="a{{member.id}}">
-						<input name="cb" id="a{{member.id}}" type="checkbox" ng-model="checkbox[$index].column" ng-true-value="{{member.id}}" ng-false-value="" onclick="listCheck(this)">
-					</label>
-					<div class="listLink fontNormal">
-						<!-- <img ng-src="{{member.photo}}"> -->
-						<span class="listColDprtBlockLeft">{{member.username}}</span>
-						<span class="listColDprtBlockRight">{{member.note}}</span>
-						<span class="listColDprtBlockRight">{{member.position}}</span>
-					</div>  
-				</li>	
-			</ul>
-		</div>
-		<div class="pageCtrl">
-			<button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pagenext()">下一页</button>
-			<button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pageprev()">上一页</button>
-			<span class="pageInfo fontNormal pageInfo">第<span class="fontNormal" ng-model="current"> {{current}} </span>页&nbsp;&nbsp;共<span class="fontNormal" ng-model="total"> {{total}} </span>页</span>		
-		</div>
-	</form>
+  <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  <form>
+    <div class="panel">
+      <button class="longBtn subBtn fontNormal listClearBtn" ng-click="del()" ng-disabled="flag">彻底删除</button>
+      <button class="longBtn mainBtn fontNormal listClearBtn" ng-click="recover()" ng-disabled="flag" style="margin-right:16px;margin-top:1px">恢复</button>
+    </div>
+    <div class="table">
+      <ul class="tableList">
+        <li class="listColumnHead">
+          <label class="checkbox">
+            <input type="checkbox" ng-model="allchecked" ng-change="checkall()">
+          </label>
+          <div class="listHead fontNormal">
+            <!-- <img ng-src="{{member.photo}}"> -->
+            <span class="listColDprtBlockLeft">姓名</span>
+            <span class="listColDprtBlockRight">职位</span>
+            <span class="listColDprtBlockRight">备注</span>
+          </div>
+        </li>
+        <li class="listColumn" ng-repeat="member in members">
+          <label class="checkbox">
+            <input name="cb" type="checkbox" ng-model="checkbox[$index]">
+          </label>
+          <div class="listLink fontNormal">
+            <!-- <img ng-src="{{member.photo}}"> -->
+            <span class="listColDprtBlockLeft">{{member.username}}</span>
+            <span class="listColDprtBlockRight">{{member.note}}</span>
+            <span class="listColDprtBlockRight">{{member.position}}</span>
+          </div>  
+        </li>  
+      </ul>
+    </div>
+    <div class="pageCtrl">
+      <button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pagenext()">下一页</button>
+      <button class="longBtn mainBtn fontNormal pageCtrlBtn" ng-click="pageprev()">上一页</button>
+      <span class="pageInfo fontNormal pageInfo">第<span class="fontNormal" ng-model="current"> {{current}} </span>页&nbsp;&nbsp;共<span class="fontNormal" ng-model="total"> {{total}} </span>页</span>    
+    </div>
+  </form>
 </div>

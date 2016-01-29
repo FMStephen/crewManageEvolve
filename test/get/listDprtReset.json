@@ -3,31 +3,37 @@
   "token": "122efefsadfdsagxvxccvsdfdsdfsd",
   "detial": "",
   "data": {
-    "members": [{
-      "id": "23",
-      "username": "FMS",
-      "position": "部长1",
-      "studentno": "201330405040"
-    },{
-      "id": "23",
-      "username": "FMS",
-      "position": "部长1",
-      "studentno": "201330405040"
-    },{
-      "id": "23",
-      "username": "FMS",
-      "position": "部长1",
-      "studentno": "201330405040"
-    },{
-      "id": "23",
-      "username": "FMS",
-      "position": "部长1",
-      "studentno": "201330405040"
-    },{
-      "id": "23",
-      "username": "FMS",
-      "position": "部长1",
-      "studentno": "201330405040"
-    }]
+    "members": [
+      {
+        "id": "23",
+        "username": "FMS",
+        "position": "部长1",
+        "studentno": "201330405040"
+      },
+      {
+        "id": "23",
+        "username": "FMS",
+        "position": "部长1",
+        "studentno": "201330405040"
+      },
+      {
+        "id": "23",
+        "username": "FMS",
+        "position": "部长1",
+        "studentno": "201330405040"
+      },
+      {
+        "id": "23",
+        "username": "FMS",
+        "position": "部长1",
+        "studentno": "201330405040"
+      },
+      {
+        "id": "23",
+        "username": "FMS",
+        "position": "部长1",
+        "studentno": "201330405040"
+      }
+    ]
   }
 }

@@ -4,41 +4,43 @@
   "detial": "",
   "data": {
     "editor": false,
-    "members": [{
-      "id": "23",
-      "username": "FMS",
-      "position": "部长1",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "id": "24",
-      "username": "FMS",
-      "position": "部长2",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "id": "25",
-      "username": "FMS",
-      "position": "部长3",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "id": "26",
-      "username": "FMS",
-      "position": "部长4",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "id": "27",
-      "username": "FMS",
-      "position": "部长5",
-      "photo": "img/baidu/com/head.img"
-    },
-    {
-      "id": "28",
-      "username": "FMS",
-      "position": "部长6",
-      "photo": "img/baidu/com/head.img"
-    }]
+    "members": [
+      {
+        "id": "23",
+        "username": "FMS",
+        "position": "部长1",
+        "photo": "img/baidu/com/head.img"
+      },
+      {
+        "id": "24",
+        "username": "FMS",
+        "position": "部长2",
+        "photo": "img/baidu/com/head.img"
+      },
+      {
+        "id": "25",
+        "username": "FMS",
+        "position": "部长3",
+        "photo": "img/baidu/com/head.img"
+      },
+      {
+        "id": "26",
+        "username": "FMS",
+        "position": "部长4",
+        "photo": "img/baidu/com/head.img"
+      },
+      {
+        "id": "27",
+        "username": "FMS",
+        "position": "部长5",
+        "photo": "img/baidu/com/head.img"
+      },
+      {
+        "id": "28",
+        "username": "FMS",
+        "position": "部长6",
+        "photo": "img/baidu/com/head.img"
+      }
+    ]
   }
 }

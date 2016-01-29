@@ -4,9 +4,9 @@
   "detial": "",
   "data": {
     "auth": {
-        "listDetail": 1,
-        "listEdit": 1,
-        "dprtEdit": 1
+      "listDetail": 1,
+      "listEdit": 1,
+      "dprtEdit": 1
     }
   }
 }

@@ -1,35 +1,35 @@
 <div>
-	<alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<div class="addReset">
-		<form name="editform" ng-submit="reset()" novalidate>
-	        <div class="input inputreset"  ng-class="{'has-error' : editform.newpw.$invalid && !editform.newpw.$pristine}" >
-				<span class="inputLabel fontSmall">重置密码</span>
-				<input class="inputValue fontLarge inputreset" type="password" name="newpw" placeholder="6-16位数字或者英文字母组成" ng-model="newpw" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
-	            <p class="inputError fontMin" ng-show="editform.newpw.$invalid && !editform.newpw.$pristine && editform.newpw.$error.pattern">密码格式有误</p>
-			</div>
-			<div class="input inputreset"  ng-class="{'has-error' : editform.cfrmpw.$invalid && !editform.cfrmpw.$pristine}" >
-				<span class="inputLabel fontSmall">确认密码</span>
-				<input class="inputValue fontLarge inputreset" type="password" name="cfrmpw" placeholder="确认新密码" ng-model="cfrmpw" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
-	            <p class="inputError fontMin" ng-show="editform.cfrmpw.$invalid && !editform.cfrmpw.$pristine && editform.cfrmpw.$error.pattern">确认密码格式有误</p>
-			</div>
-			<button class="mainBtn shortBtn ipnutResetBtn fontNormal" type="submit" ng-disabled="editform.$invalid || editform.$pristine || flag">修改</button>
-		</form>
-	</div>
-	<div class="table tableEdit addReset addResetRight">
-		<ul class="tableList">
-			<li class="listColumnHead tableEdit">
-				<div class="listHead listLinkAll fontNormal tableEdit">
-					<!-- <img ng-src="{{member.photo}}"> -->
-					<span class="listColAllBlockLeft  listTargetBlockLeft">修改对象</span>
-					<span class="listColAllBlockRight listTargetBlockRight">职位</span>
-				</div>
-			</li>
-			<li class="listColumn tableEdit" ng-repeat="member in members">
-				<div class="listLink listLinkAll fontNormal tableEdit">
-					<span class="listColAllBlockLeft listTargetBlockLeft">{{member.username}}</span> 
-					<span class="listColAllBlockRight listTargetBlockRight">{{member.position}}</span> 
-				</div>
-			</li>
-		</ul>
-	</div>
+  <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  <div class="addReset">
+    <form name="editform" ng-submit="reset()" novalidate>
+          <div class="input inputreset"  ng-class="{'has-error' : editform.newpw.$invalid && !editform.newpw.$pristine}" >
+        <span class="inputLabel fontSmall">重置密码</span>
+        <input class="inputValue fontLarge inputreset" type="password" name="newpw" placeholder="6-16位数字或者英文字母组成" ng-model="newpw" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
+              <p class="inputError fontMin" ng-show="editform.newpw.$invalid && !editform.newpw.$pristine && editform.newpw.$error.pattern">密码格式有误</p>
+      </div>
+      <div class="input inputreset"  ng-class="{'has-error' : editform.cfrmpw.$invalid && !editform.cfrmpw.$pristine}" >
+        <span class="inputLabel fontSmall">确认密码</span>
+        <input class="inputValue fontLarge inputreset" type="password" name="cfrmpw" placeholder="确认新密码" ng-model="cfrmpw" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" required>
+              <p class="inputError fontMin" ng-show="editform.cfrmpw.$invalid && !editform.cfrmpw.$pristine && editform.cfrmpw.$error.pattern">确认密码格式有误</p>
+      </div>
+      <button class="mainBtn shortBtn ipnutResetBtn fontNormal" type="submit" ng-disabled="editform.$invalid || editform.$pristine || flag">修改</button>
+    </form>
+  </div>
+  <div class="table tableEdit addReset addResetRight">
+    <ul class="tableList">
+      <li class="listColumnHead tableEdit">
+        <div class="listHead listLinkAll fontNormal tableEdit">
+          <!-- <img ng-src="{{member.photo}}"> -->
+          <span class="listColAllBlockLeft  listTargetBlockLeft">修改对象</span>
+          <span class="listColAllBlockRight listTargetBlockRight">职位</span>
+        </div>
+      </li>
+      <li class="listColumn tableEdit" ng-repeat="member in members">
+        <div class="listLink listLinkAll fontNormal tableEdit">
+          <span class="listColAllBlockLeft listTargetBlockLeft">{{member.username}}</span> 
+          <span class="listColAllBlockRight listTargetBlockRight">{{member.position}}</span> 
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
