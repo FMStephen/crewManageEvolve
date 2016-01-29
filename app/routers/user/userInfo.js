@@ -5,12 +5,12 @@ angular.module('app')
       .state('user.info', {
         url: '/info',
         templateUrl: 'templates/user/info-detail.html',
-        controller($scope, $state, userinfo) {
+        controller($scope, $state, userService) {
 
           moreMenu()
           naviSecondery(0)
 
-          userinfo.show()
+          userService.show()
             .then(function ({ data }) {
               $scope.content = data
             })

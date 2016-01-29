@@ -5,7 +5,7 @@ angular.module('app')
       .state('user.edit', {
         url: '/infoedit',
         templateUrl: 'templates/user/info-edit.html',
-        controller($scope, $state, userinfo) {
+        controller($scope, $state, userService) {
 
           moreMenu()
           naviSecondery(1)
@@ -23,7 +23,7 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
-          userinfo.show()
+          userService.show()
 
             .then(function ({ data }) {
               $scope.genderopt = gender
@@ -53,7 +53,7 @@ angular.module('app')
           $scope.infoedit = function () {
             $scope.flag = true
 
-            userinfo.edit({
+            userService.edit({
               username: $scope.username,
               gender: $scope.gender,
               school: $scope.school,

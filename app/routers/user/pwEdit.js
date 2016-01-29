@@ -5,7 +5,7 @@ angular.module('app')
       .state('user.pw', {
         url: '/pwedit',
         templateUrl: 'templates/user/password-edit.html',
-        controller($scope, $state, userinfo) {
+        controller($scope, $state, userService) {
 
           moreMenu()
           naviSecondery(2)
@@ -40,7 +40,7 @@ angular.module('app')
 
             $scope.flag = true
 
-            userinfo.password({
+            userService.password({
               old: $scope.oldpw,
               cfrm: $scope.cfrmpw,
               'new': $scope.newpw,

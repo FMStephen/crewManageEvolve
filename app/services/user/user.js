@@ -1,7 +1,21 @@
 angular.module('app')
 
-  .service('userinfo', requestService => {
+  .service('userService', requestService => {
+
     return {
+
+      login(user) {
+        return requestService.post('Login', {
+          studentno: user.studentNo,
+          password: md5(user.password),
+        })
+      },
+
+      logout(user) {
+        requestService.post('User/logout', requestService.auth())
+        $cookies.remove('token')
+      },
+
       show() {
         return requestService.post('User/info')
       },
@@ -20,5 +34,4 @@ angular.module('app')
         })
       }
     }
-  }
-)
+  })
