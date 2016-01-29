@@ -1,12 +1,3 @@
-function footer () {
-  var x = window.innerWidth
-  if (x >= 1600) {
-    document.getElementById('body').style.minHeight = window.innerHeight - 272 + 'px'
-  } else {
-    document.getElementById('body').style.minHeight = window.innerHeight - 240 + 'px'
-  }
-}
-
 function naviSecondery (num) {
   var naviSecondery = document.getElementsByClassName('naviSeconderyBtn')
   for (var x = 0;x < naviSecondery.length;x++) {
@@ -60,14 +51,6 @@ function optionMenu () {
   })
 }
 
-function listCheck (o) {
-  if (o.checked) {
-    o.parentNode.style.backgroundImage = 'url(img/checked.png)'
-  } else {
-    o.parentNode.style.backgroundImage = 'url(img/unchecked.png)'
-  }
-}
-
 function secretShow () {
   var hl = document.getElementById('loginLeft')
   var hr = document.getElementById('loginRight')
@@ -82,15 +65,4 @@ function secretHide () {
   var secretInput = document.getElementById('secret')
   hl.src = 'img/TZH.png'
   hr.src = 'img/TMH.png'
-}
-
-function radio (o) {
-  o.parentNode.style.backgroundImage = 'url(img/checked.png)'
-  var radios = document.getElementsByTagName('label')
-  for (var x = 0;x < radios.length;x++) {
-    if (radios[x] != o.parentNode) {
-      radios[x].style.backgroundImage = 'url(img/unchecked.png)'
-    }
-  }
-
 }

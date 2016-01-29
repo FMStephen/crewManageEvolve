@@ -14,8 +14,8 @@
           </div>
         </li>  
         <li class="listColumn" ng-repeat="dprt in dprts">
-          <label class="checkbox" ng-show="editor" for="a{{dprt.id}}" >
-            <input ng-show="editor" type="radio" name="dprt" id="a{{dprt.id}}" ng-model="radio.dprt" value="{{dprt.id}}" onclick="radio(this)">
+          <label class="checkbox" ng-show="editor">
+            <input type="radio" ng-model="radio.dprt" value="{{dprt.id}}">
           </label>
           <div class="listLink fontNormal">
             <!-- <img ng-src="{{member.photo}}"> -->
