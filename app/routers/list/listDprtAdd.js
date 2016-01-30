@@ -23,6 +23,8 @@ angular.module('app')
             $scope.alerts.splice(index, 1)
           }
 
+          alertbox('', '当添加多个学号时, 每个学号用回车换行')
+
           $scope.position = '干事'
 
           function showuncompleted () {
