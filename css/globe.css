@@ -654,7 +654,6 @@ hr{
 	margin: auto;
 	margin-top: 24px;
 	padding-left: 0;
-	text-align: center;
 }
 .loginBtn{
 	position: relative;
@@ -1020,11 +1019,11 @@ footer{
 	width: 368px;
 }
 .inputLogin{
-	width: 256px;
+	width: 128px;
 	margin: auto;
 	margin-top: 24px;
-	padding-left: 0;
-	text-align: center;
+	padding-left: 64px;
+	padding-right: 64px;
 }
 .loginBtn{
 	width: 264px;

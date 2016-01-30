@@ -2,7 +2,7 @@
 body{
 	font-family: Microsoft YaHei,STHeiti;
 	background: #f9f9f9;	
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 .fontHuge{
 	font-size: 32px;
@@ -336,7 +336,42 @@ body{
 
 
 /*分页*/
-	/*个人信息*/
+	/*登陆*/
+::-webkit-input-placeholder	 { /* WebKit browsers */
+	text-align: center;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 0.1s;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	text-align: center;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 0.1s;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	text-align: center;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 0.1s;
+}
+:-ms-input-placeholder:focus { /* Internet Explorer 10+ */	
+	text-align: center;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+}
+:focus::-webkit-input-placeholder	 { /* WebKit browsers */
+	opacity: 0;
+}
+:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	opacity: 0;
+}
+:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+	opacity: 0;
+}
+:focus:-ms-input-placeholder:focus { /* Internet Explorer 10+ */
+	opacity: 0;
+}
+
 .name{
 	font-size: 18px;
 	color: rgba(0,0,0,0.87);

@@ -11,8 +11,8 @@
   </style>
   <div class="loginHeader">
     <img class="loginLogo" src="img/loginLogo.png">
-    <img id="loginLeft" class="loginT" src="img/TZ.png">
-    <img id="loginRight" class="loginT" src="img/TM.png">
+    <img id="loginLeft" class="loginT" ng-src="{{secretLeft}}">
+    <img id="loginRight" class="loginT" ng-src="{{secretRight}}">
   </div>
   <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <form class="loginForm" name="login" ng-submit="update()" novalidate>
@@ -21,7 +21,8 @@
             <!-- <p ng-show="login.username.$invalid && !login.username.$pristine && login.username.$error.pattern">error</p> -->
     </div>
         <div ng-class="{'has-error' : login.password.$invalid && !login.password.$pristine}">
-        <input id="secret" class="inputValue fontLarge inputLogin" type="password" name="password" placeholder="请输入密码" ng-model="password" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" onfocus="secretHide()" onblur="secretShow()" required>
+
+        <input id="secret" class="inputValue fontLarge inputLogin" type="password" name="password" placeholder="请输入密码" ng-model="password" ng-pattern="/^[0-9a-zA-Z]{6,12}$/" ng-focus="secretShow()" ng-blur="secretHide()" required>
             <!-- <p ng-show="login.password.$error.pattern">error</p> -->
         </div>
     <button class="mainBtn loginBtn fontNormal" type="submit" ng-disabled="login.$invalid || flag">登录</button>

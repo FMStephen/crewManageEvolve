@@ -51,18 +51,18 @@ function optionMenu () {
   })
 }
 
-function secretShow () {
-  var hl = document.getElementById('loginLeft')
-  var hr = document.getElementById('loginRight')
-  var secretInput = document.getElementById('secret')
-  hl.src = 'img/TZ.png'
-  hr.src = 'img/TM.png'
-}
+// function secretShow () {
+//   var hl = document.getElementById('loginLeft')
+//   var hr = document.getElementById('loginRight')
+//   var secretInput = document.getElementById('secret')
+//   hl.src = 'img/TZ.png'
+//   hr.src = 'img/TM.png'
+// }
 
-function secretHide () {
-  var hl = document.getElementById('loginLeft')
-  var hr = document.getElementById('loginRight')
-  var secretInput = document.getElementById('secret')
-  hl.src = 'img/TZH.png'
-  hr.src = 'img/TMH.png'
-}
+// function secretHide () {
+//   var hl = document.getElementById('loginLeft')
+//   var hr = document.getElementById('loginRight')
+//   var secretInput = document.getElementById('secret')
+//   hl.src = 'img/TZH.png'
+//   hr.src = 'img/TMH.png'
+// }

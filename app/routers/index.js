@@ -47,6 +47,24 @@ angular.module('app')
         },
         controller($scope, $state, $cookies, userService) {
 
+          $scope.secretLeft = 'img/TZ.png'
+          $scope.secretRight = 'img/TM.png'
+
+          $scope.secretHide = function() {
+
+            $scope.secretLeft = 'img/TZ.png'
+            $scope.secretRight = 'img/TM.png'
+
+          }
+
+          $scope.secretShow = function() {
+
+            $scope.secretLeft = 'img/TZH.png'
+            $scope.secretRight = 'img/TMH.png'
+
+          }
+
+
           $scope.alerts = []
           function alertbox (type, msg) {
             if ($scope.alerts != []) {
