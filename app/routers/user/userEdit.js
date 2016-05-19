@@ -10,6 +10,9 @@ angular.module('app')
           moreMenu()
           naviSecondery(1)
 
+          $scope.genderopt = gender
+          $scope.schoolopt = school  
+
           $scope.alerts = []
 
           function alertbox (type, msg) {
@@ -26,9 +29,6 @@ angular.module('app')
           userService.show()
 
             .then(function ({ data }) {
-              $scope.genderopt = gender
-              $scope.schoolopt = school
-
               $scope.content = data
 
               $scope.username = data.username

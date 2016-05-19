@@ -60,7 +60,7 @@ angular.module('app')
           }
 
           $scope.reset = function () {
-            $state.go('list.all', { current: 1 })
+            $state.go('list.all', { 'dprt': '', 'position': '', 'keyword': '' })
           }
 
           $scope.pagenext = function () {

@@ -47,9 +47,9 @@ new Image().src = 'img/TZH.png'
 new Image().src = 'img/TMH.png'
 new Image().src = 'img/checked.png'
 
-function encrypt (msg) {
-  return sodium.crypto_box_easy(msg, sodium.from_hex(nonce), sodium.from_hex(pk), sodium.from_hex(sk), 'hex')
-}
+// function encrypt (msg) {
+//   return sodium.crypto_box_easy(msg, sodium.from_hex(nonce), sodium.from_hex(pk), sodium.from_hex(sk), 'hex')
+// }
 
 var school = [
   {'name': '请选择','value': ''},

@@ -24,7 +24,6 @@ angular.module('app')
       post(action, data = {}) {
         if (authService && data instanceof Object) {
           data.auth = this.auth()
-          console.log(1)
         }
         return $http.post(host + action, data).then(response => {
 
@@ -34,10 +33,10 @@ angular.module('app')
             case 302: // 账号异常，请重新登录
               $state.go('login')
               break
-            case 201: // 账号异常，请重新登录
+            case 201: // 完善资料
               location.href = '#/user/infoedit'
               break
-            case 403: // 账号异常，请重新登录
+            case 403: // 无权限
               history.go(-1)
               break
           }
@@ -61,7 +60,8 @@ angular.module('app')
       auth() {
         var timestamp = Date.now()
         var token = authService.token
-        return `${token}.${timestamp}.${encrypt(`${token}:${timestamp}`)}`
+        //return `${token}.${timestamp}.${encrypt(`${token}:${timestamp}`)}` //old
+        return `${token}` //new
       }
     }
   })
