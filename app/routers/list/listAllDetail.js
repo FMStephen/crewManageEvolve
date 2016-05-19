@@ -63,7 +63,6 @@ angular.module('app')
               .then(() => {
                 alertbox('success', '修改职位成功')
                 showdetail()
-                setTimeout(() => { history.back() }, 1500)
               })
 
               .catch(({ message }) => {

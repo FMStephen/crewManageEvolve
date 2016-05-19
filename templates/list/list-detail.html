@@ -1,22 +1,28 @@
-<div>
+<div class="userInfo">
   <alert ng-repeat="alert in alerts " type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  <a href="javascript:history.back();">返回</a>
-  <img ng-src="{{content.photo}}">
-  <ul>
-    <li>{{content.username}}</li>
-    <li>{{content.position}}</li>
-    <li>{{content.dprt}}</li>
-    <li>{{content.studentno}}</li>
-    <li>{{content.gender}}</li>
-    <li>{{content.school}}</li>
-    <li>{{content.room}}</li>
-    <li>{{content.telLong}}</li>
-    <li>{{content.telShort}}</li>
-    <li>{{content.email}}</li>
-  </ul>
-  <form ng-show="isEdit(editor)">
-    更改职位
-    <select ng-model="position" ng-options="x.value as x.name for x in positionopt"></select>
-    <button  ng-click="changeposition()" ng-disabled="flag">修改</button>
+  <div class="infoHead">
+    <img class="photo" ng-src="{{content.photo}}">
+    <div class="title">
+      <span class="name fontNormal">{{content.username}}</span>
+      <span class="auth fontNormal">{{content.position}} {{content.dprt}}</span>
+    </div>
+  </div>
+  <div class="infoBody">  
+    <ul class="infoList">
+      <li><span class="infoLabel fontNormal">学号</span><span class="infoValue fontNormal">{{content.studentno}}</span></li>
+      <li><span class="infoLabel fontNormal">性别</span><span class="infoValue fontNormal">{{content.gender}}</span></li>
+      <li><span class="infoLabel fontNormal">学院</span><span class="infoValue fontNormal">{{content.school}}</span></li>
+      <li><span class="infoLabel fontNormal">宿舍</span><span class="infoValue fontNormal">{{content.room}}</span></li>
+    </ul>
+    <ul class="infoList infoListRight">
+      <li><span class="infoLabel fontNormal">长号</span><span class="infoValue fontNormal">{{content.telLong}}</span></li>
+      <li><span class="infoLabel fontNormal">短号</span><span class="infoValue fontNormal">{{content.telShort}}</span></li>
+      <li><span class="infoLabel fontNormal">邮箱</span><span class="infoValue fontNormal">{{content.email}}</span></li>
+    </ul>
+  </div>
+  <form class="listDetailPosition" ng-show="isEdit(editor)">
+    <span class="inputLabel fontSmall">更改职位</span>
+    <select class="selectValue fontLarge dprtSelect" ng-model="position" ng-options="x.value as x.name for x in positionopt"></select>
+    <button class="longBtn mainBtn fontNormal optionMenuBtn" ng-click="changeposition()" ng-disabled="flag">修改</button>
   </form>
 </div>

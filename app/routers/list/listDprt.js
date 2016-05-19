@@ -46,7 +46,6 @@ angular.module('app')
             return !!value
           }
 
-          $scope.checkbox = []
           $scope.rcl = '退休'
           $scope.position = '主管'
 
@@ -70,10 +69,11 @@ angular.module('app')
               return
             }
 
-            var check = document.getElementById('check')
-            if (check.checked) {
-              check.click()
-            }
+            // var check = document.getElementById('check')
+
+            // if (check.checked) {
+            //   check.click()
+            // }
 
             $scope.flag = true
 
@@ -82,6 +82,8 @@ angular.module('app')
               .then(() => {
                 alertbox('success', '置入回收站成功')
                 showdprt()
+                $scope.allchecked = false
+                $scope.checkbox = []
               })
 
               .catch(({ message }) => {
@@ -113,6 +115,8 @@ angular.module('app')
               .then(() => {
                 alertbox('success', '修改职位成功')
                 showdprt()
+                $scope.allchecked = false
+                $scope.checkbox = []
               })
 
               .catch(({ message }) => {

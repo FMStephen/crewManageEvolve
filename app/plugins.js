@@ -42,7 +42,6 @@ function optionMenu () {
       }, 2)
     }
     if (((optionMenu != e.target && optionMenu != e.target.parentNode && optionMenu != e.target.parentNode.parentNode) || cfrm[0] == e.target || cfrm[1] == e.target) && optionMenu.style.display == 'block') {
-      console.log(e.target)
       optionMenu.style.opacity = '0'
       setTimeout(function () {
         optionMenu.style.display = 'none'

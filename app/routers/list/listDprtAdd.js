@@ -5,7 +5,7 @@ angular.module('app')
       .state('list.add', {
         url: '/add',
         templateUrl: 'templates/list/list-add.html',
-        controller($scope, listdprt, userService) {
+        controller($scope, $state, listdprt, userService) {
 
           moreMenu()
           naviSecondery(1)

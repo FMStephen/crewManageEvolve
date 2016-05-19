@@ -1,6 +1,6 @@
 angular.module('app')
 
-  .service('requestService', ($http, $state, authService) => {
+  .service('requestService', ($http, $state, $cookies, authService) => {
 
     return {
 
@@ -24,6 +24,7 @@ angular.module('app')
       post(action, data = {}) {
         if (authService && data instanceof Object) {
           data.auth = this.auth()
+          console.log(1)
         }
         return $http.post(host + action, data).then(response => {
 
@@ -32,6 +33,12 @@ angular.module('app')
           switch (response.data.code) {
             case 302: // 账号异常，请重新登录
               $state.go('login')
+              break
+            case 201: // 账号异常，请重新登录
+              location.href = '#/user/infoedit'
+              break
+            case 403: // 账号异常，请重新登录
+              history.go(-1)
               break
           }
 

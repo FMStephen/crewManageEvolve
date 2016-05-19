@@ -4,12 +4,12 @@
     <div class="input inputInfo dprtedit" ng-class="{'has-error' : editform.name.$invalid && !editform.name.$pristine}">
       <span class="inputLabel fontSmall">名称</span>
       <input class="inputValue fontLarge inputInfo" type="text" name="name" ng-model="dprtname" required>
-      <p class="inputError fontMin" ng-show="editform.name.$invalid && !editform.name.$pristine">error</p>
+      <p class="inputError fontMin" ng-show="editform.name.$invalid && !editform.name.$pristine">名称不能为空</p>
     </div>
     <div class="input inputInfo dprtedit">
       <span class="inputLabel fontSmall">描述</span>
       <input class="inputValue fontLarge inputInfo" type="text" name="dprtnote" ng-model="dprtnote" required>
-      <p class="inputError fontMin"ng-show="editform.dprtnote.$invalid && !editform.dprtnote.$pristine">error</p>
+      <p class="inputError fontMin"ng-show="editform.dprtnote.$invalid && !editform.dprtnote.$pristine">描述不能为空</p>
     </div>
       <button class="mainBtn shortBtn listBtn fontNormal dprteditBtn" type="submit" ng-disabled="editform.$invalid || flag">修改</button>
   </form>

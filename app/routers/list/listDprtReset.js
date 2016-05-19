@@ -51,7 +51,7 @@ angular.module('app')
             $scope.flag = true
 
             listdprt.reset({
-              id: idrequest.id,
+              id: $stateParams.id,
               pw: $scope.newpw,
               pwcfrm: $scope.cfrmpw,
             })

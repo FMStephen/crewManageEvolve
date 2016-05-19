@@ -27,16 +27,19 @@ angular.module('app')
 
           $scope.current = current
 
-          listrcl.show({ current: current, count: 15 })
+          function showrcl(){
+            listrcl.show({ current: current, count: 15 })
 
-            .then(({ data }) => {
-              $scope.members = data.members
-              $scope.total = data.total
-            })
+              .then(({ data }) => {
+                $scope.members = data.members
+                $scope.total = data.total
+              })
 
-            .catch(({ message }) => {
-              alertbox('danger', message)
-            })
+              .catch(({ message }) => {
+                alertbox('danger', message)
+              })}
+
+          showrcl();
 
           $scope.pagenext = function () {
             if ((current + 1) <= $scope.total) {
@@ -80,6 +83,9 @@ angular.module('app')
 
               .then(response => {
                 alertbox('success', '恢复成功。对象被还原至部门列表')
+                showrcl();
+                $scope.checkbox = []
+                $scope.allchecked = false
               })
 
               .catch(({ message }) => {
@@ -104,10 +110,10 @@ angular.module('app')
               return
             }
 
-            var check = document.getElementById('check')
-            if (check.checked) {
-              check.click()
-            }
+            // var check = document.getElementById('check')
+            // if (check.checked) {
+            //   check.click()
+            // }
 
             $scope.flag = true
 
@@ -115,6 +121,10 @@ angular.module('app')
 
               .then(() => {
                 alertbox('success', '彻底删除对象成功')
+                showrcl();
+                $scope.checkbox = []
+                $scope.allchecked = false
+                
               })
 
               .catch(({ message }) => {
